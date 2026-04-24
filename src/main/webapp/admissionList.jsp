@@ -2,111 +2,216 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Admission Records</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <style>
-        /* Keep your existing CSS here */
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; }
-        .container { width: 95%; margin: 30px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .header { background: #002147; color: white; padding: 15px 30px; font-size: 22px; font-weight: bold; }
-    </style>
+<meta charset="UTF-8">
+<title>Admission Records</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; }
+.container { width: 95%; margin: 30px auto; background: white; padding: 20px; border-radius: 8px; }
+.header { background: #002147; color: white; padding: 15px; font-size: 22px; }
+</style>
 </head>
+
 <body>
 
 <div class="header">SANPOLY</div>
+
 <div class="container">
-    <div class="title">Admission Records</div>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th><th>Name</th><th>DOB</th><th>Gender</th><th>Phone</th><th>Email</th><th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        <%
-        List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
-        if (list != null) {
-            for (Map<String, Object> row : list) {
-        %>
-        <tr>
-            <td><%= row.get("id") %></td>
-            <td><%= row.get("applicant_name") %></td>
-            <td><%= row.get("date_of_birth") %></td>
-            <td><%= row.get("gender") %></td>
-            <td><%= row.get("phone_no") %></td>
-            <td><%= row.get("email") %></td>
-            <td>
-                <button class="btn btn-primary btn-sm" onclick="editRecord(this)" 
-                    data-id='<%= row.get("id") %>' 
-                    data-name='<%= row.get("applicant_name") %>'
-                    data-dob='<%= row.get("date_of_birth") %>'
-                    data-gender='<%= row.get("gender") %>'
-                    data-native='<%= row.get("native_place") %>'
-                    data-taluk='<%= row.get("taluk") %>'
-                    data-district='<%= row.get("district") %>'
-                    data-state='<%= row.get("state") %>'
-                    data-nationality='<%= row.get("nationality") %>'
-                    data-religion='<%= row.get("religion_category") %>'
-                    data-category='<%= row.get("category") %>'
-                    data-mother-tongue='<%= row.get("mother_tongue") %>'
-                    data-blood='<%= row.get("blood_group") %>'
-                    data-father='<%= row.get("father_guardian_name") %>'
-                    data-mother='<%= row.get("mother_name") %>'
-                    data-occupation='<%= row.get("occupation") %>'
-                    data-income='<%= row.get("income") %>'
-                    data-postal='<%= row.get("postal_address") %>'
-                    data-permanent='<%= row.get("permanent_address") %>'
-                    data-phone='<%= row.get("phone_no") %>'
-                    data-email='<%= row.get("email") %>'
-                    data-medium='<%= row.get("medium_of_instruction") %>'
-                    data-sscl='<%= row.get("sscl_passing_year") %>'
-                    data-maths='<%= row.get("marks_maths") %>'
-                    data-science='<%= row.get("marks_science") %>'
-                    data-p1='<%= row.get("preference_1") %>'
-                    data-p2='<%= row.get("preference_2") %>'
-                    data-p3='<%= row.get("preference_3") %>'
-                    data-p4='<%= row.get("preference_4") %>'
-                    data-p5='<%= row.get("preference_5") %>'
-                >Edit</button>
-            </td>
-        </tr>
-        <% } } %>
-        </tbody>
-    </table>
+
+<h4>Admission Records</h4>
+
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>DOB</th>
+<th>Gender</th>
+<th>Phone</th>
+<th>Email</th>
+<th>District</th>
+<th>Maths</th>
+<th>Science</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+<%
+List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
+
+if (list != null) {
+for (Map<String, Object> row : list) {
+%>
+
+<tr>
+<td><%= row.get("id") %></td>
+<td><%= row.get("applicant_name") %></td>
+<td><%= row.get("date_of_birth") %></td>
+<td><%= row.get("gender") %></td>
+<td><%= row.get("phone_no") %></td>
+<td><%= row.get("email") %></td>
+<td><%= row.get("district") %></td>
+<td><%= row.get("marks_maths") %></td>
+<td><%= row.get("marks_science") %></td>
+
+<td>
+<button class="btn btn-primary btn-sm" onclick="editRecord(this)"
+
+data-id='<%= row.get("id") %>'
+data-name='<%= row.get("applicant_name") %>'
+data-dob='<%= row.get("date_of_birth") %>'
+data-gender='<%= row.get("gender") %>'
+data-native='<%= row.get("native_place") %>'
+data-taluk='<%= row.get("taluk") %>'
+data-district='<%= row.get("district") %>'
+data-state='<%= row.get("state") %>'
+data-nationality='<%= row.get("nationality") %>'
+data-religion='<%= row.get("religion_category") %>'
+data-category='<%= row.get("category") %>'
+data-mt='<%= row.get("mother_tongue") %>'
+data-blood='<%= row.get("blood_group") %>'
+data-father='<%= row.get("father_guardian_name") %>'
+data-mother='<%= row.get("mother_name") %>'
+data-occupation='<%= row.get("occupation") %>'
+data-income='<%= row.get("income") %>'
+data-postal='<%= row.get("postal_address") %>'
+data-permanent='<%= row.get("permanent_address") %>'
+data-phone='<%= row.get("phone_no") %>'
+data-email='<%= row.get("email") %>'
+data-aadhar='<%= row.get("aadhar_no") %>'
+data-medium='<%= row.get("medium_of_instruction") %>'
+data-sscl='<%= row.get("sscl_passing_year") %>'
+data-maths='<%= row.get("marks_maths") %>'
+data-science='<%= row.get("marks_science") %>'
+data-p1='<%= row.get("preference_1") %>'
+data-p2='<%= row.get("preference_2") %>'
+data-p3='<%= row.get("preference_3") %>'
+data-p4='<%= row.get("preference_4") %>'
+data-p5='<%= row.get("preference_5") %>'
+
+>Edit</button>
+</td>
+
+</tr>
+
+<%
+}
+}
+%>
+</tbody>
+</table>
+
 </div>
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <form method="post" action="AdmissionListServlet">
-            <div class="modal-content">
-                <div class="modal-header"><h5>Edit Admission</h5></div>
-                <div class="modal-body">
-                    <input type="hidden" name="id" id="m_id">
-                    <div class="row">
-                        <div class="col-md-6"><label>Name</label><input type="text" name="applicant_name" id="m_name" class="form-control"></div>
-                        <div class="col-md-6"><label>Phone</label><input type="text" name="phone_no" id="m_phone" class="form-control"></div>
-                        <div class="col-md-6"><label>Email</label><input type="text" name="email" id="m_email" class="form-control"></div>
-                        <div class="col-md-6"><label>Aadhaar</label><input type="text" name="aadhar_no" value="[Redacted]" class="form-control" readonly></div>
-                    </div>
-                </div>
-                <div class="modal-footer"><button type="submit" class="btn btn-success">Update</button></div>
-            </div>
-        </form>
-    </div>
+<!-- 🔥 FULL EDIT MODAL -->
+<div class="modal fade" id="editModal">
+<div class="modal-dialog modal-lg">
+<form method="post" action="AdmissionListServlet">
+
+<div class="modal-content">
+<div class="modal-header">
+<h5>Edit Admission</h5>
 </div>
 
+<div class="modal-body">
+<input type="hidden" name="id" id="m_id">
+
+<div class="row">
+
+<div class="col-md-6"><label>Name</label><input name="applicant_name" id="m_name" class="form-control"></div>
+<div class="col-md-6"><label>DOB</label><input type="date" name="date_of_birth" id="m_dob" class="form-control"></div>
+
+<div class="col-md-6"><label>Gender</label><input name="gender" id="m_gender" class="form-control"></div>
+<div class="col-md-6"><label>Phone</label><input name="phone_no" id="m_phone" class="form-control"></div>
+
+<div class="col-md-6"><label>Email</label><input name="email" id="m_email" class="form-control"></div>
+<div class="col-md-6"><label>District</label><input name="district" id="m_district" class="form-control"></div>
+
+<div class="col-md-6"><label>State</label><input name="state" id="m_state" class="form-control"></div>
+<div class="col-md-6"><label>Nationality</label><input name="nationality" id="m_nationality" class="form-control"></div>
+
+<div class="col-md-6"><label>Religion</label><input name="religion_category" id="m_religion" class="form-control"></div>
+<div class="col-md-6"><label>Category</label><input name="category" id="m_category" class="form-control"></div>
+
+<div class="col-md-6"><label>Mother Tongue</label><input name="mother_tongue" id="m_mt" class="form-control"></div>
+<div class="col-md-6"><label>Blood Group</label><input name="blood_group" id="m_blood" class="form-control"></div>
+
+<div class="col-md-6"><label>Father Name</label><input name="father_guardian_name" id="m_father" class="form-control"></div>
+<div class="col-md-6"><label>Mother Name</label><input name="mother_name" id="m_mother" class="form-control"></div>
+
+<div class="col-md-6"><label>Occupation</label><input name="occupation" id="m_occupation" class="form-control"></div>
+<div class="col-md-6"><label>Income</label><input name="income" id="m_income" class="form-control"></div>
+
+<div class="col-md-6"><label>Postal Address</label><input name="postal_address" id="m_postal" class="form-control"></div>
+<div class="col-md-6"><label>Permanent Address</label><input name="permanent_address" id="m_permanent" class="form-control"></div>
+
+<div class="col-md-6"><label>Medium</label><input name="medium_of_instruction" id="m_medium" class="form-control"></div>
+<div class="col-md-6"><label>SSLC Year</label><input name="sscl_passing_year" id="m_sscl" class="form-control"></div>
+
+<div class="col-md-6"><label>Maths</label><input name="marks_maths" id="m_maths" class="form-control"></div>
+<div class="col-md-6"><label>Science</label><input name="marks_science" id="m_science" class="form-control"></div>
+
+<div class="col-md-6"><label>Preference 1</label><input name="preference_1" id="m_p1" class="form-control"></div>
+<div class="col-md-6"><label>Preference 2</label><input name="preference_2" id="m_p2" class="form-control"></div>
+<div class="col-md-6"><label>Preference 3</label><input name="preference_3" id="m_p3" class="form-control"></div>
+<div class="col-md-6"><label>Preference 4</label><input name="preference_4" id="m_p4" class="form-control"></div>
+<div class="col-md-6"><label>Preference 5</label><input name="preference_5" id="m_p5" class="form-control"></div>
+
+</div>
+</div>
+
+<div class="modal-footer">
+<button type="submit" class="btn btn-success">Update</button>
+</div>
+
+</div>
+</form>
+</div>
+</div>
+
+<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
 function editRecord(btn) {
-    const b = $(btn);
-    $('#m_id').val(b.data('id'));
-    $('#m_name').val(b.data('name'));
-    $('#m_phone').val(b.data('phone'));
-    $('#m_email').val(b.data('email'));
-    $('#editModal').modal('show');
+let b = $(btn);
+
+$('#m_id').val(b.data('id'));
+$('#m_name').val(b.data('name'));
+$('#m_dob').val(b.data('dob'));
+$('#m_gender').val(b.data('gender'));
+$('#m_phone').val(b.data('phone'));
+$('#m_email').val(b.data('email'));
+$('#m_district').val(b.data('district'));
+$('#m_state').val(b.data('state'));
+$('#m_nationality').val(b.data('nationality'));
+$('#m_religion').val(b.data('religion'));
+$('#m_category').val(b.data('category'));
+$('#m_mt').val(b.data('mt'));
+$('#m_blood').val(b.data('blood'));
+$('#m_father').val(b.data('father'));
+$('#m_mother').val(b.data('mother'));
+$('#m_occupation').val(b.data('occupation'));
+$('#m_income').val(b.data('income'));
+$('#m_postal').val(b.data('postal'));
+$('#m_permanent').val(b.data('permanent'));
+$('#m_medium').val(b.data('medium'));
+$('#m_sscl').val(b.data('sscl'));
+$('#m_maths').val(b.data('maths'));
+$('#m_science').val(b.data('science'));
+$('#m_p1').val(b.data('p1'));
+$('#m_p2').val(b.data('p2'));
+$('#m_p3').val(b.data('p3'));
+$('#m_p4').val(b.data('p4'));
+$('#m_p5').val(b.data('p5'));
+
+$('#editModal').modal('show');
 }
 </script>
+
 </body>
 </html>
