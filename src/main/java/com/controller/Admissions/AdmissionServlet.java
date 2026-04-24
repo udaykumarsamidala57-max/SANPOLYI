@@ -6,17 +6,15 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import com.bean.DBUtil3;
+
 @WebServlet("/AdmissionServlet")
 public class AdmissionServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/sanpoly_db", "root", "password");
+        try (Connection con = DBUtil3.getConnection()) {
 
             String sql = "INSERT INTO admission_form "
                     + "(applicant_name, date_of_birth, gender, native_place, taluk, district, state, nationality, "
@@ -29,7 +27,7 @@ public class AdmissionServlet extends HttpServlet {
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, request.getParameter("applicant_name"));
-            ps.setString(2, request.getParameter("date_of_birth"));
+            ps.setDate(2, Date.valueOf(request.getParameter("date_of_birth"))); // FIXED
             ps.setString(3, request.getParameter("gender"));
             ps.setString(4, request.getParameter("native_place"));
             ps.setString(5, request.getParameter("taluk"));
@@ -43,16 +41,19 @@ public class AdmissionServlet extends HttpServlet {
             ps.setString(13, request.getParameter("father_guardian_name"));
             ps.setString(14, request.getParameter("mother_name"));
             ps.setString(15, request.getParameter("occupation"));
-            ps.setDouble(16, Double.parseDouble(request.getParameter("income")));
+
+            ps.setDouble(16, parseDouble(request.getParameter("income"))); // SAFE
             ps.setString(17, request.getParameter("postal_address"));
             ps.setString(18, request.getParameter("permanent_address"));
             ps.setString(19, request.getParameter("phone_no"));
             ps.setString(20, request.getParameter("email"));
             ps.setString(21, request.getParameter("aadhar_no"));
             ps.setString(22, request.getParameter("medium_of_instruction"));
-            ps.setInt(23, Integer.parseInt(request.getParameter("sscl_passing_year")));
-            ps.setDouble(24, Double.parseDouble(request.getParameter("marks_maths")));
-            ps.setDouble(25, Double.parseDouble(request.getParameter("marks_science")));
+
+            ps.setInt(23, parseInt(request.getParameter("sscl_passing_year"))); // SAFE
+            ps.setDouble(24, parseDouble(request.getParameter("marks_maths")));
+            ps.setDouble(25, parseDouble(request.getParameter("marks_science")));
+
             ps.setString(26, request.getParameter("preference_1"));
             ps.setString(27, request.getParameter("preference_2"));
             ps.setString(28, request.getParameter("preference_3"));
@@ -61,11 +62,20 @@ public class AdmissionServlet extends HttpServlet {
 
             ps.executeUpdate();
 
-            response.getWriter().println("Data Inserted Successfully");
+            response.sendRedirect("success.jsp"); // better than println
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("Error: " + e.getMessage());
+            response.sendRedirect("error.jsp");
         }
+    }
+
+    // 🔥 helper methods (avoid crash)
+    private int parseInt(String val) {
+        try { return Integer.parseInt(val); } catch (Exception e) { return 0; }
+    }
+
+    private double parseDouble(String val) {
+        try { return Double.parseDouble(val); } catch (Exception e) { return 0.0; }
     }
 }
