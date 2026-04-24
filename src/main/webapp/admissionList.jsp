@@ -5,21 +5,118 @@
 <head>
 <meta charset="UTF-8">
 <title>Admission Records</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* Header */
+.header {
+    background: #002147;
+    color: white;
+    padding: 15px 30px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Container */
+.container {
+    width: 95%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #002147;
+}
+
+/* Filter Form */
+.filter-form {
+    margin-bottom: 20px;
+}
+
+.filter-form input,
+.filter-form button {
+    padding: 8px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.filter-form button {
+    background: #002147;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.filter-form button:hover {
+    background: #004080;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th {
+    background: #002147;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+tr:hover {
+    background: #eef3ff;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+}
+</style>
+
 </head>
 
 <body>
 
-<h2>Admission Records</h2>
+<div class="header">
+    🎓 University Admission Management System
+</div>
 
-<form method="get" action="AdmissionListServlet">
+<div class="container">
+
+<div class="title">Admission Records</div>
+
+<form class="filter-form" method="get" action="AdmissionListServlet">
     From: <input type="date" name="fromDate">
     To: <input type="date" name="toDate">
     <button type="submit">Filter</button>
 </form>
 
-<br>
-
-<table border="1" cellpadding="5">
+<table>
 <tr>
 <th>ID</th>
 <th>Name</th>
@@ -45,7 +142,7 @@
 <%
 List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
 
-if (list != null) {
+if (list != null && !list.isEmpty()) {
     for (Map<String, Object> row : list) {
 %>
 
@@ -73,10 +170,18 @@ if (list != null) {
 
 <%
     }
+} else {
+%>
+<tr>
+<td colspan="19" style="text-align:center;">No Records Found</td>
+</tr>
+<%
 }
 %>
 
 </table>
+
+</div>
 
 </body>
 </html>
