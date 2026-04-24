@@ -307,7 +307,7 @@
     <div class="welcome-banner">
         <div class="welcome-text">
             <h1><%= greeting %>, <%= user %>!</h1>
-            <p>Here is what's happening with the SRS Inventory system today.</p>
+            <p>Here is what's happening with the SANPOLY Inventory system today.</p>
         </div>
         <div class="date-badge">
             <i class="far fa-calendar-alt"></i>
