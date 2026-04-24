@@ -69,13 +69,13 @@ tr:hover {
 th:nth-child(2), td:nth-child(2),      /* Name */
 th:nth-child(18), td:nth-child(18),    /* Postal */
 th:nth-child(19), td:nth-child(19) {   /* Permanent */
-    width: 8%;
+    width: AUTO;
 }
 
 /* Medium columns */
 th:nth-child(14), td:nth-child(14),
 th:nth-child(15), td:nth-child(15) {
-    width: 6%;
+    width: AUTO%;
 }
 
 /* Small columns */
@@ -84,7 +84,7 @@ th:nth-child(3), td:nth-child(3),      /* DOB */
 th:nth-child(4), td:nth-child(4),      /* Gender */
 th:nth-child(25), td:nth-child(25),
 th:nth-child(26), td:nth-child(26) {
-    width: 4%;
+    width: AUTO%;
 }
 
 /* Default remaining columns */
