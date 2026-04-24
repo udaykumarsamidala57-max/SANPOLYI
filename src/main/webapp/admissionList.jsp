@@ -110,10 +110,10 @@ tr {
 }
 
 /* 🔥 MOBILE SAFE (NO BREAKING) */
-@media screen and (max-width: 1800px) {
+@media screen and (max-width: 2400px) {
     table { font-size: 14px; }
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 2400px) {
     table { font-size: 14px; }
 }
 </style>
