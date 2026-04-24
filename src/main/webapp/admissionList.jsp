@@ -11,6 +11,20 @@
 body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; }
 .container { width: 95%; margin: 30px auto; background: white; padding: 20px; border-radius: 8px; }
 .header { background: #002147; color: white; padding: 15px; font-size: 22px; }
+
+/* ✅ Responsive Fix */
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    min-width: 1800px; /* keep all columns readable */
+}
+
+/* ✅ Modal Responsive */
+.modal-dialog {
+    max-width: 95%;
+}
 </style>
 </head>
 
@@ -21,6 +35,9 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; }
 <div class="container">
 
 <h4>Admission Records</h4>
+
+<!-- ✅ Added Wrapper -->
+<div class="table-responsive">
 
 <table class="table table-bordered table-sm">
 <thead>
@@ -57,6 +74,7 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; }
 <th>Pref4</th>
 <th>Pref5</th>
 <th>Created</th>
+<th>Action</th>
 </tr>
 </thead>
 
@@ -101,7 +119,6 @@ for (Map<String, Object> row : list) {
 <td><%= row.get("preference_4") %></td>
 <td><%= row.get("preference_5") %></td>
 <td><%= row.get("created_at") %></td>
-
 
 <td>
 <button class="btn btn-primary btn-sm" onclick="editRecord(this)"
@@ -150,9 +167,11 @@ data-p5='<%= row.get("preference_5") %>'
 </tbody>
 </table>
 
+</div> <!-- ✅ End wrapper -->
+
 </div>
 
-<!-- 🔥 FULL EDIT MODAL -->
+<!-- 🔥 MODAL (UNCHANGED) -->
 <div class="modal fade" id="editModal">
 <div class="modal-dialog modal-lg">
 <form method="post" action="AdmissionListServlet">
@@ -218,7 +237,6 @@ data-p5='<%= row.get("preference_5") %>'
 </div>
 </div>
 
-<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
