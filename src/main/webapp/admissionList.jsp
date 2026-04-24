@@ -4,8 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Admission Records</title>
-
-<!-- ✅ REQUIRED FOR MODAL -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
 <style>
@@ -15,18 +13,21 @@ body {
     margin: 10px;
 }
 
+/* Header */
 .header {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
 }
 
+/* Header row */
 th {
     background: #f3f3f3;
     color: #333;
@@ -36,16 +37,19 @@ th {
     font-size: 13px;
 }
 
+/* Data row */
 td {
     padding: 6px;
     border: 1px solid #ddd;
     font-size: 12px;
 }
 
+/* Hover effect */
 tr:hover {
     background: #f9f9f9;
 }
 
+/* Button */
 button {
     padding: 4px 8px;
     font-size: 12px;
@@ -59,6 +63,7 @@ button:hover {
     background: #005fb2;
 }
 
+/* Scroll */
 .table-wrapper {
     overflow-x: auto;
 }
@@ -202,42 +207,46 @@ data-p5='<%= row.get("preference_5") %>'
 
 </div>
 
-<!-- ✅ YOUR MODAL MUST EXIST -->
-<div class="modal fade" id="editModal">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-<div class="modal-header">
-<h5>Edit Record</h5>
-<button type="button" class="close" data-dismiss="modal">&times;</button>
-</div>
-<div class="modal-body">
 
-<input type="hidden" id="m_id">
-
-<input id="m_name" class="form-control mb-2" placeholder="Name">
-<input id="m_dob" class="form-control mb-2" type="date">
-
-</div>
-</div>
-</div>
-</div>
-
-<!-- JS ORDER IMPORTANT -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 function editRecord(btn) {
 let b = $(btn);
 
-console.log(b.data()); // debug
-
 $('#m_id').val(b.data('id'));
 $('#m_name').val(b.data('name'));
 $('#m_dob').val(b.data('dob'));
+$('#m_gender').val(b.data('gender'));
+$('#m_phone').val(b.data('phone'));
+$('#m_email').val(b.data('email'));
+$('#m_district').val(b.data('district'));
+$('#m_state').val(b.data('state'));
+$('#m_nationality').val(b.data('nationality'));
+$('#m_religion').val(b.data('religion'));
+$('#m_category').val(b.data('category'));
+$('#m_mt').val(b.data('mt'));
+$('#m_blood').val(b.data('blood'));
+$('#m_father').val(b.data('father'));
+$('#m_mother').val(b.data('mother'));
+$('#m_occupation').val(b.data('occupation'));
+$('#m_income').val(b.data('income'));
+$('#m_postal').val(b.data('postal'));
+$('#m_permanent').val(b.data('permanent'));
+$('#m_medium').val(b.data('medium'));
+$('#m_sscl').val(b.data('sscl'));
+$('#m_maths').val(b.data('maths'));
+$('#m_science').val(b.data('science'));
+$('#m_p1').val(b.data('p1'));
+$('#m_p2').val(b.data('p2'));
+$('#m_p3').val(b.data('p3'));
+$('#m_p4').val(b.data('p4'));
+$('#m_p5').val(b.data('p5'));
 
-$('#editModal').modal('show'); // ✅ FIXED
+$('#editModal').show();
 }
+<!-- JS ORDER IMPORTANT -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 </script>
 
 </body>
