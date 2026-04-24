@@ -13,12 +13,12 @@ body {
     background: #f4f6f9; 
 }
 
-/* Container full width */
+/* Container */
 .container { 
     width: 100%; 
     margin: 5px auto; 
     background: white; 
-    padding: 5px; 
+    padding: 6px; 
     border-radius: 6px; 
 }
 
@@ -30,65 +30,91 @@ body {
     font-size: 16px; 
 }
 
-/* 🔥 Table full tight fit */
+/* 🔥 SMART TABLE DESIGN */
 table {
     width: 100%;
-    table-layout: fixed;
     border-collapse: collapse;
-    font-size: 9px; /* smaller */
+    table-layout: auto;   /* IMPORTANT: not fixed */
+    font-size: 11px;      /* readable */
 }
 
 /* Cells */
 th, td {
-    border: 1px solid #bbb;
-    padding: 2px;  /* reduced */
+    border: 1px solid #ccc;
+    padding: 4px;
     text-align: center;
     vertical-align: middle;
 
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+    white-space: nowrap;     /* prevent breaking */
+    overflow: hidden;
+    text-overflow: ellipsis; /* show ... */
 }
 
 /* Header */
 th {
     background: #002147;
     color: white;
-    font-size: 9px;
-    padding: 3px;
+    font-weight: 600;
 }
 
-/* 🔥 Reduce row height */
+/* 🔥 HOVER EFFECT */
+tr:hover {
+    background: #f1f5ff;
+}
+
+/* 🔥 IMPORTANT: LIMIT WIDE FIELDS */
+td:nth-child(2),   /* Name */
+td:nth-child(18),  /* Postal */
+td:nth-child(19) { /* Permanent */
+    max-width: 120px;
+}
+
+/* Medium columns */
+td:nth-child(14),  /* Father */
+td:nth-child(15) { /* Mother */
+    max-width: 100px;
+}
+
+/* Small columns */
+td:nth-child(1),
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(25),
+td:nth-child(26) {
+    max-width: 60px;
+}
+
+/* 🔥 Compact rows */
 tr {
-    line-height: 1.1;
+    line-height: 1.2;
 }
 
-/* 🔥 Ultra compact on small screens */
-@media screen and (max-width: 1200px) {
-    table { font-size: 8px; }
-}
-@media screen and (max-width: 992px) {
-    table { font-size: 7px; }
-}
-@media screen and (max-width: 768px) {
-    table { font-size: 6px; }
+/* 🔥 ACTION BUTTON FIX */
+.btn-sm {
+    padding: 2px 6px;
+    font-size: 10px;
 }
 
-/* 🔥 SMALL MODAL (KEY FIX) */
+/* 🔥 MODAL SMALL + CLEAN */
 .modal-dialog {
-    max-width: 600px;   /* reduced from 95% */
-    margin: 30px auto;
+    max-width: 700px;
 }
 
-/* Modal inputs tighter */
 .modal-body input {
-    padding: 4px;
+    padding: 5px;
     font-size: 12px;
 }
 
-/* Reduce modal spacing */
 .modal-body .row > div {
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+}
+
+/* 🔥 MOBILE SAFE (NO BREAKING) */
+@media screen and (max-width: 1200px) {
+    table { font-size: 10px; }
+}
+@media screen and (max-width: 768px) {
+    table { font-size: 9px; }
 }
 </style>
 </head>
