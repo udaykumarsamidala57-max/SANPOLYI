@@ -81,7 +81,7 @@ td:nth-child(3),
 td:nth-child(4),
 td:nth-child(25),
 td:nth-child(26) {
-    max-width: 60px;
+    max-width: 100px;
 }
 
 /* 🔥 Compact rows */
