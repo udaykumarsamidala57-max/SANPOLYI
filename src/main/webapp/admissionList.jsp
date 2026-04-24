@@ -8,20 +8,69 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
 <style>
-body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; }
-.container { width: 95%; margin: 30px auto; background: white; padding: 20px; border-radius: 8px; }
-.header { background: #002147; color: white; padding: 15px; font-size: 22px; }
-
-/* ✅ Responsive Fix */
-.table-responsive {
-    overflow-x: auto;
+body { 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    background: #f4f6f9; 
 }
 
+/* Container full width */
+.container { 
+    width: 100%; 
+    margin: 10px auto; 
+    background: white; 
+    padding: 10px; 
+    border-radius: 8px; 
+}
+
+/* Header */
+.header { 
+    background: #002147; 
+    color: white; 
+    padding: 10px; 
+    font-size: 18px; 
+}
+
+/* 🔥 Table Fit to Screen */
 table {
-    min-width: 1800px; /* keep all columns readable */
+    width: 100%;
+    table-layout: fixed;   /* force equal column width */
+    border-collapse: collapse;
+    font-size: 10px;       /* shrink text */
 }
 
-/* ✅ Modal Responsive */
+/* Cells */
+th, td {
+    border: 1px solid #ccc;
+    padding: 3px;
+    text-align: center;
+
+    /* 🔥 Wrap long text instead of expanding */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+/* Header styling */
+th {
+    background: #002147;
+    color: white;
+    font-size: 10px;
+}
+
+/* 🔥 Make everything tighter on small screens */
+@media screen and (max-width: 1200px) {
+    table { font-size: 9px; }
+}
+
+@media screen and (max-width: 992px) {
+    table { font-size: 8px; }
+}
+
+@media screen and (max-width: 768px) {
+    table { font-size: 7px; }
+}
+
+/* Modal responsive */
 .modal-dialog {
     max-width: 95%;
 }
