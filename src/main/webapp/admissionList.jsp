@@ -11,43 +11,44 @@
 body { 
     font-family: 'Segoe UI', Arial, sans-serif; 
     background: #f4f6f9; 
+    margin: 0;
 }
 
-/* Container */
+/* Full-width container */
 .container { 
-    width: 100%; 
-    margin: 5px auto; 
+    width: 100vw;              /* full viewport width */
+    margin: 0;
     background: white; 
-    padding: 6px; 
-    border-radius: 6px; 
+    padding: 8px; 
 }
 
 /* Header */
 .header { 
     background: #002147; 
     color: white; 
-    padding: 8px; 
-    font-size: 16px; 
+    padding: 10px; 
+    font-size: 18px; 
 }
 
-/* 🔥 SMART TABLE DESIGN */
+/* 🔥 TABLE FULL SCREEN DISTRIBUTION */
 table {
     width: 100%;
+    table-layout: fixed;      /* KEY: equal column distribution */
     border-collapse: collapse;
-    table-layout: auto;   /* IMPORTANT: not fixed */
-    font-size: 14px;      /* readable */
+    font-size: 13px;
 }
 
 /* Cells */
 th, td {
     border: 1px solid #ccc;
-    padding: 4px;
+    padding: 6px 4px;
     text-align: center;
     vertical-align: middle;
 
-    white-space: nowrap;     /* prevent breaking */
+    /* Clean truncation */
     overflow: hidden;
-    text-overflow: ellipsis; /* show ... */
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Header */
@@ -57,64 +58,58 @@ th {
     font-weight: 600;
 }
 
-/* 🔥 HOVER EFFECT */
+/* Hover */
 tr:hover {
     background: #f1f5ff;
 }
 
-/* 🔥 IMPORTANT: LIMIT WIDE FIELDS */
-td:nth-child(2),   /* Name */
-td:nth-child(18),  /* Postal */
-td:nth-child(19) { /* Permanent */
-    max-width: 120px;
+/* 🔥 DISTRIBUTE SPACE SMARTLY */
+
+/* Wider columns */
+th:nth-child(2), td:nth-child(2),      /* Name */
+th:nth-child(18), td:nth-child(18),    /* Postal */
+th:nth-child(19), td:nth-child(19) {   /* Permanent */
+    width: 8%;
 }
 
 /* Medium columns */
-td:nth-child(14),  /* Father */
-td:nth-child(15) { /* Mother */
-    max-width: 100px;
+th:nth-child(14), td:nth-child(14),
+th:nth-child(15), td:nth-child(15) {
+    width: 6%;
 }
 
 /* Small columns */
-td:nth-child(1),
-td:nth-child(3),
-td:nth-child(4),
-td:nth-child(25),
-td:nth-child(26) {
-    max-width: 100px;
+th:nth-child(1), td:nth-child(1),      /* ID */
+th:nth-child(3), td:nth-child(3),      /* DOB */
+th:nth-child(4), td:nth-child(4),      /* Gender */
+th:nth-child(25), td:nth-child(25),
+th:nth-child(26), td:nth-child(26) {
+    width: 4%;
 }
 
-/* 🔥 Compact rows */
-tr {
-    line-height: 1.2;
+/* Default remaining columns */
+th, td {
+    width: auto;
 }
 
-/* 🔥 ACTION BUTTON FIX */
+/* Action button */
 .btn-sm {
-    padding: 2px 6px;
-    font-size: 14px;
-}
-
-/* 🔥 MODAL SMALL + CLEAN */
-.modal-dialog {
-    max-width: 700px;
-}
-
-.modal-body input {
-    padding: 5px;
+    padding: 3px 8px;
     font-size: 12px;
 }
 
-.modal-body .row > div {
-    margin-bottom: 6px;
+/* 🔥 MODAL (compact but usable) */
+.modal-dialog {
+    max-width: 750px;
 }
 
-/* 🔥 MOBILE SAFE (NO BREAKING) */
-@media screen and (max-width: 2400px) {
-    table { font-size: 14px; }
+.modal-body input {
+    padding: 6px;
+    font-size: 13px;
 }
-@media screen and (max-width: 2400px) {
-    table { font-size: 14px; }
+
+.modal-body .row > div {
+    margin-bottom: 8px;
 }
 </style>
 </head>
