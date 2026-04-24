@@ -16,63 +16,79 @@ body {
 /* Container full width */
 .container { 
     width: 100%; 
-    margin: 10px auto; 
+    margin: 5px auto; 
     background: white; 
-    padding: 10px; 
-    border-radius: 8px; 
+    padding: 5px; 
+    border-radius: 6px; 
 }
 
 /* Header */
 .header { 
     background: #002147; 
     color: white; 
-    padding: 10px; 
-    font-size: 18px; 
+    padding: 8px; 
+    font-size: 16px; 
 }
 
-/* 🔥 Table Fit to Screen */
+/* 🔥 Table full tight fit */
 table {
     width: 100%;
-    table-layout: fixed;   /* force equal column width */
+    table-layout: fixed;
     border-collapse: collapse;
-    font-size: 10px;       /* shrink text */
+    font-size: 9px; /* smaller */
 }
 
 /* Cells */
 th, td {
-    border: 1px solid #ccc;
-    padding: 3px;
+    border: 1px solid #bbb;
+    padding: 2px;  /* reduced */
     text-align: center;
+    vertical-align: middle;
 
-    /* 🔥 Wrap long text instead of expanding */
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
 }
 
-/* Header styling */
+/* Header */
 th {
     background: #002147;
     color: white;
-    font-size: 10px;
+    font-size: 9px;
+    padding: 3px;
 }
 
-/* 🔥 Make everything tighter on small screens */
+/* 🔥 Reduce row height */
+tr {
+    line-height: 1.1;
+}
+
+/* 🔥 Ultra compact on small screens */
 @media screen and (max-width: 1200px) {
-    table { font-size: 9px; }
-}
-
-@media screen and (max-width: 992px) {
     table { font-size: 8px; }
 }
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
     table { font-size: 7px; }
 }
+@media screen and (max-width: 768px) {
+    table { font-size: 6px; }
+}
 
-/* Modal responsive */
+/* 🔥 SMALL MODAL (KEY FIX) */
 .modal-dialog {
-    max-width: 95%;
+    max-width: 600px;   /* reduced from 95% */
+    margin: 30px auto;
+}
+
+/* Modal inputs tighter */
+.modal-body input {
+    padding: 4px;
+    font-size: 12px;
+}
+
+/* Reduce modal spacing */
+.modal-body .row > div {
+    margin-bottom: 5px;
 }
 </style>
 </head>
