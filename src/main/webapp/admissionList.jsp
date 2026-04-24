@@ -35,7 +35,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     table-layout: auto;   /* IMPORTANT: not fixed */
-    font-size: 11px;      /* readable */
+    font-size: 14px;      /* readable */
 }
 
 /* Cells */
@@ -92,7 +92,7 @@ tr {
 /* 🔥 ACTION BUTTON FIX */
 .btn-sm {
     padding: 2px 6px;
-    font-size: 10px;
+    font-size: 14px;
 }
 
 /* 🔥 MODAL SMALL + CLEAN */
@@ -113,7 +113,7 @@ tr {
 @media screen and (max-width: 1800px) {
     table { font-size: 14px; }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
     table { font-size: 14px; }
 }
 </style>
