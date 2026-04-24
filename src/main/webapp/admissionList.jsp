@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Admission Records</title>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 
 <style>
@@ -13,21 +14,18 @@ body {
     margin: 10px;
 }
 
-/* Header */
 .header {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
 }
 
-/* Header row */
 th {
     background: #f3f3f3;
     color: #333;
@@ -37,19 +35,16 @@ th {
     font-size: 13px;
 }
 
-/* Data row */
 td {
     padding: 6px;
     border: 1px solid #ddd;
     font-size: 12px;
 }
 
-/* Hover effect */
 tr:hover {
     background: #f9f9f9;
 }
 
-/* Button */
 button {
     padding: 4px 8px;
     font-size: 12px;
@@ -63,7 +58,6 @@ button:hover {
     background: #005fb2;
 }
 
-/* Scroll */
 .table-wrapper {
     overflow-x: auto;
 }
@@ -207,7 +201,11 @@ data-p5='<%= row.get("preference_5") %>'
 
 </div>
 
+<!-- ✅ YOUR EXISTING MODAL SHOULD BE HERE (UNCHANGED) -->
 
+<!-- ✅ CORRECT SCRIPT ORDER -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 function editRecord(btn) {
@@ -242,11 +240,9 @@ $('#m_p3').val(b.data('p3'));
 $('#m_p4').val(b.data('p4'));
 $('#m_p5').val(b.data('p5'));
 
-$('#editModal').show();
+// ✅ FINAL FIX
+$('#editModal').modal('show');
 }
-<!-- JS ORDER IMPORTANT -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 </script>
 
 </body>
