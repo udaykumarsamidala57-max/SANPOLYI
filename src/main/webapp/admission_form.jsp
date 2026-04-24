@@ -128,6 +128,7 @@ button:hover {
 </head>
 
 <body>
+<jsp:include page="header.jsp" />
 
 <div class="header">
     <h1>SANPOLY Admission Portal</h1>
