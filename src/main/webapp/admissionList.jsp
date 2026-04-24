@@ -29,12 +29,34 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; }
 <th>Name</th>
 <th>DOB</th>
 <th>Gender</th>
+<th>Native</th>
+<th>Taluk</th>
+<th>District</th>
+<th>State</th>
+<th>Nationality</th>
+<th>Religion</th>
+<th>Category</th>
+<th>Mother Tongue</th>
+<th>Blood Group</th>
+<th>Father</th>
+<th>Mother</th>
+<th>Occupation</th>
+<th>Income</th>
+<th>Postal Address</th>
+<th>Permanent Address</th>
 <th>Phone</th>
 <th>Email</th>
-<th>District</th>
+<th>Aadhar</th>
+<th>Medium</th>
+<th>SSLC Year</th>
 <th>Maths</th>
 <th>Science</th>
-<th>Action</th>
+<th>Pref1</th>
+<th>Pref2</th>
+<th>Pref3</th>
+<th>Pref4</th>
+<th>Pref5</th>
+<th>Created</th>
 </tr>
 </thead>
 
@@ -51,11 +73,35 @@ for (Map<String, Object> row : list) {
 <td><%= row.get("applicant_name") %></td>
 <td><%= row.get("date_of_birth") %></td>
 <td><%= row.get("gender") %></td>
+<td><%= row.get("native_place") %></td>
+<td><%= row.get("taluk") %></td>
+<td><%= row.get("district") %></td>
+<td><%= row.get("state") %></td>
+<td><%= row.get("nationality") %></td>
+<td><%= row.get("religion_category") %></td>
+<td><%= row.get("category") %></td>
+<td><%= row.get("mother_tongue") %></td>
+<td><%= row.get("blood_group") %></td>
+<td><%= row.get("father_guardian_name") %></td>
+<td><%= row.get("mother_name") %></td>
+<td><%= row.get("occupation") %></td>
+<td><%= row.get("income") %></td>
+<td><%= row.get("postal_address") %></td>
+<td><%= row.get("permanent_address") %></td>
 <td><%= row.get("phone_no") %></td>
 <td><%= row.get("email") %></td>
-<td><%= row.get("district") %></td>
+<td><%= row.get("aadhar_no") %></td>
+<td><%= row.get("medium_of_instruction") %></td>
+<td><%= row.get("sscl_passing_year") %></td>
 <td><%= row.get("marks_maths") %></td>
 <td><%= row.get("marks_science") %></td>
+<td><%= row.get("preference_1") %></td>
+<td><%= row.get("preference_2") %></td>
+<td><%= row.get("preference_3") %></td>
+<td><%= row.get("preference_4") %></td>
+<td><%= row.get("preference_5") %></td>
+<td><%= row.get("created_at") %></td>
+
 
 <td>
 <button class="btn btn-primary btn-sm" onclick="editRecord(this)"
