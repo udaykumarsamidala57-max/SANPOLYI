@@ -130,7 +130,7 @@ button:hover {
 <body>
 
 <div class="header">
-    <h1>🎓 University Admission Portal</h1>
+    <h1>SANPOLY Admission Portal</h1>
     <p>Academic Year 2026–27</p>
 </div>
 
@@ -179,7 +179,10 @@ button:hover {
 
 <div class="form-field">
 <label>Category</label>
-<input type="text" name="category">
+<Select name="category">
+<option>Dayscholar</option>
+<option>Residential</option>
+</Select>
 </div>
 
 <div class="form-field">
@@ -257,11 +260,50 @@ button:hover {
 <div class="section-title">Course Preferences</div>
 <div class="form-grid">
 
-<input type="text" name="preference_1" placeholder="Preference 1">
-<input type="text" name="preference_2" placeholder="Preference 2">
-<input type="text" name="preference_3" placeholder="Preference 3">
-<input type="text" name="preference_4" placeholder="Preference 4">
-<input type="text" name="preference_5" placeholder="Preference 5">
+<select name="preference_1" required>
+    <option value="">Preference 1</option>
+    <option value="EE">EE</option>
+    <option value="ME">ME</option>
+    <option value="CS">CS</option>
+    <option value="EC">EC</option>
+    <option value="CE">CE</option>
+</select>
+
+<select name="preference_2">
+    <option value="">Preference 2</option>
+    <option value="EE">EE</option>
+    <option value="ME">ME</option>
+    <option value="CS">CS</option>
+    <option value="EC">EC</option>
+    <option value="CE">CE</option>
+</select>
+
+<select name="preference_3">
+    <option value="">Preference 3</option>
+    <option value="EE">EE</option>
+    <option value="ME">ME</option>
+    <option value="CS">CS</option>
+    <option value="EC">EC</option>
+    <option value="CE">CE</option>
+</select>
+
+<select name="preference_4">
+    <option value="">Preference 4</option>
+    <option value="EE">EE</option>
+    <option value="ME">ME</option>
+    <option value="CS">CS</option>
+    <option value="EC">EC</option>
+    <option value="CE">CE</option>
+</select>
+
+<select name="preference_5">
+    <option value="">Preference 5</option>
+    <option value="EE">EE</option>
+    <option value="ME">ME</option>
+    <option value="CS">CS</option>
+    <option value="EC">EC</option>
+    <option value="CE">CE</option>
+</select>
 
 </div>
 </div>
