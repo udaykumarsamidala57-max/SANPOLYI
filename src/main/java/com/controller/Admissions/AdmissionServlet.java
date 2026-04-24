@@ -62,7 +62,7 @@ public class AdmissionServlet extends HttpServlet {
 
             ps.executeUpdate();
 
-            response.sendRedirect("success.jsp"); // better than println
+            response.sendRedirect("enquiry_success.jsp"); // better than println
 
         } catch (Exception e) {
             e.printStackTrace();

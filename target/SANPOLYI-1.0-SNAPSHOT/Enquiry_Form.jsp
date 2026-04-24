@@ -2,27 +2,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admission Enquiry Form</title>
-
-<link rel="stylesheet" href="css/enquiry.css">
+<meta charset="UTF-8">
+<title>Admission Enquiry</title>
 
 <style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* HEADER */
+.header {
+    background: #002147;
+    color: white;
+    padding: 15px 30px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* MAIN CONTAINER */
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #002147;
+}
+
+/* SECTION */
+.section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #002147;
+    padding-bottom: 5px;
+    color: #002147;
+}
+
+/* GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* FIELD */
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+input, select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* ERROR */
 .error-msg {
     color: red;
-    font-size: 14px;
+    font-size: 12px;
+}
+
+/* BUTTON */
+.submit-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    background: #002147;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #003366;
 }
 </style>
 
 </head>
 <body>
 
-<div class="form-box">
-<h2>📘 Admission Enquiry Form</h2>
+<div class="header">
+    🎓 University Admission Enquiry
+</div>
+
+<div class="container">
+
+<h2>Admission Enquiry Form</h2>
 
 <form action="SaveEnquiryServlet" method="post" onsubmit="return validateBeforeSubmit();">
 
-<!-- Student Details -->
-<div class="section-card">
+<!-- STUDENT -->
+<div class="section">
     <div class="section-title">Student Details</div>
     <div class="form-grid">
 
@@ -34,7 +126,7 @@
         <div class="form-field">
             <label>Gender</label>
             <select name="gender">
-                <option value="">-- Select Gender --</option>
+                <option value="">-- Select --</option>
                 <option>Male</option>
                 <option>Female</option>
             </select>
@@ -42,18 +134,18 @@
 
         <div class="form-field">
             <label>Date of Birth</label>
-            <input type="date" name="date_of_birth" id="dob" oninput="calculateAge()">
+            <input type="date" id="dob" name="date_of_birth" oninput="calculateAge()">
         </div>
 
         <div class="form-field">
-            <label>Age (Years, Months, Days)</label>
-            <input type="text" name="age" id="age" readonly>
+            <label>Age</label>
+            <input type="text" id="age" name="age" readonly>
         </div>
 
         <div class="form-field">
             <label>Class of Admission</label>
             <select name="class_of_admission">
-                <option value="">-- Select Class --</option>
+                <option value="">-- Select --</option>
                 <option>LKG</option>
                 <option>UKG</option>
                 <option>Class 1</option>
@@ -70,7 +162,7 @@
         <div class="form-field">
             <label>Admission Type</label>
             <select name="admission_type">
-                <option value="">-- Select Admission Type --</option>
+                <option value="">-- Select --</option>
                 <option>Dayscholar</option>
                 <option>Residential</option>
                 <option>Semi Residential</option>
@@ -80,13 +172,13 @@
     </div>
 </div>
 
-
-<div class="section-card">
+<!-- FATHER -->
+<div class="section">
     <div class="section-title">Father Details</div>
     <div class="form-grid">
 
         <div class="form-field">
-            <label>Father Name</label>
+            <label>Name</label>
             <input type="text" name="father_name">
         </div>
 
@@ -101,21 +193,21 @@
         </div>
 
         <div class="form-field">
-            <label>Mobile Number</label>
-            <input type="text" name="father_mobile_no" id="father_mobile" maxlength="10" onkeyup="checkMobile(this.value)">
+            <label>Mobile</label>
+            <input type="text" id="father_mobile" maxlength="10" onkeyup="checkMobile(this.value)">
             <div id="mobileMsg" class="error-msg"></div>
         </div>
 
     </div>
 </div>
 
-
-<div class="section-card">
+<!-- MOTHER -->
+<div class="section">
     <div class="section-title">Mother Details</div>
     <div class="form-grid">
 
         <div class="form-field">
-            <label>Mother Name</label>
+            <label>Name</label>
             <input type="text" name="mother_name">
         </div>
 
@@ -130,22 +222,22 @@
         </div>
 
         <div class="form-field">
-            <label>Mobile Number</label>
-            <input type="text" name="mother_mobile_no" id="mother_mobile" maxlength="10" onkeyup="checkMobile(this.value)">
+            <label>Mobile</label>
+            <input type="text" name="mother_mobile_no" maxlength="10">
         </div>
 
     </div>
 </div>
 
-
-<div class="section-card">
+<!-- OTHER -->
+<div class="section">
     <div class="section-title">Other Details</div>
     <div class="form-grid">
 
         <div class="form-field">
             <label>Segment</label>
             <select name="segment">
-                <option value="">-- Select Segment --</option>
+                <option value="">-- Select --</option>
                 <option>General</option>
                 <option>SMIORE</option>
                 <option>SVPS</option>
@@ -163,7 +255,7 @@
 </div>
 
 <div class="submit-box" id="submitBox">
-    <button type="submit" id="submitBtn">Submit Enquiry</button>
+    <button type="submit">Submit Enquiry</button>
 </div>
 
 </form>
@@ -172,82 +264,45 @@
 <script>
 let mobileExists = false;
 
-
 function calculateAge() {
-    let dobValue = document.getElementById("dob").value;
-    if (!dobValue) {
-        document.getElementById("age").value = "";
-        return;
-    }
-
-    let dob = new Date(dobValue);
+    let dob = new Date(document.getElementById("dob").value);
     let today = new Date();
 
-    let years = today.getFullYear() - dob.getFullYear();
-    let months = today.getMonth() - dob.getMonth();
-    let days = today.getDate() - dob.getDate();
+    let y = today.getFullYear() - dob.getFullYear();
+    let m = today.getMonth() - dob.getMonth();
+    let d = today.getDate() - dob.getDate();
 
-    if (days < 0) {
-        months--;
-        let prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-        days += prevMonth.getDate();
-    }
+    if (d < 0) { m--; d += 30; }
+    if (m < 0) { y--; m += 12; }
 
-    if (months < 0) {
-        years--;
-        months += 12;
-    }
-
-    document.getElementById("age").value = years + " Years " + months + " Months " + days + " Days";
+    document.getElementById("age").value = y+"Y "+m+"M "+d+"D";
 }
 
-
 function checkMobile(mobile) {
-
-    if (mobile.length != 10) {
-        resetSubmit();
-        return;
-    }
+    if (mobile.length != 10) return;
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "SaveEnquiryServlet?mobile=" + mobile, true);
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-
-            let response = xhr.responseText.trim();
-
-            if (response === "EXISTS") {
-
-                alert("⚠ This mobile number is already submitted!");
-
-                document.getElementById("mobileMsg").innerHTML = "This mobile number already exists!";
+            if (xhr.responseText.trim() === "EXISTS") {
+                document.getElementById("mobileMsg").innerHTML = "Already exists!";
                 document.getElementById("submitBox").style.display = "none";
                 mobileExists = true;
-
             } else {
-
                 document.getElementById("mobileMsg").innerHTML = "";
                 document.getElementById("submitBox").style.display = "block";
                 mobileExists = false;
             }
         }
     };
-
     xhr.send();
 }
 
-
-function resetSubmit() {
-    document.getElementById("submitBox").style.display = "block";
-    document.getElementById("mobileMsg").innerHTML = "";
-    mobileExists = false;
-}
-
-
 function validateBeforeSubmit() {
     if (mobileExists) {
-        alert("This mobile number already exists!");
+        alert("Mobile already exists!");
         return false;
     }
     return true;
