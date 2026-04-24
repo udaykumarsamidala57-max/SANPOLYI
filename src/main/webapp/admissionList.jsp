@@ -13,107 +13,65 @@ body {
     background: #f4f6f9;
     margin: 10px;
 }
-
 .header {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
-
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
 }
-
 th {
     background: #f3f3f3;
-    color: #333;
-    font-weight: 600;
     padding: 8px;
     border: 1px solid #ddd;
     font-size: 13px;
 }
-
 td {
     padding: 6px;
     border: 1px solid #ddd;
     font-size: 12px;
 }
-
 tr:hover {
     background: #f9f9f9;
 }
-
 button {
     padding: 4px 8px;
     font-size: 12px;
     background: #0070d2;
     color: white;
     border: none;
-    cursor: pointer;
 }
-
-button:hover {
-    background: #005fb2;
-}
-
 .table-wrapper {
     overflow-x: auto;
 }
 </style>
 
 </head>
-
 <body>
 
 <div class="header">SANPOLY - Admission Records</div>
 
 <div class="table-wrapper">
-
 <table>
 <thead>
 <tr>
-<th>ID</th>
-<th>Name</th>
-<th>DOB</th>
-<th>Gender</th>
-<th>Native</th>
-<th>Taluk</th>
-<th>District</th>
-<th>State</th>
-<th>Nationality</th>
-<th>Religion</th>
-<th>Category</th>
-<th>Mother Tongue</th>
-<th>Blood Group</th>
-<th>Father</th>
-<th>Mother</th>
-<th>Occupation</th>
-<th>Income</th>
-<th>Postal Address</th>
-<th>Permanent Address</th>
-<th>Phone</th>
-<th>Email</th>
-<th>Aadhar</th>
-<th>Medium</th>
-<th>SSLC Year</th>
-<th>Maths</th>
-<th>Science</th>
-<th>Pref1</th>
-<th>Pref2</th>
-<th>Pref3</th>
-<th>Pref4</th>
-<th>Pref5</th>
-<th>Created</th>
-<th>Action</th>
+<th>ID</th><th>Name</th><th>DOB</th><th>Gender</th><th>Native</th>
+<th>Taluk</th><th>District</th><th>State</th><th>Nationality</th>
+<th>Religion</th><th>Category</th><th>Mother Tongue</th><th>Blood Group</th>
+<th>Father</th><th>Mother</th><th>Occupation</th><th>Income</th>
+<th>Postal Address</th><th>Permanent Address</th><th>Phone</th><th>Email</th>
+<th>Aadhar</th><th>Medium</th><th>SSLC Year</th><th>Maths</th>
+<th>Science</th><th>Pref1</th><th>Pref2</th><th>Pref3</th>
+<th>Pref4</th><th>Pref5</th><th>Created</th><th>Action</th>
 </tr>
 </thead>
 
 <tbody>
 <%
 List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
-
 if (list != null) {
 for (Map<String, Object> row : list) {
 %>
@@ -154,39 +112,12 @@ for (Map<String, Object> row : list) {
 
 <td>
 <button onclick="editRecord(this)"
-
 data-id='<%= row.get("id") %>'
 data-name='<%= row.get("applicant_name") %>'
 data-dob='<%= row.get("date_of_birth") %>'
 data-gender='<%= row.get("gender") %>'
-data-native='<%= row.get("native_place") %>'
-data-taluk='<%= row.get("taluk") %>'
-data-district='<%= row.get("district") %>'
-data-state='<%= row.get("state") %>'
-data-nationality='<%= row.get("nationality") %>'
-data-religion='<%= row.get("religion_category") %>'
-data-category='<%= row.get("category") %>'
-data-mt='<%= row.get("mother_tongue") %>'
-data-blood='<%= row.get("blood_group") %>'
-data-father='<%= row.get("father_guardian_name") %>'
-data-mother='<%= row.get("mother_name") %>'
-data-occupation='<%= row.get("occupation") %>'
-data-income='<%= row.get("income") %>'
-data-postal='<%= row.get("postal_address") %>'
-data-permanent='<%= row.get("permanent_address") %>'
 data-phone='<%= row.get("phone_no") %>'
 data-email='<%= row.get("email") %>'
-data-aadhar='<%= row.get("aadhar_no") %>'
-data-medium='<%= row.get("medium_of_instruction") %>'
-data-sscl='<%= row.get("sscl_passing_year") %>'
-data-maths='<%= row.get("marks_maths") %>'
-data-science='<%= row.get("marks_science") %>'
-data-p1='<%= row.get("preference_1") %>'
-data-p2='<%= row.get("preference_2") %>'
-data-p3='<%= row.get("preference_3") %>'
-data-p4='<%= row.get("preference_4") %>'
-data-p5='<%= row.get("preference_5") %>'
-
 >Edit</button>
 </td>
 
@@ -198,18 +129,54 @@ data-p5='<%= row.get("preference_5") %>'
 %>
 </tbody>
 </table>
-
 </div>
 
-<!-- ✅ YOUR EXISTING MODAL SHOULD BE HERE (UNCHANGED) -->
+<!-- ✅ WORKING MODAL -->
+<div class="modal fade" id="editModal">
+<div class="modal-dialog">
+<form method="post" action="AdmissionListServlet">
+<div class="modal-content">
 
-<!-- ✅ CORRECT SCRIPT ORDER -->
+<div class="modal-header">
+<h5>Edit Record</h5>
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div class="modal-body">
+<input type="hidden" name="id" id="m_id">
+
+<label>Name</label>
+<input name="applicant_name" id="m_name" class="form-control">
+
+<label>DOB</label>
+<input type="date" name="date_of_birth" id="m_dob" class="form-control">
+
+<label>Gender</label>
+<input name="gender" id="m_gender" class="form-control">
+
+<label>Phone</label>
+<input name="phone_no" id="m_phone" class="form-control">
+
+<label>Email</label>
+<input name="email" id="m_email" class="form-control">
+</div>
+
+<div class="modal-footer">
+<button type="submit" class="btn btn-success">Update</button>
+</div>
+
+</div>
+</form>
+</div>
+</div>
+
+<!-- JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-function editRecord(btn) {
-let b = $(btn);
+function editRecord(btn){
+let b=$(btn);
 
 $('#m_id').val(b.data('id'));
 $('#m_name').val(b.data('name'));
@@ -217,30 +184,7 @@ $('#m_dob').val(b.data('dob'));
 $('#m_gender').val(b.data('gender'));
 $('#m_phone').val(b.data('phone'));
 $('#m_email').val(b.data('email'));
-$('#m_district').val(b.data('district'));
-$('#m_state').val(b.data('state'));
-$('#m_nationality').val(b.data('nationality'));
-$('#m_religion').val(b.data('religion'));
-$('#m_category').val(b.data('category'));
-$('#m_mt').val(b.data('mt'));
-$('#m_blood').val(b.data('blood'));
-$('#m_father').val(b.data('father'));
-$('#m_mother').val(b.data('mother'));
-$('#m_occupation').val(b.data('occupation'));
-$('#m_income').val(b.data('income'));
-$('#m_postal').val(b.data('postal'));
-$('#m_permanent').val(b.data('permanent'));
-$('#m_medium').val(b.data('medium'));
-$('#m_sscl').val(b.data('sscl'));
-$('#m_maths').val(b.data('maths'));
-$('#m_science').val(b.data('science'));
-$('#m_p1').val(b.data('p1'));
-$('#m_p2').val(b.data('p2'));
-$('#m_p3').val(b.data('p3'));
-$('#m_p4').val(b.data('p4'));
-$('#m_p5').val(b.data('p5'));
 
-// ✅ FINAL FIX
 $('#editModal').modal('show');
 }
 </script>
