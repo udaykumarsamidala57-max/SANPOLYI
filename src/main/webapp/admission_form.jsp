@@ -193,13 +193,18 @@ button:hover {
 <option>SC</option>
 <option>ST</option>
 <option>C-1</option>
-<option>C-1</option>
+
 <option>2A</option>
 <option>2B</option>
 <option>3A</option>
 <option>3B</option>
 <option>General</option>
 </Select>
+</div>
+
+<div class="form-field">
+<label>Cast</label>
+<input type="text" name="cast">
 </div>
 
 <div class="form-field">
@@ -265,7 +270,7 @@ button:hover {
 
 <input type="text" name="medium_of_instruction" placeholder="Medium of Instruction">
 <input type="number" name="sscl_passing_year" placeholder="SSLC Passing Year">
-
+<input type="text" name="SSLC_Board" placeholder="SSLC_Board">
 <input type="number" step="0.01" name="marks_maths" placeholder="Maths %">
 <input type="number" step="0.01" name="marks_science" placeholder="Science %">
 

@@ -18,11 +18,11 @@ public class AdmissionServlet extends HttpServlet {
 
             String sql = "INSERT INTO admission_form "
                     + "(applicant_name, date_of_birth, gender, Admission_type,native_place, taluk, district, state, nationality, "
-                    + "religion_category, category, mother_tongue, blood_group, father_guardian_name, mother_name, "
+                    + "religion_category, category,cast, mother_tongue, blood_group, father_guardian_name, mother_name, "
                     + "occupation, income, postal_address, permanent_address, phone_no, email, aadhar_no,APAAR ID "
-                    + "medium_of_instruction, sscl_passing_year, marks_maths, marks_science, "
+                    + "medium_of_instruction, sscl_passing_year,SSLC_Board, marks_maths, marks_science, "
                     + "preference_1, preference_2, preference_3, preference_4, preference_5) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -37,30 +37,33 @@ public class AdmissionServlet extends HttpServlet {
             ps.setString(9, request.getParameter("nationality"));
             ps.setString(10, request.getParameter("religion_category"));
             ps.setString(11, request.getParameter("category"));
-            ps.setString(12, request.getParameter("mother_tongue"));
-            ps.setString(13, request.getParameter("blood_group"));
-            ps.setString(14, request.getParameter("father_guardian_name"));
-            ps.setString(15, request.getParameter("mother_name"));
-            ps.setString(16, request.getParameter("occupation"));
+            ps.setString(12, request.getParameter("cast"));
+            ps.setString(13, request.getParameter("mother_tongue"));
+            ps.setString(14, request.getParameter("blood_group"));
+            ps.setString(15, request.getParameter("father_guardian_name"));
+            ps.setString(16, request.getParameter("mother_name"));
+            ps.setString(17, request.getParameter("occupation"));
 
-            ps.setDouble(17, parseDouble(request.getParameter("income"))); // SAFE
-            ps.setString(18, request.getParameter("postal_address"));
-            ps.setString(19, request.getParameter("permanent_address"));
-            ps.setString(20, request.getParameter("phone_no"));
-            ps.setString(21, request.getParameter("email"));
-            ps.setString(22, request.getParameter("aadhar_no"));
-            ps.setString(23, request.getParameter("APAAR"));
-            ps.setString(24, request.getParameter("medium_of_instruction"));
+            ps.setDouble(18, parseDouble(request.getParameter("income"))); // SAFE
+            ps.setString(19, request.getParameter("postal_address"));
+            ps.setString(20, request.getParameter("permanent_address"));
+            ps.setString(21, request.getParameter("phone_no"));
+            ps.setString(22, request.getParameter("email"));
+            ps.setString(23, request.getParameter("aadhar_no"));
+            ps.setString(24, request.getParameter("APAAR"));
+            ps.setString(25, request.getParameter("medium_of_instruction"));
 
-            ps.setInt(25, parseInt(request.getParameter("sscl_passing_year"))); // SAFE
-            ps.setDouble(26, parseDouble(request.getParameter("marks_maths")));
-            ps.setDouble(27, parseDouble(request.getParameter("marks_science")));
+            ps.setInt(26, parseInt(request.getParameter("sscl_passing_year"))); // SAFE
+            ps.setInt(27, parseInt(request.getParameter("SSLC_Board"))); // SAFE
+            
+            ps.setDouble(28, parseDouble(request.getParameter("marks_maths")));
+            ps.setDouble(29, parseDouble(request.getParameter("marks_science")));
 
-            ps.setString(28, request.getParameter("preference_1"));
-            ps.setString(29, request.getParameter("preference_2"));
-            ps.setString(30, request.getParameter("preference_3"));
-            ps.setString(31, request.getParameter("preference_4"));
-            ps.setString(32, request.getParameter("preference_5"));
+            ps.setString(30, request.getParameter("preference_1"));
+            ps.setString(31, request.getParameter("preference_2"));
+            ps.setString(32, request.getParameter("preference_3"));
+            ps.setString(33, request.getParameter("preference_4"));
+            ps.setString(34, request.getParameter("preference_5"));
 
             ps.executeUpdate();
 
