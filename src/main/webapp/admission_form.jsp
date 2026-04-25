@@ -128,6 +128,7 @@ button:hover {
 </head>
 
 <body>
+
 <jsp:include page="header.jsp" />
 
 <div class="header">
@@ -137,212 +138,214 @@ button:hover {
 
 <div class="container">
 
-<div class="form-title">
-    <h2>Student Admission Form</h2>
-    <p>Please complete all required fields carefully</p>
-</div>
+    <div class="form-title">
+        <h2>Student Admission Form</h2>
+        <p>Please complete all required fields carefully</p>
+    </div>
 
-<form action="AdmissionServlet" method="post">
+    <form action="AdmissionServlet" method="post">
 
-<!-- PERSONAL -->
-<div class="section">
-<div class="section-title">Personal Information</div>
-<div class="form-grid">
+        <!-- PERSONAL -->
+        <div class="section">
+            <div class="section-title">Personal Information</div>
+            <div class="form-grid">
 
-<div class="form-field">
-<label>Applicant Name</label>
-<input type="text" name="applicant_name" required>
-</div>
+                <div class="form-field">
+                    <label>Applicant Name</label>
+                    <input type="text" name="applicant_name" required>
+                </div>
 
-<div class="form-field">
-<label>Date of Birth</label>
-<input type="date" name="date_of_birth" required>
-</div>
+                <div class="form-field">
+                    <label>Date of Birth</label>
+                    <input type="date" name="date_of_birth" required>
+                </div>
 
-<div class="form-field">
-<label>Gender</label>
-<select name="gender">
-<option>Male</option>
-<option>Female</option>
-<option>Other</option>
-</select>
-</div>
+                <div class="form-field">
+                    <label>Gender</label>
+                    <select name="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
 
-<div class="form-field">
-<label>Admission Type</label>
-<select name="Admission_type">
-<option>Dayscholar</option>
-<option>Residential</option>
+                <div class="form-field">
+                    <label>Admission Type</label>
+                    <select name="Admission_type">
+                        <option>Dayscholar</option>
+                        <option>Residential</option>
+                    </select>
+                </div>
 
-</select>
-</div>
+                <div class="form-field">
+                    <label>Nationality</label>
+                    <input type="text" name="nationality" value="Indian" readonly>
+                </div>
 
-<div class="form-field">
-<label>Nationality</label>
-<input type="text" name="nationality" value="Indian" readonly">
-</div>
+                <div class="form-field">
+                    <label>Religion</label>
+                    <input type="text" name="religion_category">
+                </div>
 
-<div class="form-field">
-<label>Religion</label>
-<input type="text" name="religion_category">
-</div>
+                <div class="form-field">
+                    <label>Category</label>
+                    <select name="category">
+                        <option>SC</option>
+                        <option>ST</option>
+                        <option>C-1</option>
+                        <option>2A</option>
+                        <option>2B</option>
+                        <option>3A</option>
+                        <option>3B</option>
+                        <option>General</option>
+                    </select>
+                </div>
 
-<div class="form-field">
-<label>Category</label>
-<Select name="category">
-<option>SC</option>
-<option>ST</option>
-<option>C-1</option>
+                <div class="form-field">
+                    <label>Cast</label>
+                    <input type="text" name="cast">
+                </div>
 
-<option>2A</option>
-<option>2B</option>
-<option>3A</option>
-<option>3B</option>
-<option>General</option>
-</Select>
-</div>
+                <div class="form-field">
+                    <label>Mother Tongue</label>
+                    <input type="text" name="mother_tongue">
+                </div>
 
-<div class="form-field">
-<label>Cast</label>
-<input type="text" name="cast">
-</div>
+                <div class="form-field">
+                    <label>Blood Group</label>
+                    <input type="text" name="blood_group">
+                </div>
 
-<div class="form-field">
-<label>Mother Tongue</label>
-<input type="text" name="mother_tongue">
-</div>
+            </div>
+        </div>
 
-<div class="form-field">
-<label>Blood Group</label>
-<input type="text" name="blood_group">
-</div>
+        <!-- ADDRESS -->
+        <div class="section">
+            <div class="section-title">Address Details</div>
+            <div class="form-grid">
 
-</div>
-</div>
+                <input type="text" name="native_place" placeholder="Native Place">
+                <input type="text" name="taluk" placeholder="Taluk">
+                <input type="text" name="district" placeholder="District">
+                <input type="text" name="state" placeholder="State">
 
-<!-- ADDRESS -->
-<div class="section">
-<div class="section-title">Address Details</div>
-<div class="form-grid">
+                <textarea class="full" name="postal_address" placeholder="Postal Address"></textarea>
+                <textarea class="full" name="permanent_address" placeholder="Permanent Address"></textarea>
 
-<input type="text" name="native_place" placeholder="Native Place">
-<input type="text" name="taluk" placeholder="Taluk">
-<input type="text" name="district" placeholder="District">
-<input type="text" name="state" placeholder="State">
+            </div>
+        </div>
 
-<textarea class="full" name="postal_address" placeholder="Postal Address"></textarea>
-<textarea class="full" name="permanent_address" placeholder="Permanent Address"></textarea>
+        <!-- FAMILY -->
+        <div class="section">
+            <div class="section-title">Family Details</div>
+            <div class="form-grid">
 
-</div>
-</div>
+                <input type="text" name="father_guardian_name" placeholder="Father / Guardian Name">
+                <input type="text" name="father_occupation" placeholder="father_occupation">
+                <input type="text" name="Father_org" placeholder="Father_org">
+                <input type="text" name="mother_name" placeholder="Mother Name">
+                <input type="text" name="mother_occupation" placeholder="mother_occupation">
+                <input type="text" name="Mother_org" placeholder="Mother_org">
+                <input type="number" name="income" placeholder="Annual Income">
 
-<!-- FAMILY -->
-<div class="section">
-<div class="section-title">Family Details</div>
-<div class="form-grid">
+            </div>
+        </div>
 
-<input type="text" name="father_guardian_name" placeholder="Father / Guardian Name">
-<input type="text" name="father_occupation" placeholder="father_occupation">
-<input type="text" name="Father_org" placeholder="Father_org">
-<input type="text" name="mother_name" placeholder="Mother Name">
-<input type="text" name="mother_occupation" placeholder="mother_occupation">
-<input type="text" name="Mother_org" placeholder="Mother_org">
-<input type="number" name="income" placeholder="Annual Income">
+        <!-- CONTACT -->
+        <div class="section">
+            <div class="section-title">Contact Details</div>
+            <div class="form-grid">
 
-</div>
-</div>
+                <input type="text" name="phone_no" placeholder="Phone Number">
+                <input type="text" name="Whatsapp_no" placeholder="Whatsapp_no">
+                <input type="email" name="email" placeholder="Email Address">
 
-<!-- CONTACT -->
-<div class="section">
-<div class="section-title">Contact Details</div>
-<div class="form-grid">
+                <input class="full" type="text" name="aadhar_no" placeholder="Aadhar Number">
+                <input class="full" type="text" name="APAAR" placeholder="APAAR">
 
-<input type="text" name="phone_no" placeholder="Phone Number">
-<input type="text" name="Whatsapp_no" placeholder="Whatsapp_no">
-<input type="email" name="email" placeholder="Email Address">
+            </div>
+        </div>
 
-<input class="full" type="text" name="aadhar_no" placeholder="Aadhar Number">
-<input class="full" type="text" name="APAAR" placeholder="APAAR">
-</div>
-</div>
+        <!-- ACADEMIC -->
+        <div class="section">
+            <div class="section-title">Academic Information</div>
+            <div class="form-grid">
 
-<!-- ACADEMIC -->
-<div class="section">
-<div class="section-title">Academic Information</div>
-<div class="form-grid">
-<p>SSlC Sate</p>
-<select name="SSLC_State" required>
- <option value="Karnataka">Karnataka</option>
-    <option value="Non-Karnataka">Non-Karnataka</option>
-    </select>
-<input type="text" name="medium_of_instruction" placeholder="Medium of Instruction">
-<input type="number" name="sscl_passing_year" placeholder="SSLC Passing Year">
-<input type="text" name="SSLC_Board" placeholder="SSLC_Board">
-<input type="text" name="SSLC_TMarks" placeholder="SSLC_TMarks">
-<input type="number" step="0.01" name="marks_maths" placeholder="Maths %">
-<input type="number" step="0.01" name="marks_science" placeholder="Science %">
+                <p>SSlC Sate</p>
 
-</div>
-</div>
+                <select name="SSLC_State" required>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Non-Karnataka">Non-Karnataka</option>
+                </select>
 
-<!-- COURSE -->
-<div class="section">
-<div class="section-title">Course Preferences</div>
-<div class="form-grid">
+                <input type="text" name="medium_of_instruction" placeholder="Medium of Instruction">
+                <input type="number" name="sscl_passing_year" placeholder="SSLC Passing Year">
+                <input type="text" name="SSLC_Board" placeholder="SSLC_Board">
+                <input type="text" name="SSLC_TMarks" placeholder="SSLC_TMarks">
+                <input type="number" step="0.01" name="marks_maths" placeholder="Maths %">
+                <input type="number" step="0.01" name="marks_science" placeholder="Science %">
 
-<select name="preference_1" required>
-    <option value="">Preference 1</option>
-    <option value="EE">EE</option>
-    <option value="ME">ME</option>
-    <option value="CS">CS</option>
-    <option value="EC">EC</option>
-    <option value="CE">CE</option>
-</select>
+            </div>
+        </div>
 
-<select name="preference_2">
-    <option value="">Preference 2</option>
-    <option value="EE">EE</option>
-    <option value="ME">ME</option>
-    <option value="CS">CS</option>
-    <option value="EC">EC</option>
-    <option value="CE">CE</option>
-</select>
+        <!-- COURSE -->
+        <div class="section">
+            <div class="section-title">Course Preferences</div>
+            <div class="form-grid">
 
-<select name="preference_3">
-    <option value="">Preference 3</option>
-    <option value="EE">EE</option>
-    <option value="ME">ME</option>
-    <option value="CS">CS</option>
-    <option value="EC">EC</option>
-    <option value="CE">CE</option>
-</select>
+                <select name="preference_1" required>
+                    <option value="">Preference 1</option>
+                    <option value="EE">EE</option>
+                    <option value="ME">ME</option>
+                    <option value="CS">CS</option>
+                    <option value="EC">EC</option>
+                    <option value="CE">CE</option>
+                </select>
 
-<select name="preference_4">
-    <option value="">Preference 4</option>
-    <option value="EE">EE</option>
-    <option value="ME">ME</option>
-    <option value="CS">CS</option>
-    <option value="EC">EC</option>
-    <option value="CE">CE</option>
-</select>
+                <select name="preference_2">
+                    <option value="">Preference 2</option>
+                    <option value="EE">EE</option>
+                    <option value="ME">ME</option>
+                    <option value="CS">CS</option>
+                    <option value="EC">EC</option>
+                    <option value="CE">CE</option>
+                </select>
 
-<select name="preference_5">
-    <option value="">Preference 5</option>
-    <option value="EE">EE</option>
-    <option value="ME">ME</option>
-    <option value="CS">CS</option>
-    <option value="EC">EC</option>
-    <option value="CE">CE</option>
-</select>
+                <select name="preference_3">
+                    <option value="">Preference 3</option>
+                    <option value="EE">EE</option>
+                    <option value="ME">ME</option>
+                    <option value="CS">CS</option>
+                    <option value="EC">EC</option>
+                    <option value="CE">CE</option>
+                </select>
 
-</div>
-</div>
+                <select name="preference_4">
+                    <option value="">Preference 4</option>
+                    <option value="EE">EE</option>
+                    <option value="ME">ME</option>
+                    <option value="CS">CS</option>
+                    <option value="EC">EC</option>
+                    <option value="CE">CE</option>
+                </select>
 
-<div class="submit-box">
-<button type="submit">Submit Application</button>
-</div>
+                <select name="preference_5">
+                    <option value="">Preference 5</option>
+                    <option value="EE">EE</option>
+                    <option value="ME">ME</option>
+                    <option value="CS">CS</option>
+                    <option value="EC">EC</option>
+                    <option value="CE">CE</option>
+                </select>
 
-</form>
+            </div>
+        </div>
+
+        <div class="submit-box">
+            <button type="submit">Submit Application</button>
+        </div>
+
+    </form>
 </div>
 
 </body>
