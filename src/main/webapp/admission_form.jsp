@@ -170,7 +170,11 @@ button:hover {
 
 <div class="form-field">
 <label>Admission Type</label>
-<input type="text" name="Admission_type">
+<select name="Admission_type">
+<option>Dayscholar</option>
+<option>Residential</option>
+
+</select>
 </div>
 
 <div class="form-field">
