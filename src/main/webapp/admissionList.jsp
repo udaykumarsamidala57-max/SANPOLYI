@@ -51,7 +51,7 @@ button {
 
 </head>
 <body>
-
+<%@ include file="header.jsp" %>
 <div class="header">SANPOLY - Admission Records</div>
 
 <div class="table-wrapper">
