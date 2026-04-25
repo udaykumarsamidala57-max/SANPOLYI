@@ -55,15 +55,15 @@ public class AdmissionServlet extends HttpServlet {
 
             ps.setInt(26, parseInt(request.getParameter("sscl_passing_year"))); // SAFE
             ps.setInt(27, parseInt(request.getParameter("SSLC_Board"))); // SAFE
-            
-            ps.setDouble(28, parseDouble(request.getParameter("marks_maths")));
-            ps.setDouble(29, parseDouble(request.getParameter("marks_science")));
+            ps.setInt(28, parseInt(request.getParameter("SSLC_TMarks")));
+            ps.setDouble(29, parseDouble(request.getParameter("marks_maths")));
+            ps.setDouble(30, parseDouble(request.getParameter("marks_science")));
 
-            ps.setString(30, request.getParameter("preference_1"));
-            ps.setString(31, request.getParameter("preference_2"));
-            ps.setString(32, request.getParameter("preference_3"));
-            ps.setString(33, request.getParameter("preference_4"));
-            ps.setString(34, request.getParameter("preference_5"));
+            ps.setString(31, request.getParameter("preference_1"));
+            ps.setString(32, request.getParameter("preference_2"));
+            ps.setString(33, request.getParameter("preference_3"));
+            ps.setString(34, request.getParameter("preference_4"));
+            ps.setString(35, request.getParameter("preference_5"));
 
             ps.executeUpdate();
 
