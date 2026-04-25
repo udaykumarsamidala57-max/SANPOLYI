@@ -272,8 +272,8 @@ button:hover {
 <div class="form-grid">
 <p>SSlC Sate</p>
 <select name="SSLC_State" required>
- <option value="CS">CS</option>
-    <option value="EC">EC</option>
+ <option value="Karnataka">Karnataka</option>
+    <option value="Non-Karnataka">Non-Karnataka</option>
     </select>
 <input type="text" name="medium_of_instruction" placeholder="Medium of Instruction">
 <input type="number" name="sscl_passing_year" placeholder="SSLC Passing Year">
