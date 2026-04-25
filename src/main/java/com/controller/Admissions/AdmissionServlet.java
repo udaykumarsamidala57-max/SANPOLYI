@@ -22,11 +22,11 @@ public class AdmissionServlet extends HttpServlet {
         	        + "religion_category, category, cast, mother_tongue, blood_group, "
         	        + "father_guardian_name, father_occupation, Father_org, "
         	        + "mother_name, mother_occupation, Mother_org, income, "
-        	        + "postal_address, permanent_address, phone_no, Whatsapp_no, email, aadhar_no, `APAAR ID`, "
+        	        + "postal_address, permanent_address, phone_no, Whatsapp_no, email,SSLC_State, aadhar_no, `APAAR ID`, "
         	        + "medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, "
         	        + "marks_maths, marks_science, "
         	        + "preference_1, preference_2, preference_3, preference_4, preference_5"
-        	        + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	        + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         	PreparedStatement ps = con.prepareStatement(sql);
 
@@ -61,23 +61,24 @@ public class AdmissionServlet extends HttpServlet {
         	ps.setString(24, request.getParameter("phone_no"));
         	ps.setString(25, request.getParameter("Whatsapp_no"));   // ✅ FIXED
         	ps.setString(26, request.getParameter("email"));
-        	ps.setString(27, request.getParameter("aadhar_no"));
-        	ps.setString(28, request.getParameter("APAAR"));
+        	ps.setString(27, request.getParameter("SSLC_State"));
+        	ps.setString(28, request.getParameter("aadhar_no"));
+        	ps.setString(29, request.getParameter("APAAR"));
 
-        	ps.setString(29, request.getParameter("medium_of_instruction"));
-        	ps.setString(30, request.getParameter("sscl_passing_year"));
+        	ps.setString(30, request.getParameter("medium_of_instruction"));
+        	ps.setString(31, request.getParameter("sscl_passing_year"));
 
-        	ps.setString(31, request.getParameter("SSLC_Board"));
-        	ps.setString(32, request.getParameter("SSLC_TMarks"));
+        	ps.setString(32, request.getParameter("SSLC_Board"));
+        	ps.setString(33, request.getParameter("SSLC_TMarks"));
 
-        	ps.setDouble(33, parseDouble(request.getParameter("marks_maths")));
-        	ps.setDouble(34, parseDouble(request.getParameter("marks_science")));
+        	ps.setDouble(34, parseDouble(request.getParameter("marks_maths")));
+        	ps.setDouble(35, parseDouble(request.getParameter("marks_science")));
 
-        	ps.setString(35, request.getParameter("preference_1"));
-        	ps.setString(36, request.getParameter("preference_2"));
-        	ps.setString(37, request.getParameter("preference_3"));
-        	ps.setString(38, request.getParameter("preference_4"));
-        	ps.setString(39, request.getParameter("preference_5"));
+        	ps.setString(36, request.getParameter("preference_1"));
+        	ps.setString(37, request.getParameter("preference_2"));
+        	ps.setString(38, request.getParameter("preference_3"));
+        	ps.setString(39, request.getParameter("preference_4"));
+        	ps.setString(40, request.getParameter("preference_5"));
 
             ps.executeUpdate();
 
