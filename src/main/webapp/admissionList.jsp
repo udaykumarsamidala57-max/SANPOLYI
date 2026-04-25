@@ -65,14 +65,58 @@ button {
 <table>
 <thead>
 <tr>
-<th>ID</th><th>Name</th><th>DOB</th><th>Gender</th><th>Native</th>
-<th>Taluk</th><th>District</th><th>State</th><th>Nationality</th>
-<th>Religion</th><th>Category</th><th>Mother Tongue</th><th>Blood Group</th>
-<th>Father</th><th>Mother</th><th>Occupation</th><th>Income</th>
-<th>Postal Address</th><th>Permanent Address</th><th>Phone</th><th>Email</th>
-<th>Aadhar</th><th>Medium</th><th>SSLC Year</th><th>Maths</th>
-<th>Science</th><th>Pref1</th><th>Pref2</th><th>Pref3</th>
-<th>Pref4</th><th>Pref5</th><th>Created</th><th>Action</th>
+<th>ID</th>
+<th>Name</th>
+<th>DOB</th>
+<th>Gender</th>
+<th>Admission Type</th>
+
+<th>Native</th>
+<th>Taluk</th>
+<th>District</th>
+<th>State</th>
+<th>Nationality</th>
+
+<th>Religion</th>
+<th>Category</th>
+<th>Cast</th>
+<th>Mother Tongue</th>
+<th>Blood Group</th>
+
+<th>Father</th>
+<th>Father Occupation</th>
+<th>Father Org</th>
+
+<th>Mother</th>
+<th>Mother Occupation</th>
+<th>Mother Org</th>
+
+<th>Income</th>
+
+<th>Postal Address</th>
+<th>Permanent Address</th>
+
+<th>Phone</th>
+<th>Email</th>
+<th>Aadhar</th>
+<th>APAAR ID</th>
+
+<th>Medium</th>
+<th>SSLC Year</th>
+<th>SSLC Board</th>
+<th>SSLC Total Marks</th>
+
+<th>Maths</th>
+<th>Science</th>
+
+<th>Pref1</th>
+<th>Pref2</th>
+<th>Pref3</th>
+<th>Pref4</th>
+<th>Pref5</th>
+
+<th>Created</th>
+<th>Action</th>
 </tr>
 </thead>
 
@@ -137,7 +181,7 @@ for (Map<String, Object> row : list) {
 <td><%= row.get("preference_5") %></td>
 
 <td><%= row.get("created_at") %></td>
-</tr>
+
 
 <td>
 <button onclick="editRecord(this)"
