@@ -270,7 +270,7 @@ button:hover {
 <div class="section">
 <div class="section-title">Academic Information</div>
 <div class="form-grid">
-
+<p>SSlC Sate</p>
 <select name="SSLC_State" required>
  <option value="CS">CS</option>
     <option value="EC">EC</option>
