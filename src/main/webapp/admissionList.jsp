@@ -97,6 +97,7 @@ button {
 <th>Permanent Address</th>
 
 <th>Phone</th>
+<th>Whatsapp No</th>
 <th>Email</th>
 <th>Aadhar</th>
 <th>APAAR ID</th>
