@@ -245,7 +245,7 @@ button:hover {
 <input type="text" name="father_occupation" placeholder="father_occupation">
 <input type="text" name="Father_org" placeholder="Father_org">
 <input type="text" name="mother_name" placeholder="Mother Name">
-<input type="text" name="occupation" placeholder="mother_occupationOccupation">
+<input type="text" name="mother_occupation" placeholder="mother_occupation">
 <input type="text" name="Mother_org" placeholder="Mother_org">
 <input type="number" name="income" placeholder="Annual Income">
 
