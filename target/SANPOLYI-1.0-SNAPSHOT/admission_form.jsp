@@ -181,8 +181,15 @@ button:hover {
 <div class="form-field">
 <label>Category</label>
 <Select name="category">
-<option>Dayscholar</option>
-<option>Residential</option>
+<option>SC</option>
+<option>ST</option>
+<option>C-1</option>
+<option>C-1</option>
+<option>2A</option>
+<option>2B</option>
+<option>3A</option>
+<option>3B</option>
+<option>General</option>
 </Select>
 </div>
 
@@ -238,7 +245,7 @@ button:hover {
 <input type="email" name="email" placeholder="Email Address">
 
 <input class="full" type="text" name="aadhar_no" placeholder="Aadhar Number">
-
+<input class="full" type="text" name="APAAR" placeholder="APAAR">
 </div>
 </div>
 

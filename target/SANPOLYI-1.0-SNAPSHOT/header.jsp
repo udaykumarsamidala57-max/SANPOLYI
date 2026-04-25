@@ -188,7 +188,7 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
     <div class="dropdown-content">
      <% if ("Global".equalsIgnoreCase(roles)|| "Finance".equalsIgnoreCase(depts)||"Academics".equalsIgnoreCase(depts)){ %>
      
-     <a href="admission_form.jsp"><i class="fas fa-search"></i> Enquiries</a>
+     <a href="admission_form.jsp"><i class="fas fa-file-signature"></i> Enquiry Form</a>
       <a href="AdmissionListServlet"><i class="fas fa-search"></i> Enquiries</a>
       <% } %>
       

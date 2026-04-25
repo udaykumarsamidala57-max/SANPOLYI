@@ -245,7 +245,7 @@ button:hover {
 <input type="email" name="email" placeholder="Email Address">
 
 <input class="full" type="text" name="aadhar_no" placeholder="Aadhar Number">
-
+<input class="full" type="text" name="APAAR" placeholder="APAAR">
 </div>
 </div>
 
