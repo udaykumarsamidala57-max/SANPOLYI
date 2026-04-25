@@ -14,83 +14,101 @@ public class AdmissionListServlet extends HttpServlet {
 	
 	
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
 
-        String fromDate = request.getParameter("fromDate");
-        String toDate = request.getParameter("toDate");
+	    String fromDate = request.getParameter("fromDate");
+	    String toDate = request.getParameter("toDate");
 
-        List<Map<String, Object>> list = new ArrayList<>();
+	    List<Map<String, Object>> list = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DBUtil3.getConnection();
+	    try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "SELECT * FROM admission_form WHERE 1=1";
+	        String sql = "SELECT *, `APAAR ID` AS apaar_id FROM admission_form WHERE 1=1";
 
-            PreparedStatement ps;
+	        PreparedStatement ps;
 
-            if (fromDate != null && toDate != null && !fromDate.isEmpty() && !toDate.isEmpty()) {
-                sql += " AND DATE(created_at) BETWEEN ? AND ?";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, fromDate);
-                ps.setString(2, toDate);
-            } else {
-                ps = con.prepareStatement(sql);
-            }
+	        if (fromDate != null && toDate != null && !fromDate.isEmpty() && !toDate.isEmpty()) {
+	            sql += " AND DATE(created_at) BETWEEN ? AND ?";
+	            ps = con.prepareStatement(sql);
+	            ps.setString(1, fromDate);
+	            ps.setString(2, toDate);
+	        } else {
+	            ps = con.prepareStatement(sql);
+	        }
 
-            ResultSet rs = ps.executeQuery();
+	        try (ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
+	            while (rs.next()) {
 
-                Map<String, Object> row = new HashMap<>();
+	                Map<String, Object> row = new HashMap<>();
 
-                row.put("id", rs.getInt("id"));
-                row.put("applicant_name", rs.getString("applicant_name"));
-                row.put("date_of_birth", rs.getDate("date_of_birth"));
-                row.put("gender", rs.getString("gender"));
-                row.put("native_place", rs.getString("native_place"));
-                row.put("taluk", rs.getString("taluk"));
-                row.put("district", rs.getString("district"));
-                row.put("state", rs.getString("state"));
-                row.put("nationality", rs.getString("nationality"));
-                row.put("religion_category", rs.getString("religion_category"));
-                row.put("category", rs.getString("category"));
-                row.put("mother_tongue", rs.getString("mother_tongue"));
-                row.put("blood_group", rs.getString("blood_group"));
-                row.put("father_guardian_name", rs.getString("father_guardian_name"));
-                row.put("mother_name", rs.getString("mother_name"));
-                row.put("occupation", rs.getString("occupation"));
-                row.put("income", rs.getDouble("income"));
-                row.put("postal_address", rs.getString("postal_address"));
-                row.put("permanent_address", rs.getString("permanent_address"));
-                row.put("phone_no", rs.getString("phone_no"));
-                row.put("email", rs.getString("email"));
-                row.put("aadhar_no", rs.getString("aadhar_no"));
-                row.put("medium_of_instruction", rs.getString("medium_of_instruction"));
-                row.put("sscl_passing_year", rs.getInt("sscl_passing_year"));
-                row.put("marks_maths", rs.getDouble("marks_maths"));
-                row.put("marks_science", rs.getDouble("marks_science"));
-                row.put("preference_1", rs.getString("preference_1"));
-                row.put("preference_2", rs.getString("preference_2"));
-                row.put("preference_3", rs.getString("preference_3"));
-                row.put("preference_4", rs.getString("preference_4"));
-                row.put("preference_5", rs.getString("preference_5"));
-                row.put("created_at", rs.getTimestamp("created_at"));
+	                row.put("id", rs.getInt("id"));
+	                row.put("applicant_name", rs.getString("applicant_name"));
+	                row.put("date_of_birth", rs.getDate("date_of_birth"));
+	                row.put("gender", rs.getString("gender"));
+	                row.put("Admission_type", rs.getString("Admission_type"));
 
-                list.add(row);
-            }
+	                row.put("native_place", rs.getString("native_place"));
+	                row.put("taluk", rs.getString("taluk"));
+	                row.put("district", rs.getString("district"));
+	                row.put("state", rs.getString("state"));
+	                row.put("nationality", rs.getString("nationality"));
 
-            con.close();
+	                row.put("religion_category", rs.getString("religion_category"));
+	                row.put("category", rs.getString("category"));
+	                row.put("cast", rs.getString("cast"));
+	                row.put("mother_tongue", rs.getString("mother_tongue"));
+	                row.put("blood_group", rs.getString("blood_group"));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	                row.put("father_guardian_name", rs.getString("father_guardian_name"));
+	                row.put("father_occupation", rs.getString("father_occupation"));
+	                row.put("Father_org", rs.getString("Father_org"));
 
-        request.setAttribute("data", list);
-        RequestDispatcher rd = request.getRequestDispatcher("admissionList.jsp");
-        rd.forward(request, response);
-    }
+	                row.put("mother_name", rs.getString("mother_name"));
+	                row.put("mother_occupation", rs.getString("mother_occupation"));
+	                row.put("Mother_org", rs.getString("Mother_org"));
+
+	                row.put("income", rs.getDouble("income"));
+
+	                row.put("postal_address", rs.getString("postal_address"));
+	                row.put("permanent_address", rs.getString("permanent_address"));
+
+	                row.put("phone_no", rs.getString("phone_no"));
+	                row.put("email", rs.getString("email"));
+	                row.put("aadhar_no", rs.getString("aadhar_no"));
+	                row.put("apaar_id", rs.getString("apaar_id")); // ✅ alias used
+
+	                row.put("medium_of_instruction", rs.getString("medium_of_instruction"));
+	                row.put("sscl_passing_year", rs.getString("sscl_passing_year"));
+
+	                row.put("SSLC_Board", rs.getString("SSLC_Board"));
+	                row.put("SSLC_TMarks", rs.getString("SSLC_TMarks"));
+
+	                row.put("marks_maths", rs.getDouble("marks_maths"));
+	                row.put("marks_science", rs.getDouble("marks_science"));
+
+	                row.put("preference_1", rs.getString("preference_1"));
+	                row.put("preference_2", rs.getString("preference_2"));
+	                row.put("preference_3", rs.getString("preference_3"));
+	                row.put("preference_4", rs.getString("preference_4"));
+	                row.put("preference_5", rs.getString("preference_5"));
+
+	                row.put("created_at", rs.getTimestamp("created_at"));
+
+	                list.add(row);
+	            }
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    request.setAttribute("data", list);
+	    RequestDispatcher rd = request.getRequestDispatcher("admissionList.jsp");
+	    rd.forward(request, response);
+	}
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         try (Connection con = DBUtil3.getConnection()) {

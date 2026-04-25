@@ -84,38 +84,60 @@ for (Map<String, Object> row : list) {
 %>
 
 <tr>
+<tr>
 <td><%= row.get("id") %></td>
 <td><%= row.get("applicant_name") %></td>
 <td><%= row.get("date_of_birth") %></td>
 <td><%= row.get("gender") %></td>
+<td><%= row.get("Admission_type") %></td>
+
 <td><%= row.get("native_place") %></td>
 <td><%= row.get("taluk") %></td>
 <td><%= row.get("district") %></td>
 <td><%= row.get("state") %></td>
 <td><%= row.get("nationality") %></td>
+
 <td><%= row.get("religion_category") %></td>
 <td><%= row.get("category") %></td>
+<td><%= row.get("cast") %></td>
 <td><%= row.get("mother_tongue") %></td>
 <td><%= row.get("blood_group") %></td>
+
 <td><%= row.get("father_guardian_name") %></td>
+<td><%= row.get("father_occupation") %></td>
+<td><%= row.get("Father_org") %></td>
+
 <td><%= row.get("mother_name") %></td>
-<td><%= row.get("occupation") %></td>
+<td><%= row.get("mother_occupation") %></td>
+<td><%= row.get("Mother_org") %></td>
+
 <td><%= row.get("income") %></td>
+
 <td><%= row.get("postal_address") %></td>
 <td><%= row.get("permanent_address") %></td>
+
 <td><%= row.get("phone_no") %></td>
 <td><%= row.get("email") %></td>
 <td><%= row.get("aadhar_no") %></td>
+<td><%= row.get("apaar_id") %></td>
+
 <td><%= row.get("medium_of_instruction") %></td>
 <td><%= row.get("sscl_passing_year") %></td>
+
+<td><%= row.get("SSLC_Board") %></td>
+<td><%= row.get("SSLC_TMarks") %></td>
+
 <td><%= row.get("marks_maths") %></td>
 <td><%= row.get("marks_science") %></td>
+
 <td><%= row.get("preference_1") %></td>
 <td><%= row.get("preference_2") %></td>
 <td><%= row.get("preference_3") %></td>
 <td><%= row.get("preference_4") %></td>
 <td><%= row.get("preference_5") %></td>
+
 <td><%= row.get("created_at") %></td>
+</tr>
 
 <td>
 <button onclick="editRecord(this)"
