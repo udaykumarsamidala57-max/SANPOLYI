@@ -169,6 +169,11 @@ button:hover {
 </div>
 
 <div class="form-field">
+<label>Admission Type</label>
+<input type="text" name="Admission_type">
+</div>
+
+<div class="form-field">
 <label>Nationality</label>
 <input type="text" name="nationality">
 </div>
