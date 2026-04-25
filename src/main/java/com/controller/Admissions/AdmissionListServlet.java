@@ -11,6 +11,8 @@ import com.bean.DBUtil3;
 
 @WebServlet("/AdmissionListServlet")
 public class AdmissionListServlet extends HttpServlet {
+	
+	
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -4,6 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Admission Records</title>
+<%
+   HttpSession sess = request.getSession(false);
+   if (sess == null || sess.getAttribute("username") == null) {
+      response.sendRedirect("login.jsp");
+       return;
+   }
+   %>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 

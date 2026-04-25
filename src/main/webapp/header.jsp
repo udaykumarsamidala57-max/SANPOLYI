@@ -188,22 +188,11 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
     <div class="dropdown-content">
      <% if ("Global".equalsIgnoreCase(roles)|| "Finance".equalsIgnoreCase(depts)||"Academics".equalsIgnoreCase(depts)){ %>
      
+     <a href="admission_form.jsp"><i class="fas fa-search"></i> Enquiries</a>
       <a href="AdmissionListServlet"><i class="fas fa-search"></i> Enquiries</a>
-      <a href="admission_report.jsp"><i class="fas fa-chart-line"></i> Dashboard</a>
-       <% } %>
-      <% if ("Academics".equalsIgnoreCase(depts)||"Global".equalsIgnoreCase(roles)){ %>
-        <a href="enter_marks.jsp"><i class="fas fa-pen"></i> Marks Entry</a>
       <% } %>
-      <% if ("Global".equalsIgnoreCase(roles)|| "Tejkumar".equalsIgnoreCase(users)||"Academics".equalsIgnoreCase(depts)){ %>
-        <a href="marks_report.jsp"><i class="fas fa-file-invoice"></i> Tabulation</a>
-        <a href="ApproveAdmission.jsp"><i class="fas fa-user-check"></i> Approval</a>
-      <% } %>
-      <% if ("Global".equalsIgnoreCase(roles)){ %>
-        <a href="Capcity.jsp"><i class="fas fa-door-open"></i> Vacancy</a>
-      <% } %>
-      <% if ("Tejkumar".equalsIgnoreCase(users)){ %>
-        <a href="student_tc_update.jsp"><i class="fas fa-user-minus"></i> TC Update</a>
-      <% } %>
+      
+      
     </div>
   </div>
 <% if ("karthik".equalsIgnoreCase(users) || 
