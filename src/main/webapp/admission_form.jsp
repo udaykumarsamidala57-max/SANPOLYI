@@ -271,7 +271,10 @@ button:hover {
 <div class="section-title">Academic Information</div>
 <div class="form-grid">
 
-<input type="text" name="SSLC_State" placeholder="SSLC_State">
+<select name="SSLC_State" required>
+ <option value="CS">CS</option>
+    <option value="EC">EC</option>
+    </select>
 <input type="text" name="medium_of_instruction" placeholder="Medium of Instruction">
 <input type="number" name="sscl_passing_year" placeholder="SSLC Passing Year">
 <input type="text" name="SSLC_Board" placeholder="SSLC_Board">
