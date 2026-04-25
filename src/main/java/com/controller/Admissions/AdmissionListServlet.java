@@ -76,6 +76,7 @@ public class AdmissionListServlet extends HttpServlet {
 	                row.put("permanent_address", rs.getString("permanent_address"));
 
 	                row.put("phone_no", rs.getString("phone_no"));
+	                row.put("Whatsapp_no", rs.getString("Whatsapp_no"));
 	                row.put("email", rs.getString("email"));
 	                row.put("aadhar_no", rs.getString("aadhar_no"));
 	                row.put("apaar_id", rs.getString("apaar_id")); // ✅ alias used

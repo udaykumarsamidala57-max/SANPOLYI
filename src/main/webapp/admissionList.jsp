@@ -161,6 +161,7 @@ for (Map<String, Object> row : list) {
 <td><%= row.get("permanent_address") %></td>
 
 <td><%= row.get("phone_no") %></td>
+<td><%= row.get("Whatsapp_no") %></td>
 <td><%= row.get("email") %></td>
 <td><%= row.get("aadhar_no") %></td>
 <td><%= row.get("apaar_id") %></td>

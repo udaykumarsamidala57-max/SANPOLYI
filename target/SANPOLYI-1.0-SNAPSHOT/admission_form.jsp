@@ -258,6 +258,7 @@ button:hover {
 <div class="form-grid">
 
 <input type="text" name="phone_no" placeholder="Phone Number">
+<input type="text" name="Whatsapp_no" placeholder="Whatsapp_no">
 <input type="email" name="email" placeholder="Email Address">
 
 <input class="full" type="text" name="aadhar_no" placeholder="Aadhar Number">
