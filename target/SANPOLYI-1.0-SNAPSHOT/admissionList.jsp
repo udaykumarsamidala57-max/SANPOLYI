@@ -18,12 +18,13 @@ if (sess == null || sess.getAttribute("username") == null) {
 <style>
 body { font-family: Arial; background:#f4f6f9; margin:10px; }
 table { width:100%; background:white; }
-th,td { border:1px solid #ddd; padding:6px; font-size:12px; }
+th,td { border:1px solid #ddd; padding:6px; font-size:12px; white-space:nowrap; }
 th { background:#f3f3f3; }
 .table-wrapper { overflow-x:auto; }
+input, textarea { margin-bottom:5px; }
 </style>
-
 </head>
+
 <body>
 
 <%@ include file="header.jsp" %>
@@ -34,11 +35,18 @@ th { background:#f3f3f3; }
 <table>
 <thead>
 <tr>
-<th>ID</th>
-<th>Name</th>
-<th>DOB</th>
-<th>Gender</th>
-<th>Action</th>
+<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
+<th>Native</th><th>Taluk</th><th>District</th><th>State</th><th>Nationality</th>
+<th>Religion</th><th>Category</th><th>Cast</th><th>MT</th><th>Blood</th>
+<th>Father</th><th>F Occ</th><th>F Org</th>
+<th>Mother</th><th>M Occ</th><th>M Org</th>
+<th>Income</th><th>Postal</th><th>Permanent</th>
+<th>Phone</th><th>Whatsapp</th><th>Email</th><th>SSLC State</th>
+<th>Aadhar</th><th>APAAR</th>
+<th>Medium</th><th>Year</th><th>Board</th><th>Total</th><th>Aggr</th>
+<th>Maths</th><th>Science</th>
+<th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
+<th>Created</th><th>Action</th>
 </tr>
 </thead>
 
@@ -51,68 +59,110 @@ for (Map<String, Object> row : list) {
 %>
 
 <tr>
+
 <td><%= row.get("id") %></td>
+<td><%= row.get("APPNO") %></td>
+<td><%= row.get("cast_no") %></td>
 <td><%= row.get("applicant_name") %></td>
 <td><%= row.get("date_of_birth") %></td>
 <td><%= row.get("gender") %></td>
+<td><%= row.get("Admission_type") %></td>
+
+<td><%= row.get("native_place") %></td>
+<td><%= row.get("taluk") %></td>
+<td><%= row.get("district") %></td>
+<td><%= row.get("state") %></td>
+<td><%= row.get("nationality") %></td>
+
+<td><%= row.get("religion_category") %></td>
+<td><%= row.get("category") %></td>
+<td><%= row.get("cast") %></td>
+<td><%= row.get("mother_tongue") %></td>
+<td><%= row.get("blood_group") %></td>
+
+<td><%= row.get("father_guardian_name") %></td>
+<td><%= row.get("father_occupation") %></td>
+<td><%= row.get("Father_org") %></td>
+
+<td><%= row.get("mother_name") %></td>
+<td><%= row.get("mother_occupation") %></td>
+<td><%= row.get("Mother_org") %></td>
+
+<td><%= row.get("income") %></td>
+<td><%= row.get("postal_address") %></td>
+<td><%= row.get("permanent_address") %></td>
+
+<td><%= row.get("phone_no") %></td>
+<td><%= row.get("Whatsapp_no") %></td>
+<td><%= row.get("email") %></td>
+<td><%= row.get("SSLC_State") %></td>
+
+<td><%= row.get("aadhar_no") %></td>
+<td><%= row.get("APAAR_ID") %></td>
+
+<td><%= row.get("medium_of_instruction") %></td>
+<td><%= row.get("sscl_passing_year") %></td>
+<td><%= row.get("SSLC_Board") %></td>
+<td><%= row.get("SSLC_TMarks") %></td>
+<td><%= row.get("SSLC_Aggr") %></td>
+
+<td><%= row.get("marks_maths") %></td>
+<td><%= row.get("marks_science") %></td>
+
+<td><%= row.get("preference_1") %></td>
+<td><%= row.get("preference_2") %></td>
+<td><%= row.get("preference_3") %></td>
+<td><%= row.get("preference_4") %></td>
+<td><%= row.get("preference_5") %></td>
+
+<td><%= row.get("created_at") %></td>
 
 <td>
-<button onclick="editRecord(this)"
+<button class="btn btn-primary btn-sm" onclick="editRecord(this)"
 
 data-id='<%= row.get("id") %>'
 data-name='<%= row.get("applicant_name") %>'
 data-dob='<%= row.get("date_of_birth") %>'
 data-gender='<%= row.get("gender") %>'
 data-admission='<%= row.get("Admission_type") %>'
-
 data-native='<%= row.get("native_place") %>'
 data-taluk='<%= row.get("taluk") %>'
 data-district='<%= row.get("district") %>'
 data-state='<%= row.get("state") %>'
 data-nationality='<%= row.get("nationality") %>'
-
 data-religion='<%= row.get("religion_category") %>'
 data-category='<%= row.get("category") %>'
+data-cast='<%= row.get("cast") %>'
 data-mt='<%= row.get("mother_tongue") %>'
 data-blood='<%= row.get("blood_group") %>'
-
 data-father='<%= row.get("father_guardian_name") %>'
-data-foccupation='<%= row.get("father_occupation") %>'
+data-focc='<%= row.get("father_occupation") %>'
 data-forg='<%= row.get("Father_org") %>'
-
 data-mother='<%= row.get("mother_name") %>'
-data-moccupation='<%= row.get("mother_occupation") %>'
+data-mocc='<%= row.get("mother_occupation") %>'
 data-morg='<%= row.get("Mother_org") %>'
-
 data-income='<%= row.get("income") %>'
-
 data-postal='<%= row.get("postal_address") %>'
 data-permanent='<%= row.get("permanent_address") %>'
-
 data-phone='<%= row.get("phone_no") %>'
 data-whatsapp='<%= row.get("Whatsapp_no") %>'
 data-email='<%= row.get("email") %>'
 data-aadhar='<%= row.get("aadhar_no") %>'
 data-apaar='<%= row.get("APAAR_ID") %>'
-
 data-medium='<%= row.get("medium_of_instruction") %>'
-data-sscl='<%= row.get("sscl_passing_year") %>'
+data-year='<%= row.get("sscl_passing_year") %>'
 data-board='<%= row.get("SSLC_Board") %>'
-data-tmarks='<%= row.get("SSLC_TMarks") %>'
-
+data-total='<%= row.get("SSLC_TMarks") %>'
+data-aggr='<%= row.get("SSLC_Aggr") %>'
 data-maths='<%= row.get("marks_maths") %>'
 data-science='<%= row.get("marks_science") %>'
-
 data-p1='<%= row.get("preference_1") %>'
 data-p2='<%= row.get("preference_2") %>'
 data-p3='<%= row.get("preference_3") %>'
 data-p4='<%= row.get("preference_4") %>'
 data-p5='<%= row.get("preference_5") %>'
 
-class="btn btn-primary btn-sm"
->
-Edit
-</button>
+>Edit</button>
 </td>
 
 </tr>
@@ -129,9 +179,7 @@ Edit
 <!-- MODAL -->
 <div class="modal fade" id="editModal">
 <div class="modal-dialog modal-lg">
-
 <form method="post" action="AdmissionListServlet">
-
 <div class="modal-content">
 
 <div class="modal-header">
@@ -141,71 +189,23 @@ Edit
 
 <div class="modal-body">
 
-<input type="hidden" name="id" id="m_id">
+<input type="hidden" id="m_id" name="id">
 
-<div class="row">
+<input id="m_name" name="applicant_name" class="form-control" placeholder="Name">
+<input type="date" id="m_dob" name="date_of_birth" class="form-control">
+<input id="m_gender" name="gender" class="form-control">
 
-<input class="form-control col-md-6" name="applicant_name" id="m_name" placeholder="Name">
-<input class="form-control col-md-6" type="date" name="date_of_birth" id="m_dob">
+<input id="m_native" name="native_place" class="form-control">
+<input id="m_taluk" name="taluk" class="form-control">
+<input id="m_district" name="district" class="form-control">
+<input id="m_state" name="state" class="form-control">
 
-<input class="form-control col-md-6" name="gender" id="m_gender" placeholder="Gender">
-<input class="form-control col-md-6" name="Admission_type" id="m_admission" placeholder="Admission Type">
+<input id="m_phone" name="phone_no" class="form-control">
+<input id="m_email" name="email" class="form-control">
 
-<input class="form-control col-md-6" name="native_place" id="m_native" placeholder="Native">
-<input class="form-control col-md-6" name="taluk" id="m_taluk" placeholder="Taluk">
+<input id="m_maths" name="marks_maths" class="form-control">
+<input id="m_science" name="marks_science" class="form-control">
 
-<input class="form-control col-md-6" name="district" id="m_district" placeholder="District">
-<input class="form-control col-md-6" name="state" id="m_state" placeholder="State">
-
-<input class="form-control col-md-6" name="nationality" id="m_nationality" placeholder="Nationality">
-<input class="form-control col-md-6" name="religion_category" id="m_religion" placeholder="Religion">
-
-<input class="form-control col-md-6" name="category" id="m_category" placeholder="Category">
-<input class="form-control col-md-6" name="mother_tongue" id="m_mt" placeholder="Mother Tongue">
-
-<input class="form-control col-md-6" name="blood_group" id="m_blood" placeholder="Blood Group">
-
-<input class="form-control col-md-6" name="father_guardian_name" id="m_father" placeholder="Father">
-<input class="form-control col-md-6" name="father_occupation" id="m_foccupation" placeholder="Father Occupation">
-
-<input class="form-control col-md-6" name="Father_org" id="m_forg" placeholder="Father Org">
-
-<input class="form-control col-md-6" name="mother_name" id="m_mother" placeholder="Mother">
-<input class="form-control col-md-6" name="mother_occupation" id="m_moccupation" placeholder="Mother Occupation">
-
-<input class="form-control col-md-6" name="Mother_org" id="m_morg" placeholder="Mother Org">
-
-<input class="form-control col-md-6" name="income" id="m_income" placeholder="Income">
-
-<textarea class="form-control col-md-6" name="postal_address" id="m_postal"></textarea>
-<textarea class="form-control col-md-6" name="permanent_address" id="m_permanent"></textarea>
-
-<input class="form-control col-md-6" name="phone_no" id="m_phone">
-<input class="form-control col-md-6" name="Whatsapp_no" id="m_whatsapp">
-
-<input class="form-control col-md-6" name="email" id="m_email">
-<input class="form-control col-md-6" name="aadhar_no" id="m_aadhar">
-
-<input class="form-control col-md-6" name="APAAR_ID" id="m_apaar">
-
-<input class="form-control col-md-6" name="medium_of_instruction" id="m_medium">
-<input class="form-control col-md-6" name="sscl_passing_year" id="m_sscl">
-
-<input class="form-control col-md-6" name="SSLC_Board" id="m_board">
-<input class="form-control col-md-6" name="SSLC_TMarks" id="m_tmarks">
-
-<input class="form-control col-md-6" name="marks_maths" id="m_maths">
-<input class="form-control col-md-6" name="marks_science" id="m_science">
-
-<input class="form-control col-md-6" name="preference_1" id="m_p1">
-<input class="form-control col-md-6" name="preference_2" id="m_p2">
-
-<input class="form-control col-md-6" name="preference_3" id="m_p3">
-<input class="form-control col-md-6" name="preference_4" id="m_p4">
-
-<input class="form-control col-md-6" name="preference_5" id="m_p5">
-
-</div>
 </div>
 
 <div class="modal-footer">
@@ -224,55 +224,18 @@ Edit
 function editRecord(btn){
 let b=$(btn);
 
-$('#m_id').val(b.data('id'));
-$('#m_name').val(b.data('name'));
-$('#m_dob').val(b.data('dob'));
-$('#m_gender').val(b.data('gender'));
-$('#m_admission').val(b.data('admission'));
-
-$('#m_native').val(b.data('native'));
-$('#m_taluk').val(b.data('taluk'));
-$('#m_district').val(b.data('district'));
-$('#m_state').val(b.data('state'));
-$('#m_nationality').val(b.data('nationality'));
-
-$('#m_religion').val(b.data('religion'));
-$('#m_category').val(b.data('category'));
-$('#m_mt').val(b.data('mt'));
-$('#m_blood').val(b.data('blood'));
-
-$('#m_father').val(b.data('father'));
-$('#m_foccupation').val(b.data('foccupation'));
-$('#m_forg').val(b.data('forg'));
-
-$('#m_mother').val(b.data('mother'));
-$('#m_moccupation').val(b.data('moccupation'));
-$('#m_morg').val(b.data('morg'));
-
-$('#m_income').val(b.data('income'));
-
-$('#m_postal').val(b.data('postal'));
-$('#m_permanent').val(b.data('permanent'));
-
-$('#m_phone').val(b.data('phone'));
-$('#m_whatsapp').val(b.data('whatsapp'));
-$('#m_email').val(b.data('email'));
-$('#m_aadhar').val(b.data('aadhar'));
-$('#m_apaar').val(b.data('apaar'));
-
-$('#m_medium').val(b.data('medium'));
-$('#m_sscl').val(b.data('sscl'));
-$('#m_board').val(b.data('board'));
-$('#m_tmarks').val(b.data('tmarks'));
-
-$('#m_maths').val(b.data('maths'));
-$('#m_science').val(b.data('science'));
-
-$('#m_p1').val(b.data('p1'));
-$('#m_p2').val(b.data('p2'));
-$('#m_p3').val(b.data('p3'));
-$('#m_p4').val(b.data('p4'));
-$('#m_p5').val(b.data('p5'));
+$('#m_id').val(b.attr('data-id'));
+$('#m_name').val(b.attr('data-name'));
+$('#m_dob').val(b.attr('data-dob'));
+$('#m_gender').val(b.attr('data-gender'));
+$('#m_native').val(b.attr('data-native'));
+$('#m_taluk').val(b.attr('data-taluk'));
+$('#m_district').val(b.attr('data-district'));
+$('#m_state').val(b.attr('data-state'));
+$('#m_phone').val(b.attr('data-phone'));
+$('#m_email').val(b.attr('data-email'));
+$('#m_maths').val(b.attr('data-maths'));
+$('#m_science').val(b.attr('data-science'));
 
 $('#editModal').modal('show');
 }
