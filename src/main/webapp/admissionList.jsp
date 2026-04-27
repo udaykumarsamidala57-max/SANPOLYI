@@ -121,46 +121,66 @@ for (Map<String, Object> row : list) {
 <button class="btn btn-primary btn-sm" onclick="editRecord(this)"
 
 data-id='<%= row.get("id") %>'
+
+data-appno='<%= row.get("APPNO") %>'
+data-castno='<%= row.get("cast_no") %>'
+
 data-name='<%= row.get("applicant_name") %>'
 data-dob='<%= row.get("date_of_birth") %>'
 data-gender='<%= row.get("gender") %>'
 data-admission='<%= row.get("Admission_type") %>'
+
 data-native='<%= row.get("native_place") %>'
 data-taluk='<%= row.get("taluk") %>'
 data-district='<%= row.get("district") %>'
 data-state='<%= row.get("state") %>'
 data-nationality='<%= row.get("nationality") %>'
+
 data-religion='<%= row.get("religion_category") %>'
 data-category='<%= row.get("category") %>'
 data-cast='<%= row.get("cast") %>'
 data-mt='<%= row.get("mother_tongue") %>'
 data-blood='<%= row.get("blood_group") %>'
+
 data-father='<%= row.get("father_guardian_name") %>'
 data-focc='<%= row.get("father_occupation") %>'
 data-forg='<%= row.get("Father_org") %>'
+
 data-mother='<%= row.get("mother_name") %>'
 data-mocc='<%= row.get("mother_occupation") %>'
 data-morg='<%= row.get("Mother_org") %>'
+
 data-income='<%= row.get("income") %>'
+
 data-postal='<%= row.get("postal_address") %>'
 data-permanent='<%= row.get("permanent_address") %>'
+
 data-phone='<%= row.get("phone_no") %>'
 data-whatsapp='<%= row.get("Whatsapp_no") %>'
 data-email='<%= row.get("email") %>'
+
+data-sslcstate='<%= row.get("SSLC_State") %>'
+
 data-aadhar='<%= row.get("aadhar_no") %>'
 data-apaar='<%= row.get("APAAR_ID") %>'
+
 data-medium='<%= row.get("medium_of_instruction") %>'
 data-year='<%= row.get("sscl_passing_year") %>'
+
 data-board='<%= row.get("SSLC_Board") %>'
 data-total='<%= row.get("SSLC_TMarks") %>'
 data-aggr='<%= row.get("SSLC_Aggr") %>'
+
 data-maths='<%= row.get("marks_maths") %>'
 data-science='<%= row.get("marks_science") %>'
+
 data-p1='<%= row.get("preference_1") %>'
 data-p2='<%= row.get("preference_2") %>'
 data-p3='<%= row.get("preference_3") %>'
 data-p4='<%= row.get("preference_4") %>'
 data-p5='<%= row.get("preference_5") %>'
+
+data-created='<%= row.get("created_at") %>'
 
 >Edit</button>
 </td>
