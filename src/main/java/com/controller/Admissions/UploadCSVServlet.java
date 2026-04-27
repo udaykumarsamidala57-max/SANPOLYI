@@ -32,7 +32,6 @@ public class UploadCSVServlet extends HttpServlet {
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(filePart.getInputStream()));
 
-            // ✅ Use column names (SAFE)
             String sql = "INSERT INTO admission_form (" +
                     "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, native_place, taluk, district, state, nationality, religion_category, category, cast, mother_tongue, blood_group, father_guardian_name, father_occupation, Father_org, mother_name, mother_occupation, Mother_org, income, postal_address, permanent_address, phone_no, Whatsapp_no, email, SSLC_State, aadhar_no, APAAR_ID, medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, marks_maths, marks_science, SSLC_Aggr, preference_1, preference_2, preference_3, preference_4, preference_5" +
                     ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -54,36 +53,36 @@ public class UploadCSVServlet extends HttpServlet {
                         String val = (i < data.length) ? data[i].trim() : "";
 
                         if (val.isEmpty()) {
-                            // NULL handling by type
-                            if (i == 3) {
+                            // Set NULL based on column type
+                            if (i == 3) { // date_of_birth
                                 ps.setNull(i + 1, Types.DATE);
-                            } else if (i == 22) {
+                            } else if (i == 22) { // income
                                 ps.setNull(i + 1, Types.DECIMAL);
-                            } else if (i == 32) {
+                            } else if (i == 32) { // year
                                 ps.setNull(i + 1, Types.INTEGER);
-                            } else if (i == 35 || i == 36) {
+                            } else if (i == 35 || i == 36) { // marks
                                 ps.setNull(i + 1, Types.DECIMAL);
                             } else {
                                 ps.setNull(i + 1, Types.VARCHAR);
                             }
 
                         } else {
-
-                            // TYPE conversion
-                            if (i == 3) { // DOB
-                                ps.setDate(i + 1, java.sql.Date.valueOf(val));
-
-                            } else if (i == 22) { // income
-                                ps.setDouble(i + 1, Double.parseDouble(val));
-
-                            } else if (i == 32) { // year
-                                ps.setInt(i + 1, Integer.parseInt(val));
-
-                            } else if (i == 35 || i == 36) { // marks
-                                ps.setDouble(i + 1, Double.parseDouble(val));
-
-                            } else {
-                                ps.setString(i + 1, val);
+                            // Convert types safely
+                            try {
+                                if (i == 3) {
+                                    ps.setDate(i + 1, java.sql.Date.valueOf(val));
+                                } else if (i == 22) {
+                                    ps.setDouble(i + 1, Double.parseDouble(val));
+                                } else if (i == 32) {
+                                    ps.setInt(i + 1, Integer.parseInt(val));
+                                } else if (i == 35 || i == 36) {
+                                    ps.setDouble(i + 1, Double.parseDouble(val));
+                                } else {
+                                    ps.setString(i + 1, val);
+                                }
+                            } catch (Exception ex) {
+                                // If conversion fails → set NULL
+                                ps.setNull(i + 1, Types.VARCHAR);
                             }
                         }
                     }
@@ -92,21 +91,17 @@ public class UploadCSVServlet extends HttpServlet {
                     batchSize++;
                     successCount++;
 
-                    // 🔥 Batch execute every 100 rows
                     if (batchSize == 100) {
                         ps.executeBatch();
                         batchSize = 0;
                     }
 
                 } catch (Exception rowEx) {
-                    // ❌ Skip bad row but continue
                     failCount++;
                     System.out.println("Skipping row: " + line);
-                    rowEx.printStackTrace();
                 }
             }
 
-            // execute remaining batch
             ps.executeBatch();
 
             br.close();
