@@ -25,7 +25,7 @@ public class AdmissionListServlet extends HttpServlet {
 
 	    try (Connection con = DBUtil3.getConnection()) {
 
-	        String sql = "SELECT *, `APAAR ID` AS apaar_id FROM admission_form WHERE 1=1";
+	        String sql = "SELECT *, `APAAR_ID` AS apaar_id FROM admission_form WHERE 1=1";
 
 	        PreparedStatement ps;
 
