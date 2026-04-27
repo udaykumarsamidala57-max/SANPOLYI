@@ -434,23 +434,74 @@ data-created='<%= row.get("created_at") %>'
 
 <script>
 function editRecord(btn){
-let b=$(btn);
+	let b=$(btn);
 
-$('#m_id').val(b.attr('data-id'));
-$('#m_name').val(b.attr('data-name'));
-$('#m_dob').val(b.attr('data-dob'));
-$('#m_gender').val(b.attr('data-gender'));
-$('#m_native').val(b.attr('data-native'));
-$('#m_taluk').val(b.attr('data-taluk'));
-$('#m_district').val(b.attr('data-district'));
-$('#m_state').val(b.attr('data-state'));
-$('#m_phone').val(b.attr('data-phone'));
-$('#m_email').val(b.attr('data-email'));
-$('#m_maths').val(b.attr('data-maths'));
-$('#m_science').val(b.attr('data-science'));
+	// BASIC
+	$('#m_id').val(b.attr('data-id'));
+	$('#m_appno').val(b.attr('data-appno'));
+	$('#m_castno').val(b.attr('data-castno'));
 
-$('#editModal').modal('show');
-}
+	$('#m_name').val(b.attr('data-name'));
+	$('#m_dob').val(b.attr('data-dob'));
+	$('#m_gender').val(b.attr('data-gender'));
+	$('#m_admission').val(b.attr('data-admission'));
+
+	// ADDRESS
+	$('#m_native').val(b.attr('data-native'));
+	$('#m_taluk').val(b.attr('data-taluk'));
+	$('#m_district').val(b.attr('data-district'));
+	$('#m_state').val(b.attr('data-state'));
+	$('#m_nationality').val(b.attr('data-nationality'));
+
+	// SOCIAL
+	$('#m_religion').val(b.attr('data-religion'));
+	$('#m_category').val(b.attr('data-category'));
+	$('#m_cast').val(b.attr('data-cast'));
+	$('#m_mt').val(b.attr('data-mt'));
+	$('#m_blood').val(b.attr('data-blood'));
+
+	// PARENTS
+	$('#m_father').val(b.attr('data-father'));
+	$('#m_focc').val(b.attr('data-focc'));
+	$('#m_forg').val(b.attr('data-forg'));
+
+	$('#m_mother').val(b.attr('data-mother'));
+	$('#m_mocc').val(b.attr('data-mocc'));
+	$('#m_morg').val(b.attr('data-morg'));
+
+	// CONTACT
+	$('#m_income').val(b.attr('data-income'));
+	$('#m_postal').val(b.attr('data-postal'));
+	$('#m_permanent').val(b.attr('data-permanent'));
+
+	$('#m_phone').val(b.attr('data-phone'));
+	$('#m_whatsapp').val(b.attr('data-whatsapp'));
+	$('#m_email').val(b.attr('data-email'));
+
+	$('#m_aadhar').val(b.attr('data-aadhar'));
+	$('#m_apaar').val(b.attr('data-apaar'));
+
+	// EDUCATION
+	$('#m_sslcstate').val(b.attr('data-sslcstate'));
+	$('#m_medium').val(b.attr('data-medium'));
+	$('#m_year').val(b.attr('data-year'));
+
+	$('#m_board').val(b.attr('data-board'));
+	$('#m_total').val(b.attr('data-total'));
+	$('#m_aggr').val(b.attr('data-aggr'));
+
+	$('#m_maths').val(b.attr('data-maths'));
+	$('#m_science').val(b.attr('data-science'));
+
+	// PREFERENCES
+	$('#m_p1').val(b.attr('data-p1'));
+	$('#m_p2').val(b.attr('data-p2'));
+	$('#m_p3').val(b.attr('data-p3'));
+	$('#m_p4').val(b.attr('data-p4'));
+	$('#m_p5').val(b.attr('data-p5'));
+
+	$('#editModal').modal('show');
+	}
 </script>
 
 </body>
