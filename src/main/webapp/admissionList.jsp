@@ -83,11 +83,11 @@ button {
 <th>Mother Tongue</th>
 <th>Blood Group</th>
 
-<th>Father</th>
+<th>Father Name</th>
 <th>Father Occupation</th>
 <th>Father Org</th>
 
-<th>Mother</th>
+<th>Mother Name</th>
 <th>Mother Occupation</th>
 <th>Mother Org</th>
 
