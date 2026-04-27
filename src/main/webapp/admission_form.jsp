@@ -271,7 +271,7 @@ button:hover {
             <div class="section-title">Academic Information</div>
             <div class="form-grid">
 
-                <p>SSlC Sate</p>
+                <p>SSLC Sate</p>
 
                 <select name="SSLC_State" required>
                     <option value="Karnataka">Karnataka</option>
@@ -281,9 +281,9 @@ button:hover {
                 <input type="text" name="medium_of_instruction" placeholder="Medium of Instruction">
                 <input type="number" name="sscl_passing_year" placeholder="SSLC Passing Year">
                 <input type="text" name="SSLC_Board" placeholder="SSLC_Board">
-                <input type="text" name="SSLC_TMarks" placeholder="SSLC_TMarks">
-                <input type="number" step="0.01" name="marks_maths" placeholder="Maths %">
-                <input type="number" step="0.01" name="marks_science" placeholder="Science %">
+                <input type="text" name="SSLC_TMarks" placeholder="SSLC Total Marks">
+                <input type="number" step="0.01" name="marks_maths" placeholder="Maths Marks">
+                <input type="number" step="0.01" name="marks_science" placeholder="Science Marks">
 
             </div>
         </div>
