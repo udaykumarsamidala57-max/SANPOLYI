@@ -8,6 +8,7 @@ com\controller\IndentPO.class
 com\controller\DiningHallServlet.class
 com\controller\Admissions\AdmissionListServlet.class
 com\bean\Indentlist.class
+com\controller\Admissions\UploadCSVServlet.class
 com\controller\IndentlistServlet.class
 com\controller\PO$1MergedItem.class
 com\controller\POListServlet.class
