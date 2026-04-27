@@ -178,7 +178,7 @@ data-p5='<%= row.get("preference_5") %>'
 
 <!-- MODAL -->
 <div class="modal fade" id="editModal">
-<div class="modal-dialog modal-lg">
+<div class="modal-dialog modal-xl"> <!-- wider -->
 <form method="post" action="AdmissionListServlet">
 <div class="modal-content">
 
@@ -191,21 +191,212 @@ data-p5='<%= row.get("preference_5") %>'
 
 <input type="hidden" id="m_id" name="id">
 
-<input id="m_name" name="applicant_name" class="form-control" placeholder="Name">
+<div class="row">
+
+<!-- BASIC -->
+<div class="col-md-4">
+<label>APP NO</label>
+<input id="m_appno" name="APPNO" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Cast No</label>
+<input id="m_castno" name="cast_no" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Name</label>
+<input id="m_name" name="applicant_name" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>DOB</label>
 <input type="date" id="m_dob" name="date_of_birth" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Gender</label>
 <input id="m_gender" name="gender" class="form-control">
+</div>
 
+<div class="col-md-4">
+<label>Admission Type</label>
+<input id="m_admission" name="Admission_type" class="form-control">
+</div>
+
+<!-- ADDRESS -->
+<div class="col-md-4">
+<label>Native</label>
 <input id="m_native" name="native_place" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Taluk</label>
 <input id="m_taluk" name="taluk" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>District</label>
 <input id="m_district" name="district" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>State</label>
 <input id="m_state" name="state" class="form-control">
+</div>
 
+<div class="col-md-4">
+<label>Nationality</label>
+<input id="m_nationality" name="nationality" class="form-control">
+</div>
+
+<!-- SOCIAL -->
+<div class="col-md-4">
+<label>Religion</label>
+<input id="m_religion" name="religion_category" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Category</label>
+<input id="m_category" name="category" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Cast</label>
+<input id="m_cast" name="cast" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Mother Tongue</label>
+<input id="m_mt" name="mother_tongue" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Blood Group</label>
+<input id="m_blood" name="blood_group" class="form-control">
+</div>
+
+<!-- PARENTS -->
+<div class="col-md-4">
+<label>Father Name</label>
+<input id="m_father" name="father_guardian_name" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Father Occupation</label>
+<input id="m_focc" name="father_occupation" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Father Org</label>
+<input id="m_forg" name="Father_org" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Mother Name</label>
+<input id="m_mother" name="mother_name" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Mother Occupation</label>
+<input id="m_mocc" name="mother_occupation" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Mother Org</label>
+<input id="m_morg" name="Mother_org" class="form-control">
+</div>
+
+<!-- CONTACT -->
+<div class="col-md-4">
+<label>Income</label>
+<input id="m_income" name="income" class="form-control">
+</div>
+
+<div class="col-md-6">
+<label>Postal Address</label>
+<textarea id="m_postal" name="postal_address" class="form-control"></textarea>
+</div>
+
+<div class="col-md-6">
+<label>Permanent Address</label>
+<textarea id="m_permanent" name="permanent_address" class="form-control"></textarea>
+</div>
+
+<div class="col-md-4">
+<label>Phone</label>
 <input id="m_phone" name="phone_no" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Whatsapp</label>
+<input id="m_whatsapp" name="Whatsapp_no" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Email</label>
 <input id="m_email" name="email" class="form-control">
+</div>
 
+<div class="col-md-4">
+<label>Aadhar</label>
+<input id="m_aadhar" name="aadhar_no" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>APAAR</label>
+<input id="m_apaar" name="APAAR_ID" class="form-control">
+</div>
+
+<!-- EDUCATION -->
+<div class="col-md-4">
+<label>SSLC State</label>
+<input id="m_sslcstate" name="SSLC_State" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Medium</label>
+<input id="m_medium" name="medium_of_instruction" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Year</label>
+<input id="m_year" name="sscl_passing_year" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Board</label>
+<input id="m_board" name="SSLC_Board" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Total Marks</label>
+<input id="m_total" name="SSLC_TMarks" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Aggregate</label>
+<input id="m_aggr" name="SSLC_Aggr" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Maths</label>
 <input id="m_maths" name="marks_maths" class="form-control">
-<input id="m_science" name="marks_science" class="form-control">
+</div>
 
+<div class="col-md-4">
+<label>Science</label>
+<input id="m_science" name="marks_science" class="form-control">
+</div>
+
+<!-- PREFERENCES -->
+<div class="col-md-4"><label>Preference 1</label><input id="m_p1" name="preference_1" class="form-control"></div>
+<div class="col-md-4"><label>Preference 2</label><input id="m_p2" name="preference_2" class="form-control"></div>
+<div class="col-md-4"><label>Preference 3</label><input id="m_p3" name="preference_3" class="form-control"></div>
+<div class="col-md-4"><label>Preference 4</label><input id="m_p4" name="preference_4" class="form-control"></div>
+<div class="col-md-4"><label>Preference 5</label><input id="m_p5" name="preference_5" class="form-control"></div>
+
+</div>
 </div>
 
 <div class="modal-footer">
@@ -214,6 +405,7 @@ data-p5='<%= row.get("preference_5") %>'
 
 </div>
 </form>
+
 </div>
 </div>
 

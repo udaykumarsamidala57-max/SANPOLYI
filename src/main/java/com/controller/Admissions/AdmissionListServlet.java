@@ -45,6 +45,9 @@ public class AdmissionListServlet extends HttpServlet {
 	                Map<String, Object> row = new HashMap<>();
 
 	                row.put("id", rs.getInt("id"));
+	                row.put("APPNO", rs.getString("APPNO"));
+	                row.put("cast_no", rs.getString("cast_no"));
+
 	                row.put("applicant_name", rs.getString("applicant_name"));
 	                row.put("date_of_birth", rs.getDate("date_of_birth"));
 	                row.put("gender", rs.getString("gender"));
@@ -70,7 +73,7 @@ public class AdmissionListServlet extends HttpServlet {
 	                row.put("mother_occupation", rs.getString("mother_occupation"));
 	                row.put("Mother_org", rs.getString("Mother_org"));
 
-	                row.put("income", rs.getDouble("income"));
+	                row.put("income", rs.getBigDecimal("income")); // better for decimal
 
 	                row.put("postal_address", rs.getString("postal_address"));
 	                row.put("permanent_address", rs.getString("permanent_address"));
@@ -78,17 +81,21 @@ public class AdmissionListServlet extends HttpServlet {
 	                row.put("phone_no", rs.getString("phone_no"));
 	                row.put("Whatsapp_no", rs.getString("Whatsapp_no"));
 	                row.put("email", rs.getString("email"));
+
+	                row.put("SSLC_State", rs.getString("SSLC_State"));
+
 	                row.put("aadhar_no", rs.getString("aadhar_no"));
-	                row.put("apaar_id", rs.getString("apaar_id")); // ✅ alias used
+	                row.put("APAAR_ID", rs.getString("APAAR_ID")); // FIXED
 
 	                row.put("medium_of_instruction", rs.getString("medium_of_instruction"));
 	                row.put("sscl_passing_year", rs.getString("sscl_passing_year"));
 
 	                row.put("SSLC_Board", rs.getString("SSLC_Board"));
 	                row.put("SSLC_TMarks", rs.getString("SSLC_TMarks"));
+	                row.put("SSLC_Aggr", rs.getString("SSLC_Aggr")); // ADDED
 
-	                row.put("marks_maths", rs.getDouble("marks_maths"));
-	                row.put("marks_science", rs.getDouble("marks_science"));
+	                row.put("marks_maths", rs.getBigDecimal("marks_maths"));
+	                row.put("marks_science", rs.getBigDecimal("marks_science"));
 
 	                row.put("preference_1", rs.getString("preference_1"));
 	                row.put("preference_2", rs.getString("preference_2"));
