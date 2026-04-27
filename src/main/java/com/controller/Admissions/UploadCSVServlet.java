@@ -7,6 +7,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import org.apache.commons.csv.*;
+
 import com.bean.DBUtil3;
 
 @WebServlet("/UploadCSV")
@@ -25,7 +27,7 @@ public class UploadCSVServlet extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            con.setAutoCommit(false); // ✅ IMPORTANT
+            con.setAutoCommit(false);
 
             Part filePart = request.getPart("file");
 
@@ -34,44 +36,44 @@ public class UploadCSVServlet extends HttpServlet {
                 return;
             }
 
-            BufferedReader br = new BufferedReader(
+            BufferedReader reader = new BufferedReader(
                     new InputStreamReader(filePart.getInputStream()));
 
+            CSVParser parser = new CSVParser(reader,
+                    CSVFormat.DEFAULT
+                            .withFirstRecordAsHeader()
+                            .withIgnoreEmptyLines()
+                            .withTrim());
+
             String sql = "INSERT INTO admission_form (" +
-                    "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, native_place, taluk, district, state, nationality, religion_category, category, cast, mother_tongue, blood_group, father_guardian_name, father_occupation, Father_org, mother_name, mother_occupation, Mother_org, income, postal_address, permanent_address, phone_no, Whatsapp_no, email, SSLC_State, aadhar_no, `APAAR_ID`, medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, marks_maths, marks_science, SSLC_Aggr, preference_1, preference_2, preference_3, preference_4, preference_5" +
+                    "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, native_place, taluk, district, state, nationality, religion_category, category, cast, mother_tongue, blood_group, father_guardian_name, father_occupation, Father_org, mother_name, mother_occupation, Mother_org, income, postal_address, permanent_address, phone_no, Whatsapp_no, email, SSLC_State, aadhar_no, APAAR_ID, medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, marks_maths, marks_science, SSLC_Aggr, preference_1, preference_2, preference_3, preference_4, preference_5" +
                     ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
-            String line;
-            br.readLine(); // skip header
-
             int batchSize = 0;
 
-            while ((line = br.readLine()) != null) {
+            for (CSVRecord record : parser) {
 
                 try {
-                    String[] data = line.split(",", -1);
 
-                    // 🔥 Fix: avoid crash if fewer columns
-                    if (data.length < TOTAL_COLUMNS) {
+                    if (record.size() != TOTAL_COLUMNS) {
                         failCount++;
-                        System.out.println("Skipped row (less columns): " + line);
+                        System.out.println("Column mismatch: " + record);
                         continue;
                     }
 
                     for (int i = 0; i < TOTAL_COLUMNS; i++) {
 
-                        String val = data[i].trim();
+                        String val = record.get(i).trim();
+
+                        // DEBUG (remove later)
+                        System.out.println("Col " + i + " = " + val);
 
                         if (val.isEmpty()) {
                             setNull(ps, i);
                         } else {
-                            try {
-                                setValue(ps, i, val);
-                            } catch (Exception e) {
-                                setNull(ps, i);
-                            }
+                            setValue(ps, i, val);
                         }
                     }
 
@@ -81,21 +83,21 @@ public class UploadCSVServlet extends HttpServlet {
 
                     if (batchSize == 100) {
                         ps.executeBatch();
-                        con.commit(); // ✅ IMPORTANT
+                        con.commit();
                         batchSize = 0;
                     }
 
-                } catch (Exception ex) {
+                } catch (Exception e) {
                     failCount++;
-                    System.out.println("Error row: " + line);
-                    ex.printStackTrace();
+                    System.out.println("Error row: " + record);
+                    e.printStackTrace();
                 }
             }
 
             ps.executeBatch();
-            con.commit(); // ✅ FINAL COMMIT
+            con.commit();
 
-            br.close();
+            parser.close();
             ps.close();
 
             response.getWriter().println("<h3 style='color:green;'>Uploaded: " + successCount + "</h3>");
