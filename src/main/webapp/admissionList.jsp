@@ -236,12 +236,20 @@ data-created='<%= row.get("created_at") %>'
 
 <div class="col-md-4">
 <label>Gender</label>
-<input id="m_gender" name="gender" class="form-control">
+<select id="m_gender" name="gender" class="form-control">
+    <option value="">-- Select Gender --</option>
+    <option value="M">Male</option>
+    <option value="F">Female</option>
+</select>
 </div>
 
 <div class="col-md-4">
 <label>Admission Type</label>
-<input id="m_admission" name="Admission_type" class="form-control">
+<select id="m_admission" name="Admission_type" class="form-control">
+    <option value="">-- Select Type --</option>
+    <option value="Dayscholar">Dayscholar</option>
+    <option value="Residential">Residential</option>
+</select>
 </div>
 
 <!-- ADDRESS -->
@@ -278,7 +286,17 @@ data-created='<%= row.get("created_at") %>'
 
 <div class="col-md-4">
 <label>Category</label>
-<input id="m_category" name="category" class="form-control">
+<select id="m_category" name="category" class="form-control">
+    <option value="">-- Select Category --</option>
+    <option value="SC">SC</option>
+    <option value="ST">ST</option>
+    <option value="C-1">C-1</option>
+    <option value="2A">2A</option>
+    <option value="2B">2B</option>
+    <option value="3A">3A</option>
+    <option value="3B">3B</option>
+    <option value="General">General</option>
+</select>
 </div>
 
 <div class="col-md-4">
@@ -386,7 +404,12 @@ data-created='<%= row.get("created_at") %>'
 
 <div class="col-md-4">
 <label>Board</label>
-<input id="m_board" name="SSLC_Board" class="form-control">
+<select id="m_board" name="SSLC_Board" class="form-control">
+    <option value="">-- Select Board --</option>
+    <option value="CBSE">CBSE</option>
+    <option value="State">State</option>
+    <option value="ICSE">ICSE</option>
+</select>
 </div>
 
 <div class="col-md-4">

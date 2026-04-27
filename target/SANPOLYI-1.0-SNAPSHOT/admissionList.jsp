@@ -121,46 +121,66 @@ for (Map<String, Object> row : list) {
 <button class="btn btn-primary btn-sm" onclick="editRecord(this)"
 
 data-id='<%= row.get("id") %>'
+
+data-appno='<%= row.get("APPNO") %>'
+data-castno='<%= row.get("cast_no") %>'
+
 data-name='<%= row.get("applicant_name") %>'
 data-dob='<%= row.get("date_of_birth") %>'
 data-gender='<%= row.get("gender") %>'
 data-admission='<%= row.get("Admission_type") %>'
+
 data-native='<%= row.get("native_place") %>'
 data-taluk='<%= row.get("taluk") %>'
 data-district='<%= row.get("district") %>'
 data-state='<%= row.get("state") %>'
 data-nationality='<%= row.get("nationality") %>'
+
 data-religion='<%= row.get("religion_category") %>'
 data-category='<%= row.get("category") %>'
 data-cast='<%= row.get("cast") %>'
 data-mt='<%= row.get("mother_tongue") %>'
 data-blood='<%= row.get("blood_group") %>'
+
 data-father='<%= row.get("father_guardian_name") %>'
 data-focc='<%= row.get("father_occupation") %>'
 data-forg='<%= row.get("Father_org") %>'
+
 data-mother='<%= row.get("mother_name") %>'
 data-mocc='<%= row.get("mother_occupation") %>'
 data-morg='<%= row.get("Mother_org") %>'
+
 data-income='<%= row.get("income") %>'
+
 data-postal='<%= row.get("postal_address") %>'
 data-permanent='<%= row.get("permanent_address") %>'
+
 data-phone='<%= row.get("phone_no") %>'
 data-whatsapp='<%= row.get("Whatsapp_no") %>'
 data-email='<%= row.get("email") %>'
+
+data-sslcstate='<%= row.get("SSLC_State") %>'
+
 data-aadhar='<%= row.get("aadhar_no") %>'
 data-apaar='<%= row.get("APAAR_ID") %>'
+
 data-medium='<%= row.get("medium_of_instruction") %>'
 data-year='<%= row.get("sscl_passing_year") %>'
+
 data-board='<%= row.get("SSLC_Board") %>'
 data-total='<%= row.get("SSLC_TMarks") %>'
 data-aggr='<%= row.get("SSLC_Aggr") %>'
+
 data-maths='<%= row.get("marks_maths") %>'
 data-science='<%= row.get("marks_science") %>'
+
 data-p1='<%= row.get("preference_1") %>'
 data-p2='<%= row.get("preference_2") %>'
 data-p3='<%= row.get("preference_3") %>'
 data-p4='<%= row.get("preference_4") %>'
 data-p5='<%= row.get("preference_5") %>'
+
+data-created='<%= row.get("created_at") %>'
 
 >Edit</button>
 </td>
@@ -216,12 +236,20 @@ data-p5='<%= row.get("preference_5") %>'
 
 <div class="col-md-4">
 <label>Gender</label>
-<input id="m_gender" name="gender" class="form-control">
+<select id="m_gender" name="gender" class="form-control">
+    <option value="">-- Select Gender --</option>
+    <option value="M">Male</option>
+    <option value="F">Female</option>
+</select>
 </div>
 
 <div class="col-md-4">
 <label>Admission Type</label>
-<input id="m_admission" name="Admission_type" class="form-control">
+<select id="m_admission" name="Admission_type" class="form-control">
+    <option value="">-- Select Type --</option>
+    <option value="Dayscholar">Dayscholar</option>
+    <option value="Residential">Residential</option>
+</select>
 </div>
 
 <!-- ADDRESS -->
@@ -258,7 +286,17 @@ data-p5='<%= row.get("preference_5") %>'
 
 <div class="col-md-4">
 <label>Category</label>
-<input id="m_category" name="category" class="form-control">
+<select id="m_category" name="category" class="form-control">
+    <option value="">-- Select Category --</option>
+    <option value="SC">SC</option>
+    <option value="ST">ST</option>
+    <option value="C-1">C-1</option>
+    <option value="2A">2A</option>
+    <option value="2B">2B</option>
+    <option value="3A">3A</option>
+    <option value="3B">3B</option>
+    <option value="General">General</option>
+</select>
 </div>
 
 <div class="col-md-4">
@@ -366,7 +404,12 @@ data-p5='<%= row.get("preference_5") %>'
 
 <div class="col-md-4">
 <label>Board</label>
-<input id="m_board" name="SSLC_Board" class="form-control">
+<select id="m_board" name="SSLC_Board" class="form-control">
+    <option value="">-- Select Board --</option>
+    <option value="CBSE">CBSE</option>
+    <option value="State">State</option>
+    <option value="ICSE">ICSE</option>
+</select>
 </div>
 
 <div class="col-md-4">
@@ -414,23 +457,74 @@ data-p5='<%= row.get("preference_5") %>'
 
 <script>
 function editRecord(btn){
-let b=$(btn);
+	let b=$(btn);
 
-$('#m_id').val(b.attr('data-id'));
-$('#m_name').val(b.attr('data-name'));
-$('#m_dob').val(b.attr('data-dob'));
-$('#m_gender').val(b.attr('data-gender'));
-$('#m_native').val(b.attr('data-native'));
-$('#m_taluk').val(b.attr('data-taluk'));
-$('#m_district').val(b.attr('data-district'));
-$('#m_state').val(b.attr('data-state'));
-$('#m_phone').val(b.attr('data-phone'));
-$('#m_email').val(b.attr('data-email'));
-$('#m_maths').val(b.attr('data-maths'));
-$('#m_science').val(b.attr('data-science'));
+	// BASIC
+	$('#m_id').val(b.attr('data-id'));
+	$('#m_appno').val(b.attr('data-appno'));
+	$('#m_castno').val(b.attr('data-castno'));
 
-$('#editModal').modal('show');
-}
+	$('#m_name').val(b.attr('data-name'));
+	$('#m_dob').val(b.attr('data-dob'));
+	$('#m_gender').val(b.attr('data-gender'));
+	$('#m_admission').val(b.attr('data-admission'));
+
+	// ADDRESS
+	$('#m_native').val(b.attr('data-native'));
+	$('#m_taluk').val(b.attr('data-taluk'));
+	$('#m_district').val(b.attr('data-district'));
+	$('#m_state').val(b.attr('data-state'));
+	$('#m_nationality').val(b.attr('data-nationality'));
+
+	// SOCIAL
+	$('#m_religion').val(b.attr('data-religion'));
+	$('#m_category').val(b.attr('data-category'));
+	$('#m_cast').val(b.attr('data-cast'));
+	$('#m_mt').val(b.attr('data-mt'));
+	$('#m_blood').val(b.attr('data-blood'));
+
+	// PARENTS
+	$('#m_father').val(b.attr('data-father'));
+	$('#m_focc').val(b.attr('data-focc'));
+	$('#m_forg').val(b.attr('data-forg'));
+
+	$('#m_mother').val(b.attr('data-mother'));
+	$('#m_mocc').val(b.attr('data-mocc'));
+	$('#m_morg').val(b.attr('data-morg'));
+
+	// CONTACT
+	$('#m_income').val(b.attr('data-income'));
+	$('#m_postal').val(b.attr('data-postal'));
+	$('#m_permanent').val(b.attr('data-permanent'));
+
+	$('#m_phone').val(b.attr('data-phone'));
+	$('#m_whatsapp').val(b.attr('data-whatsapp'));
+	$('#m_email').val(b.attr('data-email'));
+
+	$('#m_aadhar').val(b.attr('data-aadhar'));
+	$('#m_apaar').val(b.attr('data-apaar'));
+
+	// EDUCATION
+	$('#m_sslcstate').val(b.attr('data-sslcstate'));
+	$('#m_medium').val(b.attr('data-medium'));
+	$('#m_year').val(b.attr('data-year'));
+
+	$('#m_board').val(b.attr('data-board'));
+	$('#m_total').val(b.attr('data-total'));
+	$('#m_aggr').val(b.attr('data-aggr'));
+
+	$('#m_maths').val(b.attr('data-maths'));
+	$('#m_science').val(b.attr('data-science'));
+
+	// PREFERENCES
+	$('#m_p1').val(b.attr('data-p1'));
+	$('#m_p2').val(b.attr('data-p2'));
+	$('#m_p3').val(b.attr('data-p3'));
+	$('#m_p4').val(b.attr('data-p4'));
+	$('#m_p5').val(b.attr('data-p5'));
+
+	$('#editModal').modal('show');
+	}
 </script>
 
 </body>
