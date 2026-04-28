@@ -191,6 +191,7 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
      <a href="admission_form.jsp"><i class="fas fa-file-signature"></i> Enquiry Form</a>
       <a href="AdmissionListServlet"><i class="fas fa-search"></i> Enquiries</a>
       <a href="Marks"><i class="fas fa-search"></i> Marks Entry</a>
+      <a href="Tabulation"><i class="fas fa-search"></i> Tabulation</a>
       <% } %>
       
       
