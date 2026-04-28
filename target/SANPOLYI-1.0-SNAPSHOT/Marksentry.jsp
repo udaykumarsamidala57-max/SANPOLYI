@@ -40,6 +40,8 @@ input { text-align:center; }
 <thead>
 <tr>
     <th>ID</th>
+    <th>App. No</th>
+    <th>Catg. No</th>
     <th>Name</th>
     <th>Maths</th>
     <th>Science</th>
@@ -74,6 +76,9 @@ String id=row.get("id");
     <%=id%>
 </td>
 
+
+<td style="text-align:left;"><%=row.get("APPNO")%></td>
+<td style="text-align:left;"><%=row.get("cast_no")%></td>
 <td style="text-align:left;"><%=row.get("name")%></td>
 
 <td><input name="maths" value="<%=row.get("maths")%>" class="form-control" readonly></td>

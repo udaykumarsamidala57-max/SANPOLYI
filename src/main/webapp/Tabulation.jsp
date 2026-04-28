@@ -64,18 +64,18 @@ function downloadExcel() {
 
 <thead>
 <tr>
-<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
+<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>Gender</th><th>Admission</th>
 
-<th>Religion</th><th>Category</th><th>Cast</th><th>Mother Tongue</th>
 
-<th>Father Name</th><th>F Occupation</th><th>F Org</th>
-<th>Mother Name</th><th>M Occupation</th><th>M Org</th>
 
-<th>Whatsapp</th><th>Email</th>
+<th>Father Name</th><th>F Occupation</th>
 
-<th>SSLC State</th><th>Aadhar</th><th>APAAR</th>
 
-<th>Medium</th><th>Year</th><th>Board</th>
+<th>Whatsapp</th>
+
+<th>SSLC State</th>
+
+
 <th>Total Marks</th><th>Aggregate</th>
 <th>Maths</th><th>Science</th>
 
@@ -100,35 +100,32 @@ if (list != null) {
 <tr>
 <td><%= val(row.get("id")) %></td>
 <td><%= val(row.get("APPNO")) %></td>
-<td><%= val(row.get("cast_no")) %></td>
+
 <td><%= val(row.get("applicant_name")) %></td>
-<td><%= val(row.get("date_of_birth")) %></td>
+
 <td><%= val(row.get("gender")) %></td>
 <td><%= val(row.get("Admission_type")) %></td>
 
-<td><%= val(row.get("religion_category")) %></td>
-<td><%= val(row.get("category")) %></td>
+
+
 <td><%= val(row.get("cast")) %></td>
-<td><%= val(row.get("mother_tongue")) %></td>
+
 
 <td><%= val(row.get("father_guardian_name")) %></td>
 <td><%= val(row.get("father_occupation")) %></td>
-<td><%= val(row.get("Father_org")) %></td>
 
-<td><%= val(row.get("mother_name")) %></td>
-<td><%= val(row.get("mother_occupation")) %></td>
-<td><%= val(row.get("Mother_org")) %></td>
+
+
 
 <td><%= val(row.get("Whatsapp_no")) %></td>
-<td><%= val(row.get("email")) %></td>
+
 
 <td><%= val(row.get("SSLC_State")) %></td>
-<td><%= val(row.get("aadhar_no")) %></td>
-<td><%= val(row.get("APAAR_ID")) %></td>
 
-<td><%= val(row.get("medium_of_instruction")) %></td>
-<td><%= val(row.get("sscl_passing_year")) %></td>
-<td><%= val(row.get("SSLC_Board")) %></td>
+
+
+
+
 <td><%= val(row.get("SSLC_TMarks")) %></td>
 <td><%= val(row.get("SSLC_Aggr")) %></td>
 
