@@ -41,7 +41,6 @@ public class UploadCSVServlet extends HttpServlet {
 
             CSVParser parser = new CSVParser(reader,
                     CSVFormat.DEFAULT
-                            .withFirstRecordAsHeader()
                             .withIgnoreEmptyLines()
                             .withTrim());
 
@@ -62,8 +61,15 @@ public class UploadCSVServlet extends HttpServlet {
             PreparedStatement ps = con.prepareStatement(sql);
 
             int batchSize = 0;
+            boolean isHeaderSkipped = false;
 
             for (CSVRecord record : parser) {
+
+                // ✅ skip header manually
+                if (!isHeaderSkipped) {
+                    isHeaderSkipped = true;
+                    continue;
+                }
 
                 try {
 
@@ -74,7 +80,7 @@ public class UploadCSVServlet extends HttpServlet {
                         if (isNullValue(val)) {
                             setNull(ps, i);
                         } else {
-                            setValue(ps, i, val);
+                            setValue(ps, i, val.trim());
                         }
                     }
 
@@ -83,20 +89,19 @@ public class UploadCSVServlet extends HttpServlet {
                     batchSize++;
 
                     if (batchSize == 100) {
-                        ps.executeBatch();
-                        con.commit();
+                        executeBatchSafe(ps, con);
                         batchSize = 0;
                     }
 
                 } catch (Exception e) {
                     failCount++;
-                    System.out.println("❌ Error row: " + record);
+                    System.out.println("❌ Row Failed: " + record);
                     e.printStackTrace();
                 }
             }
 
-            ps.executeBatch();
-            con.commit();
+            // final batch
+            executeBatchSafe(ps, con);
 
             parser.close();
             ps.close();
@@ -106,11 +111,35 @@ public class UploadCSVServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("<h3 style='color:red;'>Error: " + e.getMessage() + "</h3>");
+            response.getWriter().println("<h3 style='color:red;'>Fatal Error: " + e.getMessage() + "</h3>");
         }
     }
 
-    // ✅ SAFE VALUE FETCH (handles missing columns)
+    // ✅ SAFE BATCH EXECUTION
+    private void executeBatchSafe(PreparedStatement ps, Connection con) {
+        try {
+            ps.executeBatch();
+            con.commit();
+        } catch (BatchUpdateException bue) {
+
+            System.out.println("🔥 BATCH ERROR");
+            try {
+                con.rollback();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            SQLException ex = bue.getNextException();
+            while (ex != null) {
+                System.out.println("👉 SQL Error: " + ex.getMessage());
+                ex = ex.getNextException();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ✅ SAFE VALUE
     private String getSafeValue(CSVRecord record, int index) {
         try {
             return record.get(index);
@@ -147,15 +176,15 @@ public class UploadCSVServlet extends HttpServlet {
 
         try {
 
-            if (i == 3) {
+            if (i == 3) { // DATE
                 ps.setDate(i + 1, java.sql.Date.valueOf(val));
             }
 
-            else if (i == 22 || i == 35 || i == 36) {
+            else if (i == 22 || i == 35 || i == 36) { // DECIMAL
                 ps.setDouble(i + 1, Double.parseDouble(val.replace(",", "")));
             }
 
-            else if (i == 32) {
+            else if (i == 32) { // YEAR
                 ps.setInt(i + 1, Integer.parseInt(val));
             }
 
@@ -164,7 +193,7 @@ public class UploadCSVServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            System.out.println("⚠ Invalid data at column " + i + " value=" + val);
+            System.out.println("⚠ Invalid data col=" + i + " value=" + val);
             ps.setNull(i + 1, Types.VARCHAR);
         }
     }
