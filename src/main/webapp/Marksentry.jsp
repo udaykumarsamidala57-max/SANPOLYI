@@ -219,7 +219,7 @@ let ets=parseFloat($('#m_ets').val())||0;
 let avg=(m+s)/2;
 $('#m_aggr').val(avg.toFixed(2));
 
-let ett=etm+ets;
+let ett=(etm+ets)/2;
 $('#m_ett').val(ett.toFixed(2));
 
 let total=avg+board+puc+girls+ett;
