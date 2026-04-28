@@ -23,7 +23,6 @@ String User = (String) sess.getAttribute("username");
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-<style>
 
 body { 
     background:#f4f6f9; 
@@ -31,33 +30,24 @@ body {
     padding:0;
 }
 
-/* Full-width container */
-.container-fluid {
-    padding:20px;
+/* Container full responsive */
+.container {
+    max-width:100% !important;
 }
 
-/* Box styling */
 .container-box {
     background:#fff;
-    padding:30px;
+    padding:15px;
     border-radius:8px;
     margin-top:20px;
-    width:auto;
-    max-width:auto;
-    overflow:hidden;
-}
-
-/* Responsive table wrapper */
-.table-responsive {
     width:100%;
-    overflow-x:auto;        /* horizontal scroll if needed */
 }
 
-/* Table styling */
+/* Table */
 .table {
     width:100%;
-    border-collapse:collapse;
-    min-width:1200px;       /* ensures columns don’t shrink too much */
+    table-layout:auto;
+    font-size:13px;              /* smaller font to fit */
 }
 
 /* Header */
@@ -65,35 +55,38 @@ body {
     background:#002147; 
     color:#fff; 
     text-align:center; 
-    padding:14px;
-    font-size:14px;
-    white-space:nowrap;     /* keep header in one line */
+    padding:8px;
+    font-size:12px;
+    white-space:normal;          /* allow wrapping */
 }
 
 /* Cells */
 .table td { 
     text-align:center; 
-    padding:10px;
-    white-space:nowrap;     /* prevents text breaking */
+    padding:6px;
+    white-space:normal;          /* allow wrapping */
+    word-break:break-word;
 }
 
-/* Inputs inside table */
+/* Inputs */
 .table input {
     width:100%;
-    min-width:120px;        /* prevents too small inputs */
-    padding:6px;
+    min-width:60px;              /* reduced */
+    padding:4px;
+    font-size:12px;
     text-align:center;
     box-sizing:border-box;
 }
 
-/* Optional: better hover effect */
-.table tbody tr:hover {
-    background:#f1f1f1;
+/* Button */
+.btn-sm {
+    padding:3px 6px;
+    font-size:12px;
 }
 
-/* Optional: zebra rows */
-.table tbody tr:nth-child(even) {
-    background:#fafafa;
+/* Optional compact table */
+.table-sm td, .table-sm th {
+    padding:5px;
 }
 
 </style>
