@@ -34,29 +34,65 @@ th { background:#f3f3f3; }
 <table>
 <thead>
 <tr>
-<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
+<th>ID</th>
+<th>APPNO</th>
+<th>Cast No</th>
+<th>Name</th>
+<th>DOB</th>
+<th>Gender</th>
+<th>Admission</th>
 
-<th>Native</th><th>Taluk</th><th>District</th><th>State</th><th>Nationality</th>
+<!-- SOCIAL -->
+<th>Religion</th>
+<th>Category</th>
+<th>Cast</th>
+<th>Mother Tongue</th>
+<th>Blood</th>
 
-<th>Religion</th><th>Category</th><th>Cast</th><th>MT</th><th>Blood</th>
+<!-- PARENTS -->
+<th>Father Name</th>
+<th>F Occ</th>
+<th>F Org</th>
+<th>Mother Name</th>
+<th>M Occ</th>
+<th>M Org</th>
 
-<th>Father Name</th><th>F Occ</th><th>F Org</th>
-<th>Mother Name</th><th>M Occ</th><th>M Org</th>
+<!-- CONTACT -->
+<th>Income</th>
+<th>Postal Address</th>
+<th>Permanent Address</th>
+<th>Phone</th>
+<th>Whatsapp</th>
+<th>Email</th>
 
-<th>Income</th><th>Postal</th><th>Permanent</th>
+<!-- IDS -->
+<th>SSLC State</th>
+<th>Aadhar</th>
+<th>APAAR</th>
 
-<th>Phone</th><th>Whatsapp</th><th>Email</th>
+<!-- EDUCATION -->
+<th>Medium</th>
+<th>Year</th>
+<th>Board</th>
+<th>Total Marks</th>
+<th>Aggregate</th>
+<th>Maths</th>
+<th>Science</th>
 
-<th>SSLC State</th><th>Aadhar</th><th>APAAR</th>
-
-<th>Medium</th><th>Year</th><th>Board</th><th>Total Marks</th><th>Aggr</th>
-<th>Maths</th><th>Science</th>
-
-<th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
+<!-- PREFERENCES -->
+<th>P1</th>
+<th>P2</th>
+<th>P3</th>
+<th>P4</th>
+<th>P5</th>
 
 <!-- NEW -->
-<th>CBSE/ICSE</th><th>PUC/SC</th><th>Girls</th>
-<th>ET Maths</th><th>ET Science</th><th>ET Total</th>
+<th>CBSE/ICSE</th>
+<th>PUC/SC</th>
+<th>Girls</th>
+<th>ET Maths</th>
+<th>ET Science</th>
+<th>ET Total</th>
 <th>Grand Total</th>
 
 <th>Created</th>
