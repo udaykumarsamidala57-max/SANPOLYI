@@ -42,8 +42,8 @@ body {
     padding:30px;
     border-radius:8px;
     margin-top:20px;
-    width:100%;
-    max-width:100%;
+    width:auto;
+    max-width:auto;
     overflow:hidden;
 }
 
