@@ -169,32 +169,6 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 
 
 </div>
-</div>
 
-
-
-
-
-<!-- COURSE -->
-<div class="section">
-<div class="section-title">Preferences</div>
-<div class="form-grid">
-
-<select name="preference_1"><option>EE</option><option>CS</option></select>
-<select name="preference_2"><option>EE</option><option>CS</option></select>
-<select name="preference_3"><option>EE</option><option>CS</option></select>
-<select name="preference_4"><option>EE</option><option>CS</option></select>
-<select name="preference_5"><option>EE</option><option>CS</option></select>
-
-</div>
-</div>
-
-<div class="submit-box">
-<button type="submit">Submit</button>
-</div>
-
-</form>
-
-</div>
 </body>
 </html>
