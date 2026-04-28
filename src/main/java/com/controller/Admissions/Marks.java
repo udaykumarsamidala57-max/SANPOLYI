@@ -26,9 +26,9 @@ public class Marks extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "SELECT id, applicant_name, marks_maths, marks_science, SSLC_Aggr, " +
-                         "CBSC_ICSE AS board, PUC_SC AS puc, GIRLS, ET_m,ET_T,Total " +
-                         "FROM admission_form ORDER BY id DESC";
+        	String sql = "SELECT id, applicant_name, marks_maths, marks_science, SSLC_Aggr, " +
+                    "CBSC_ICSE AS board, PUC_SC AS puc, GIRLS, ET_m, ET_s, ET_T, Total " +
+                    "FROM admission_form ORDER BY id DESC";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -55,7 +55,7 @@ public class Marks extends HttpServlet {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();  // already good
             System.out.println("ERROR in GET: " + e.getMessage());
         }
 
