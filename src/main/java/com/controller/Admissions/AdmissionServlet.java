@@ -28,9 +28,8 @@ public class AdmissionServlet extends HttpServlet {
         	        + "marks_maths, marks_science, SSLC_Aggr, "
         	        + "preference_1, preference_2, preference_3, preference_4, preference_5"
         	        + ") VALUES ("
-        	        + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"
+        	        + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"
         	        + ")";
-
             PreparedStatement ps = con.prepareStatement(sql);
 
             int i = 1;
@@ -75,7 +74,7 @@ public class AdmissionServlet extends HttpServlet {
             ps.setString(i++, getVal(request, "APAAR_ID"));
 
             ps.setString(i++, getVal(request, "medium_of_instruction"));
-            ps.setInt(i++, Integer.parseInt(request.getParameter("sscl_passing_year")));
+            ps.setInt(i++, parseInt(request.getParameter("sscl_passing_year")));
             ps.setString(i++, getVal(request, "SSLC_Board"));
             ps.setString(i++, getVal(request, "SSLC_TMarks"));
 
@@ -120,6 +119,13 @@ public class AdmissionServlet extends HttpServlet {
             return (val == null || val.isEmpty()) ? 0.0 : Double.parseDouble(val);
         } catch (Exception e) {
             return 0.0;
+        }
+    }
+    private int parseInt(String val) {
+        try {
+            return (val == null || val.trim().isEmpty()) ? 0 : Integer.parseInt(val);
+        } catch (Exception e) {
+            return 0;
         }
     }
 }
