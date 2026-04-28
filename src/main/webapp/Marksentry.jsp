@@ -33,14 +33,14 @@ body { background:#f4f6f9; }
 }
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center;padding:auto; }
-input { text-align:center; min-width: 40px; }
+input { text-align:center; min-width: 60px; }
 </style>
 </head>
 
 <body>
 <%@ include file="header.jsp" %>
-<div class="container">
-<div class="container-box">
+
+
 
 <h3>Marks Entry </h3>
 
