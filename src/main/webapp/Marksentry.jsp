@@ -32,7 +32,7 @@ input { text-align:center; }
 <div class="container">
 <div class="container-box">
 
-<h3>Marks Entry (Inline Edit)</h3>
+<h3>Marks Entry </h3>
 
 <div class="table-responsive">
 <table class="table table-bordered table-sm table-hover">
@@ -44,7 +44,7 @@ input { text-align:center; }
     <th>Maths</th>
     <th>Science</th>
     <th>Aggr</th>
-    <th>Board</th>
+    <th>Board(CBSE/ICSE)</th>
     <th>PUC</th>
     <th>Girls</th>
     <th>ET M</th>

@@ -69,16 +69,16 @@ for (Map<String, Object> row : list) {
 <td><%= row.get("Admission_type") %></td>
 
 <td><%= row.get("native_place") %></td>
-<td><%= row.get("taluk") %></td>
-<td><%= row.get("district") %></td>
-<td><%= row.get("state") %></td>
-<td><%= row.get("nationality") %></td>
+<!--<td><%= row.get("taluk") %></td> -->
+<!--<td><%= row.get("district") %></td>-->
+<!--<td><%= row.get("state") %></td>-->
+<!--<td><%= row.get("nationality") %></td>-->
 
 <td><%= row.get("religion_category") %></td>
 <td><%= row.get("category") %></td>
 <td><%= row.get("cast") %></td>
 <td><%= row.get("mother_tongue") %></td>
-<td><%= row.get("blood_group") %></td>
+<!--<td><%= row.get("blood_group") %></td>-->
 
 <td><%= row.get("father_guardian_name") %></td>
 <td><%= row.get("father_occupation") %></td>
