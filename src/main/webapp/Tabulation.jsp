@@ -31,6 +31,9 @@ th { background:#f3f3f3; }
 <h4>SANPOLY - Admission Records</h4>
 
 <div class="table-wrapper">
+
+<table class="table table-bordered table-sm">
+
 <thead>
 <tr>
 <th>ID</th>
@@ -55,7 +58,7 @@ th { background:#f3f3f3; }
 <th>M Occupation</th>
 <th>M Org</th>
 
-<!-- CONTACT (ONLY WHAT YOU SHOW) -->
+<!-- CONTACT -->
 <th>Whatsapp</th>
 <th>Email</th>
 
@@ -89,8 +92,10 @@ th { background:#f3f3f3; }
 <th>ET Total</th>
 <th>Grand Total</th>
 
+<th>Created</th>
 </tr>
 </thead>
+
 <tbody>
 
 <%
@@ -108,14 +113,11 @@ if (list != null) {
 <td><%= row.get("gender") %></td>
 <td><%= row.get("Admission_type") %></td>
 
-
-
 <!-- SOCIAL -->
 <td><%= row.get("religion_category") %></td>
 <td><%= row.get("category") %></td>
 <td><%= row.get("cast") %></td>
 <td><%= row.get("mother_tongue") %></td>
-
 
 <!-- PARENTS -->
 <td><%= row.get("father_guardian_name") %></td>
@@ -126,9 +128,7 @@ if (list != null) {
 <td><%= row.get("mother_occupation") %></td>
 <td><%= row.get("Mother_org") %></td>
 
-
-
-
+<!-- CONTACT -->
 <td><%= row.get("Whatsapp_no") %></td>
 <td><%= row.get("email") %></td>
 
@@ -154,7 +154,7 @@ if (list != null) {
 <td><%= row.get("preference_4") %></td>
 <td><%= row.get("preference_5") %></td>
 
-<!-- NEW FIELDS -->
+<!-- NEW -->
 <td><%= row.get("CBSC_ICSE") %></td>
 <td><%= row.get("PUC_SC") %></td>
 <td><%= row.get("GIRLS") %></td>
@@ -165,7 +165,7 @@ if (list != null) {
 
 <td><%= row.get("Total") %></td>
 
-
+<td><%= row.get("created_at") %></td>
 </tr>
 
 <%
@@ -175,6 +175,7 @@ if (list != null) {
 
 </tbody>
 </table>
+
 </div>
 
 </body>
