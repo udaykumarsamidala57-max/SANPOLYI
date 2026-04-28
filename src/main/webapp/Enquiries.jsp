@@ -57,12 +57,12 @@ input, textarea, select {
 <table>
 <thead>
 <tr>
-<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
+<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>Gender</th><th>Admission</th>
 
 
-<th>Father</th><th>F Occ</th><th>F Org</th>
+<th>Father Name</th><th>F Occ</th><th>F Org</th>
 <th>Mother</th><th>M Occ</th><th>M Org</th>
-<th>Income</th><th>Postal</th><th>Permanent</th>
+<th>Income</th><th>Postal</th>
 <th>Phone</th><th>Whatsapp</th><th>Email</th><th>SSLC State</th>
 <th>Aadhar</th><th>APAAR</th>
 <th>Medium</th><th>Year</th><th>Board</th><th>Total</th><th>Aggr</th>
@@ -105,7 +105,7 @@ String dob = (row.get("date_of_birth") != null) ? row.get("date_of_birth").toStr
 
 <td><%= row.get("income") %></td>
 <td><%= row.get("postal_address") %></td>
-<td><%= row.get("permanent_address") %></td>
+
 
 <td><%= row.get("phone_no") %></td>
 <td><%= row.get("Whatsapp_no") %></td>
