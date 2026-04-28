@@ -36,7 +36,7 @@ width :auto;
 }
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center;padding:auto; }
-input { text-align:center; min-width: 60px; }
+input { text-align:center;  }
 </style>
 </head>
 
