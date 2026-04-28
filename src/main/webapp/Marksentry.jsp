@@ -31,6 +31,9 @@ body { background:#f4f6f9; }
     margin-top:40px;
  width:auto;
 }
+.table{
+width :auto;
+}
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center;padding:auto; }
 input { text-align:center; min-width: 60px; }
@@ -45,7 +48,7 @@ input { text-align:center; min-width: 60px; }
 <h3>Marks Entry </h3>
 
 <div class="table-responsive">
-<table class="table table-bordered table-sm table-hover">
+<table class="table table-bordered table-sm table-hover" >
 
 <thead>
 <tr>
