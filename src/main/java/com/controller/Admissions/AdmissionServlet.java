@@ -16,19 +16,18 @@ public class AdmissionServlet extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "INSERT INTO admission_form ("
-                    + "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, "
-                    + "native_place, taluk, district, state, nationality, "
-                    + "religion_category, category, cast, mother_tongue, blood_group, "
-                    + "father_guardian_name, father_occupation, Father_org, "
-                    + "mother_name, mother_occupation, Mother_org, income, "
-                    + "postal_address, permanent_address, phone_no, Whatsapp_no, email, "
-                    + "SSLC_State, aadhar_no, APAAR_ID, "
-                    + "medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, "
-                    + "marks_maths, marks_science, SSLC_Aggr, "
-                    + "preference_1, preference_2, preference_3, preference_4, preference_5, "
-                    + "CBSC_ICSE, PUC_SC, GIRLS, ET_m, ET_s, ET_T, Total"
-                    + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        	String sql = "INSERT INTO admission_form ("
+        	        + "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, "
+        	        + "native_place, taluk, district, state, nationality, "
+        	        + "religion_category, category, cast, mother_tongue, blood_group, "
+        	        + "father_guardian_name, father_occupation, Father_org, "
+        	        + "mother_name, mother_occupation, Mother_org, income, "
+        	        + "postal_address, permanent_address, phone_no, Whatsapp_no, email, "
+        	        + "SSLC_State, aadhar_no, APAAR_ID, "
+        	        + "medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, "
+        	        + "marks_maths, marks_science, SSLC_Aggr, "
+        	        + "preference_1, preference_2, preference_3, preference_4, preference_5"
+        	        + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -89,13 +88,7 @@ public class AdmissionServlet extends HttpServlet {
             ps.setString(i++, getVal(request, "preference_4"));
             ps.setString(i++, getVal(request, "preference_5"));
 
-            ps.setString(i++, getVal(request, "CBSC_ICSE"));
-            ps.setString(i++, getVal(request, "PUC_SC"));
-            ps.setString(i++, getVal(request, "GIRLS"));
-            ps.setString(i++, getVal(request, "ET_m"));
-            ps.setString(i++, getVal(request, "ET_s"));
-            ps.setString(i++, getVal(request, "ET_T"));
-            ps.setString(i++, getVal(request, "Total"));
+          
 
             ps.executeUpdate();
 

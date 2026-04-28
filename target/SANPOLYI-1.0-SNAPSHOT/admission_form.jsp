@@ -36,7 +36,7 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <div class="section-title">Application Info</div>
 <div class="form-grid">
 <input type="text" name="APPNO" placeholder="Application Number">
-<input type="text" name="cast_no" placeholder="Caste Certificate Number">
+<input type="text" name="cast_no" placeholder="Catg. Certificate Number">
 </div>
 </div>
 
@@ -49,7 +49,8 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <input type="date" name="date_of_birth" required>
 
 <select name="gender">
-<option>M</option><option>F</option>
+<option value="M">M</option>
+<option value="F">F</option>
 </select>
 
 <select name="Admission_type">
@@ -61,7 +62,9 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <input type="text" name="religion_category" placeholder="Religion">
 
 <select name="category">
-<option>SC</option><option>ST</option><option>General</option>
+<option>SC</option>
+<option>ST</option>
+<option>General</option>
 </select>
 
 <input type="text" name="cast" placeholder="Caste">
@@ -76,13 +79,13 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <div class="section-title">Address</div>
 <div class="form-grid">
 
-<input type="text" name="native_place" placeholder="Native Place">
-<input type="text" name="taluk" placeholder="Taluk">
-<input type="text" name="district" placeholder="District">
-<input type="text" name="state" placeholder="State">
+<input type="text" name="native_place">
+<input type="text" name="taluk">
+<input type="text" name="district">
+<input type="text" name="state">
 
-<textarea class="full" name="postal_address" placeholder="Postal Address"></textarea>
-<textarea class="full" name="permanent_address" placeholder="Permanent Address"></textarea>
+<textarea class="full" name="postal_address"></textarea>
+<textarea class="full" name="permanent_address"></textarea>
 
 </div>
 </div>
@@ -92,15 +95,15 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <div class="section-title">Family Details</div>
 <div class="form-grid">
 
-<input type="text" name="father_guardian_name" placeholder="Father Name">
-<input type="text" name="father_occupation" placeholder="Father Occupation">
-<input type="text" name="Father_org" placeholder="Father Organization">
+<input type="text" name="father_guardian_name">
+<input type="text" name="father_occupation">
+<input type="text" name="Father_org">
 
-<input type="text" name="mother_name" placeholder="Mother Name">
-<input type="text" name="mother_occupation" placeholder="Mother Occupation">
-<input type="text" name="Mother_org" placeholder="Mother Organization">
+<input type="text" name="mother_name">
+<input type="text" name="mother_occupation">
+<input type="text" name="Mother_org">
 
-<input type="number" name="income" placeholder="Income">
+<input type="number" name="income">
 
 </div>
 </div>
@@ -110,12 +113,12 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <div class="section-title">Contact</div>
 <div class="form-grid">
 
-<input type="text" name="phone_no" placeholder="Phone">
-<input type="text" name="Whatsapp_no" placeholder="WhatsApp">
-<input type="email" name="email" placeholder="Email">
+<input type="text" name="phone_no">
+<input type="text" name="Whatsapp_no">
+<input type="email" name="email">
 
-<input class="full" type="text" name="aadhar_no" placeholder="Aadhar">
-<input class="full" type="text" name="APAAR_ID" placeholder="APAAR ID">
+<input class="full" type="text" name="aadhar_no">
+<input class="full" type="text" name="APAAR_ID">
 
 </div>
 </div>
@@ -130,48 +133,47 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <option>Non-Karnataka</option>
 </select>
 
-<select name="CBSC_ICSE">
-<option value="">Board</option>
-<option>CBSE</option>
-<option>ICSE</option>
-<option>State</option>
-</select>
+<input type="text" name="medium_of_instruction">
+<input type="number" name="sscl_passing_year">
 
-<input type="text" name="medium_of_instruction" placeholder="Medium">
-<input type="number" name="sscl_passing_year" placeholder="Passing Year">
+<input type="text" name="SSLC_Board">
+<input type="text" name="SSLC_TMarks">
 
-<input type="text" name="SSLC_Board" placeholder="Board">
-<input type="text" name="SSLC_TMarks" placeholder="Total Marks">
+<input type="number" name="marks_maths">
+<input type="number" name="marks_science">
 
-<input type="number" name="marks_maths" placeholder="Maths">
-<input type="number" name="marks_science" placeholder="Science">
-
-<input type="text" name="SSLC_Aggr" placeholder="Aggregate">
-
-<input type="text" name="PUC_SC" placeholder="PUC Stream">
+<input type="text" name="SSLC_Aggr">
 
 </div>
 </div>
 
-<!-- EXTRA -->
+<!-- COURSE -->
 <div class="section">
-<div class="section-title">Extra Details</div>
+<div class="section-title">Preferences</div>
 <div class="form-grid">
 
-<select name="GIRLS">
-<option value="">Girls Quota</option>
-<option>Yes</option>
-<option>No</option>
-</select>
-
-<input type="text" name="ET_m" placeholder="ET Maths">
-<input type="text" name="ET_s" placeholder="ET Science">
-<input type="text" name="ET_T" placeholder="ET Total">
-
-<input class="full" type="text" name="Total" placeholder="Overall Total">
+<select name="preference_1"><option>EE</option><option>CS</option></select>
+<select name="preference_2"><option>EE</option><option>CS</option></select>
+<select name="preference_3"><option>EE</option><option>CS</option></select>
+<select name="preference_4"><option>EE</option><option>CS</option></select>
+<select name="preference_5"><option>EE</option><option>CS</option></select>
 
 </div>
 </div>
+
+<div class="submit-box">
+<button type="submit">Submit</button>
+</div>
+
+</form>
+
+
+</div>
+</div>
+
+
+
+
 
 <!-- COURSE -->
 <div class="section">
