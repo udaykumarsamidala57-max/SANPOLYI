@@ -214,7 +214,199 @@ data-p5='<%= row.get("preference_5") %>'
 </table>
 </div>
 
-<!-- MODAL SAME (NO CHANGE) -->
+<!-- ================= EDIT MODAL ================= -->
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <form method="post" action="Enquiries">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Admission</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+
+          <!-- Hidden ID -->
+          <input type="hidden" id="m_id" name="id">
+
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>App No</label>
+              <input type="text" class="form-control" id="m_appno" name="APPNO">
+            </div>
+
+            <div class="col-md-3">
+              <label>Cast No</label>
+              <input type="text" class="form-control" id="m_castno" name="cast_no">
+            </div>
+
+            <div class="col-md-6">
+              <label>Name</label>
+              <input type="text" class="form-control" id="m_name" name="applicant_name">
+            </div>
+
+            <div class="col-md-4">
+              <label>DOB</label>
+              <input type="date" class="form-control" id="m_dob" name="date_of_birth">
+            </div>
+
+            <div class="col-md-4">
+              <label>Gender</label>
+              <input type="text" class="form-control" id="m_gender" name="gender">
+            </div>
+
+            <div class="col-md-4">
+              <label>Admission</label>
+              <input type="text" class="form-control" id="m_admission" name="Admission_type">
+            </div>
+
+            <div class="col-md-4">
+              <label>Native</label>
+              <input type="text" class="form-control" id="m_native" name="native_place">
+            </div>
+
+            <div class="col-md-4">
+              <label>Taluk</label>
+              <input type="text" class="form-control" id="m_taluk" name="taluk">
+            </div>
+
+            <div class="col-md-4">
+              <label>District</label>
+              <input type="text" class="form-control" id="m_district" name="district">
+            </div>
+
+            <div class="col-md-4">
+              <label>State</label>
+              <input type="text" class="form-control" id="m_state" name="state">
+            </div>
+
+            <div class="col-md-4">
+              <label>Nationality</label>
+              <input type="text" class="form-control" id="m_nationality" name="nationality">
+            </div>
+
+            <div class="col-md-4">
+              <label>Religion</label>
+              <input type="text" class="form-control" id="m_religion" name="religion_category">
+            </div>
+
+            <div class="col-md-4">
+              <label>Category</label>
+              <input type="text" class="form-control" id="m_category" name="category">
+            </div>
+
+            <div class="col-md-4">
+              <label>Cast</label>
+              <input type="text" class="form-control" id="m_cast" name="cast">
+            </div>
+
+            <div class="col-md-4">
+              <label>Mother Tongue</label>
+              <input type="text" class="form-control" id="m_mt" name="mother_tongue">
+            </div>
+
+            <div class="col-md-4">
+              <label>Blood</label>
+              <input type="text" class="form-control" id="m_blood" name="blood_group">
+            </div>
+
+            <div class="col-md-6">
+              <label>Father</label>
+              <input type="text" class="form-control" id="m_father" name="father_guardian_name">
+            </div>
+
+            <div class="col-md-3">
+              <label>F Occ</label>
+              <input type="text" class="form-control" id="m_focc" name="father_occupation">
+            </div>
+
+            <div class="col-md-3">
+              <label>F Org</label>
+              <input type="text" class="form-control" id="m_forg" name="Father_org">
+            </div>
+
+            <div class="col-md-6">
+              <label>Mother</label>
+              <input type="text" class="form-control" id="m_mother" name="mother_name">
+            </div>
+
+            <div class="col-md-3">
+              <label>M Occ</label>
+              <input type="text" class="form-control" id="m_mocc" name="mother_occupation">
+            </div>
+
+            <div class="col-md-3">
+              <label>M Org</label>
+              <input type="text" class="form-control" id="m_morg" name="Mother_org">
+            </div>
+
+            <div class="col-md-4">
+              <label>Income</label>
+              <input type="text" class="form-control" id="m_income" name="income">
+            </div>
+
+            <div class="col-md-4">
+              <label>Phone</label>
+              <input type="text" class="form-control" id="m_phone" name="phone_no">
+            </div>
+
+            <div class="col-md-4">
+              <label>Whatsapp</label>
+              <input type="text" class="form-control" id="m_whatsapp" name="Whatsapp_no">
+            </div>
+
+            <div class="col-md-6">
+              <label>Email</label>
+              <input type="text" class="form-control" id="m_email" name="email">
+            </div>
+
+            <div class="col-md-6">
+              <label>Aadhar</label>
+              <input type="text" class="form-control" id="m_aadhar" name="aadhar_no">
+            </div>
+
+            <div class="col-md-6">
+              <label>APAAR</label>
+              <input type="text" class="form-control" id="m_apaar" name="APAAR_ID">
+            </div>
+
+            <div class="col-md-6">
+              <label>SSLC State</label>
+              <input type="text" class="form-control" id="m_sslcstate" name="SSLC_State">
+            </div>
+
+            <div class="col-md-4">
+              <label>Medium</label>
+              <input type="text" class="form-control" id="m_medium" name="medium_of_instruction">
+            </div>
+
+            <div class="col-md-4">
+              <label>Year</label>
+              <input type="text" class="form-control" id="m_year" name="sscl_passing_year">
+            </div>
+
+            <div class="col-md-4">
+              <label>Board</label>
+              <input type="text" class="form-control" id="m_board" name="SSLC_Board">
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
