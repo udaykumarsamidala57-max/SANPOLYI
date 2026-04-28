@@ -17,26 +17,19 @@
 body {
     background: #f4f6f9;
 }
-
 .container-box {
     background: #fff;
     padding: 15px;
     border-radius: 8px;
     margin-top: 20px;
 }
-
 .table th, .table td {
     text-align: center;
     vertical-align: middle;
 }
-
 .table th {
     background: #002147;
     color: white;
-}
-
-h3 {
-    font-weight: 600;
 }
 </style>
 
@@ -73,18 +66,17 @@ h3 {
 List<Map<String,String>> list = (List<Map<String,String>>)request.getAttribute("data");
 
 if(list != null && !list.isEmpty()){
-
     for(Map<String,String> row : list){
 
-        String id = row.get("id") == null ? "" : row.get("id");
-        String name = row.get("name") == null ? "" : row.get("name");
-        String maths = row.get("maths") == null ? "" : row.get("maths");
-        String science = row.get("science") == null ? "" : row.get("science");
-        String aggr = row.get("aggr") == null ? "" : row.get("aggr");
-        String board = row.get("board") == null ? "" : row.get("board");
-        String puc = row.get("puc") == null ? "" : row.get("puc");
-        String girls = row.get("girls") == null ? "" : row.get("girls");
-        String et = row.get("et") == null ? "" : row.get("et");
+        String id = row.get("id")==null?"":row.get("id");
+        String name = row.get("name")==null?"":row.get("name");
+        String maths = row.get("maths")==null?"":row.get("maths");
+        String science = row.get("science")==null?"":row.get("science");
+        String aggr = row.get("aggr")==null?"":row.get("aggr");
+        String board = row.get("board")==null?"":row.get("board");
+        String puc = row.get("puc")==null?"":row.get("puc");
+        String girls = row.get("girls")==null?"":row.get("girls");
+        String et = row.get("et")==null?"":row.get("et");
 %>
 
 <tr>
@@ -114,19 +106,13 @@ if(list != null && !list.isEmpty()){
     </td>
 </tr>
 
-<%
-    }
-
-}else{
-%>
+<% } } else { %>
 
 <tr>
     <td colspan="10" class="text-danger">No Records Found</td>
 </tr>
 
-<%
-}
-%>
+<% } %>
 
 </tbody>
 </table>
@@ -135,13 +121,13 @@ if(list != null && !list.isEmpty()){
 </div>
 </div>
 
-<!-- ================= EDIT MODAL ================= -->
+<!-- ================= MODAL ================= -->
 
 <div class="modal fade" id="editModal">
 <div class="modal-dialog">
 <div class="modal-content">
 
-<form method="post" action="AdmissionServlet">
+<form method="post" action="Marks">
 
 <div class="modal-header bg-dark text-white">
 <h5 class="modal-title">Edit Admission</h5>
@@ -163,8 +149,8 @@ if(list != null && !list.isEmpty()){
 </div>
 
 <div class="form-group">
-<label>Aggregate</label>
-<input type="text" name="aggr" id="m_aggr" class="form-control">
+<label>Aggregate (Auto)</label>
+<input type="text" name="aggr" id="m_aggr" class="form-control" readonly>
 </div>
 
 <div class="form-group">
@@ -203,6 +189,8 @@ if(list != null && !list.isEmpty()){
 <!-- ================= SCRIPT ================= -->
 
 <script>
+
+// Load modal data
 function editRecord(btn){
 
     let b = $(btn);
@@ -210,14 +198,34 @@ function editRecord(btn){
     $('#m_id').val(b.data('id'));
     $('#m_maths').val(b.data('maths'));
     $('#m_science').val(b.data('science'));
-    $('#m_aggr').val(b.data('aggr'));
     $('#m_board').val(b.data('board'));
     $('#m_puc').val(b.data('puc'));
     $('#m_girls').val(b.data('girls'));
     $('#m_et').val(b.data('et'));
 
+    calculateAggr();
+
     $('#editModal').modal('show');
 }
+
+// Auto calculate
+function calculateAggr(){
+    let m = parseFloat($('#m_maths').val()) || 0;
+    let s = parseFloat($('#m_science').val()) || 0;
+
+    if(m > 0 && s > 0){
+        let avg = ((m + s) / 2).toFixed(2);
+        $('#m_aggr').val(avg);
+    } else {
+        $('#m_aggr').val('');
+    }
+}
+
+// Trigger calculation on input
+$('#m_maths, #m_science').on('input', function(){
+    calculateAggr();
+});
+
 </script>
 
 </body>
