@@ -168,6 +168,7 @@ button:hover {
 <div class="form-field">
 <label>Category</label>
 <select name="category">
+<option></option>
 <option>SC</option>
 <option>ST</option>
 <option>General</option>
@@ -175,7 +176,7 @@ button:hover {
 </div>
 
 <div class="form-field">
-<label>Caste</label>
+<label>Cast</label>
 <input type="text" name="cast">
 </div>
 
