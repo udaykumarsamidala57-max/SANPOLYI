@@ -112,6 +112,7 @@ public class Enquiries extends HttpServlet {
 
         request.setAttribute("data", list);
         request.getRequestDispatcher("Enquiries.jsp").forward(request, response);
+   
     }
 
     // ========================= POST (UPDATE) =========================

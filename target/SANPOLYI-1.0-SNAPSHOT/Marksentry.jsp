@@ -28,7 +28,7 @@ input { text-align:center; }
 </head>
 
 <body>
-
+<%@ include file="header.jsp" %>
 <div class="container">
 <div class="container-box">
 
