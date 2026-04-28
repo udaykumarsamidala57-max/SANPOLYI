@@ -117,17 +117,7 @@ data-dob='<%= row.get("date_of_birth") %>'
 data-gender='<%= row.get("gender") %>'
 data-admission='<%= row.get("Admission_type") %>'
 
-data-native='<%= row.get("native_place") %>'
-data-taluk='<%= row.get("taluk") %>'
-data-district='<%= row.get("district") %>'
-data-state='<%= row.get("state") %>'
-data-nationality='<%= row.get("nationality") %>'
 
-data-religion='<%= row.get("religion_category") %>'
-data-category='<%= row.get("category") %>'
-data-cast='<%= row.get("cast") %>'
-data-mt='<%= row.get("mother_tongue") %>'
-data-blood='<%= row.get("blood_group") %>'
 
 data-father='<%= row.get("father_guardian_name") %>'
 data-focc='<%= row.get("father_occupation") %>'
@@ -139,8 +129,7 @@ data-morg='<%= row.get("Mother_org") %>'
 
 data-income='<%= row.get("income") %>'
 
-data-postal='<%= row.get("postal_address") %>'
-data-permanent='<%= row.get("permanent_address") %>'
+
 
 data-phone='<%= row.get("phone_no") %>'
 data-whatsapp='<%= row.get("Whatsapp_no") %>'

@@ -123,96 +123,80 @@ public class Enquiries extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "UPDATE admission_form SET " +
-                    "APPNO=?, cast_no=?, applicant_name=?, date_of_birth=?, gender=?, Admission_type=?, " +
-                    "native_place=?, taluk=?, district=?, state=?, nationality=?, " +
-                    "religion_category=?, category=?, cast=?, mother_tongue=?, blood_group=?, " +
-                    "father_guardian_name=?, father_occupation=?, Father_org=?, " +
-                    "mother_name=?, mother_occupation=?, Mother_org=?, " +
-                    "income=?, postal_address=?, permanent_address=?, " +
-                    "phone_no=?, Whatsapp_no=?, email=?, SSLC_State=?, " +
-                    "aadhar_no=?, APAAR_ID=?, " +
-                    "medium_of_instruction=?, sscl_passing_year=?, SSLC_Board=?, SSLC_TMarks=?, SSLC_Aggr=?, " +
-                    "marks_maths=?, marks_science=?, " +
-                    "preference_1=?, preference_2=?, preference_3=?, preference_4=?, preference_5=? " +
-                    "WHERE id=?";
+        	String sql = "UPDATE admission_form SET " +
+        	        "APPNO=?, cast_no=?, applicant_name=?, date_of_birth=?, gender=?, Admission_type=?, " +
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            int i = 1;
+        	        "father_guardian_name=?, father_occupation=?, Father_org=?, " +
+        	        "mother_name=?, mother_occupation=?, Mother_org=?, " +
 
-            // BASIC
-            ps.setString(i++, request.getParameter("APPNO"));
-            ps.setString(i++, request.getParameter("cast_no"));
-            ps.setString(i++, request.getParameter("applicant_name"));
+        	        "income=?, phone_no=?, Whatsapp_no=?, email=?, " +
 
-            // DATE
-            String dob = request.getParameter("date_of_birth");
-            if (dob != null && !dob.isEmpty())
-                ps.setDate(i++, Date.valueOf(dob));
-            else
-                ps.setNull(i++, Types.DATE);
+        	        "SSLC_State=?, aadhar_no=?, APAAR_ID=?, " +
 
-            ps.setString(i++, request.getParameter("gender"));
-            ps.setString(i++, request.getParameter("Admission_type"));
+        	        "medium_of_instruction=?, sscl_passing_year=?, SSLC_Board=?, SSLC_TMarks=?, SSLC_Aggr=?, " +
+        	        "marks_maths=?, marks_science=?, " +
 
-            // ADDRESS
-            ps.setString(i++, request.getParameter("native_place"));
-            ps.setString(i++, request.getParameter("taluk"));
-            ps.setString(i++, request.getParameter("district"));
-            ps.setString(i++, request.getParameter("state"));
-            ps.setString(i++, request.getParameter("nationality"));
+        	        "preference_1=?, preference_2=?, preference_3=?, preference_4=?, preference_5=? " +
 
-            // SOCIAL
-            ps.setString(i++, request.getParameter("religion_category"));
-            ps.setString(i++, request.getParameter("category"));
-            ps.setString(i++, request.getParameter("cast"));
-            ps.setString(i++, request.getParameter("mother_tongue"));
-            ps.setString(i++, request.getParameter("blood_group"));
+        	        "WHERE id=?";
 
-            // PARENTS
-            ps.setString(i++, request.getParameter("father_guardian_name"));
-            ps.setString(i++, request.getParameter("father_occupation"));
-            ps.setString(i++, request.getParameter("Father_org"));
-            ps.setString(i++, request.getParameter("mother_name"));
-            ps.setString(i++, request.getParameter("mother_occupation"));
-            ps.setString(i++, request.getParameter("Mother_org"));
+        	PreparedStatement ps = con.prepareStatement(sql);
+        	int i = 1;
 
-            // NUMBERS SAFE
-            ps.setObject(i++, parseDouble(request.getParameter("income")), Types.DECIMAL);
+        	// BASIC
+        	ps.setString(i++, request.getParameter("APPNO"));
+        	ps.setString(i++, request.getParameter("cast_no"));
+        	ps.setString(i++, request.getParameter("applicant_name"));
 
-            ps.setString(i++, request.getParameter("postal_address"));
-            ps.setString(i++, request.getParameter("permanent_address"));
-            ps.setString(i++, request.getParameter("phone_no"));
-            ps.setString(i++, request.getParameter("Whatsapp_no"));
-            ps.setString(i++, request.getParameter("email"));
-            ps.setString(i++, request.getParameter("SSLC_State"));
+        	// DATE
+        	String dob = request.getParameter("date_of_birth");
+        	if (dob != null && !dob.isEmpty())
+        	    ps.setDate(i++, Date.valueOf(dob));
+        	else
+        	    ps.setNull(i++, Types.DATE);
 
-            // IDS
-            ps.setString(i++, request.getParameter("aadhar_no"));
-            ps.setString(i++, request.getParameter("APAAR_ID"));
+        	ps.setString(i++, request.getParameter("gender"));
+        	ps.setString(i++, request.getParameter("Admission_type"));
 
-            // EDUCATION
-            ps.setString(i++, request.getParameter("medium_of_instruction"));
+        	// PARENTS
+        	ps.setString(i++, request.getParameter("father_guardian_name"));
+        	ps.setString(i++, request.getParameter("father_occupation"));
+        	ps.setString(i++, request.getParameter("Father_org"));
 
-            // YEAR FIX (important!)
-            ps.setObject(i++, parseInt(request.getParameter("sscl_passing_year")), Types.INTEGER);
+        	ps.setString(i++, request.getParameter("mother_name"));
+        	ps.setString(i++, request.getParameter("mother_occupation"));
+        	ps.setString(i++, request.getParameter("Mother_org"));
 
-            ps.setString(i++, request.getParameter("SSLC_Board"));
-            ps.setString(i++, request.getParameter("SSLC_TMarks"));
-            ps.setString(i++, request.getParameter("SSLC_Aggr"));
+        	// CONTACT
+        	ps.setObject(i++, parseDouble(request.getParameter("income")), Types.DECIMAL);
+        	ps.setString(i++, request.getParameter("phone_no"));
+        	ps.setString(i++, request.getParameter("Whatsapp_no"));
+        	ps.setString(i++, request.getParameter("email"));
 
-            ps.setObject(i++, parseDouble(request.getParameter("marks_maths")), Types.DECIMAL);
-            ps.setObject(i++, parseDouble(request.getParameter("marks_science")), Types.DECIMAL);
+        	// EDUCATION
+        	ps.setString(i++, request.getParameter("SSLC_State"));
+        	ps.setString(i++, request.getParameter("aadhar_no"));
+        	ps.setString(i++, request.getParameter("APAAR_ID"));
 
-            // PREFERENCES
-            ps.setString(i++, request.getParameter("preference_1"));
-            ps.setString(i++, request.getParameter("preference_2"));
-            ps.setString(i++, request.getParameter("preference_3"));
-            ps.setString(i++, request.getParameter("preference_4"));
-            ps.setString(i++, request.getParameter("preference_5"));
+        	ps.setString(i++, request.getParameter("medium_of_instruction"));
+        	ps.setObject(i++, parseInt(request.getParameter("sscl_passing_year")), Types.INTEGER);
 
-            // WHERE
-            ps.setInt(i++, Integer.parseInt(id));
+        	ps.setString(i++, request.getParameter("SSLC_Board"));
+        	ps.setString(i++, request.getParameter("SSLC_TMarks"));
+        	ps.setString(i++, request.getParameter("SSLC_Aggr"));
+
+        	ps.setObject(i++, parseDouble(request.getParameter("marks_maths")), Types.DECIMAL);
+        	ps.setObject(i++, parseDouble(request.getParameter("marks_science")), Types.DECIMAL);
+
+        	// PREFERENCES
+        	ps.setString(i++, request.getParameter("preference_1"));
+        	ps.setString(i++, request.getParameter("preference_2"));
+        	ps.setString(i++, request.getParameter("preference_3"));
+        	ps.setString(i++, request.getParameter("preference_4"));
+        	ps.setString(i++, request.getParameter("preference_5"));
+
+        	// WHERE
+        	ps.setInt(i++, Integer.parseInt(request.getParameter("id")));
 
             int rows = ps.executeUpdate();
             System.out.println("UPDATED ROWS: " + rows);

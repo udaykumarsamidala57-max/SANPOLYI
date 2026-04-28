@@ -36,11 +36,11 @@ input, textarea { margin-bottom:5px; }
 <thead>
 <tr>
 <th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
-<th>Nationality</th>
-<th>Religion</th><th>Category</th><th>Cast</th><th>MT</th><th>Blood</th>
+
+
 <th>Father</th><th>F Occ</th><th>F Org</th>
 <th>Mother</th><th>M Occ</th><th>M Org</th>
-<th>Income</th><th>Postal</th><th>Permanent</th>
+<th>Income</th>
 <th>Phone</th><th>Whatsapp</th><th>Email</th><th>SSLC State</th>
 <th>Aadhar</th><th>APAAR</th>
 <th>Medium</th><th>Year</th><th>Board</th><th>Total</th><th>Aggr</th>
@@ -67,12 +67,6 @@ for (Map<String, Object> row : list) {
 <td><%= row.get("date_of_birth") %></td>
 <td><%= row.get("gender") %></td>
 <td><%= row.get("Admission_type") %></td>
-
-
-
-
-
-
 <td><%= row.get("father_guardian_name") %></td>
 <td><%= row.get("father_occupation") %></td>
 <td><%= row.get("Father_org") %></td>
@@ -123,17 +117,7 @@ data-dob='<%= row.get("date_of_birth") %>'
 data-gender='<%= row.get("gender") %>'
 data-admission='<%= row.get("Admission_type") %>'
 
-data-native='<%= row.get("native_place") %>'
-data-taluk='<%= row.get("taluk") %>'
-data-district='<%= row.get("district") %>'
-data-state='<%= row.get("state") %>'
-data-nationality='<%= row.get("nationality") %>'
 
-data-religion='<%= row.get("religion_category") %>'
-data-category='<%= row.get("category") %>'
-data-cast='<%= row.get("cast") %>'
-data-mt='<%= row.get("mother_tongue") %>'
-data-blood='<%= row.get("blood_group") %>'
 
 data-father='<%= row.get("father_guardian_name") %>'
 data-focc='<%= row.get("father_occupation") %>'
@@ -145,8 +129,7 @@ data-morg='<%= row.get("Mother_org") %>'
 
 data-income='<%= row.get("income") %>'
 
-data-postal='<%= row.get("postal_address") %>'
-data-permanent='<%= row.get("permanent_address") %>'
+
 
 data-phone='<%= row.get("phone_no") %>'
 data-whatsapp='<%= row.get("Whatsapp_no") %>'
