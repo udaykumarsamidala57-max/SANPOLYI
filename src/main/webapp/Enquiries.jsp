@@ -61,7 +61,7 @@ input, textarea, select {
 
 
 <th>Father Name</th><th>F Occ</th><th>F Org</th>
-<th>Mother</th><th>M Occ</th><th>M Org</th>
+
 <th>Income</th><th>Postal</th>
 <th>Phone</th><th>Whatsapp</th><th>Email</th><th>SSLC State</th>
 <th>Aadhar</th><th>APAAR</th>
