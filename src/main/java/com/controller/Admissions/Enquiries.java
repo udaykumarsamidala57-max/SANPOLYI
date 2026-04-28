@@ -207,7 +207,7 @@ public class Enquiries extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("AdmissionListServlet");
+        response.sendRedirect("Enquiries");
     }
 
     // ========================= HELPERS =========================
