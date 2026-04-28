@@ -6,17 +6,92 @@
 <title>University Admission Form</title>
 
 <style>
-/* SAME CSS — NO CHANGE */
 body { margin:0; font-family:'Segoe UI',Arial; background:#f5f7fa; }
-.header { background:#002147; color:#fff; padding:18px 30px; }
-.container { max-width:1100px; margin:30px auto; background:#fff; padding:30px; border-radius:8px; box-shadow:0 8px 25px rgba(0,0,0,0.08); }
-.section { margin-bottom:25px; padding:20px; border:1px solid #e3e6ea; border-radius:6px; background:#fafbfc; }
-.section-title { font-weight:600; margin-bottom:15px; color:#002147; }
-.form-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:15px; }
-input, textarea, select { padding:9px; border:1px solid #ccc; border-radius:4px; }
-.full { grid-column:span 2; }
-.submit-box { text-align:center; margin-top:20px; }
-button { background:#002147; color:#fff; padding:12px 35px; border:none; border-radius:5px; }
+
+.header {
+    background:#002147;
+    color:#fff;
+    padding:18px 30px;
+}
+
+.container {
+    max-width:1100px;
+    margin:30px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.section {
+    margin-bottom:25px;
+    padding:20px;
+    border:1px solid #e3e6ea;
+    border-radius:6px;
+    background:#fafbfc;
+}
+
+.section-title {
+    font-weight:600;
+    margin-bottom:15px;
+    color:#002147;
+}
+
+/* GRID */
+.form-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+/* FIELD BLOCK */
+.form-field {
+    display:flex;
+    flex-direction:column;
+}
+
+/* LABEL ALIGNMENT */
+label {
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:5px;
+    color:#333;
+}
+
+/* INPUT ALIGNMENT */
+input, textarea, select {
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    font-size:14px;
+    width:100%;
+    box-sizing:border-box;
+}
+
+/* FULL WIDTH */
+.full {
+    grid-column:span 2;
+}
+
+/* BUTTON */
+.submit-box {
+    text-align:center;
+    margin-top:20px;
+}
+
+button {
+    background:#002147;
+    color:#fff;
+    padding:12px 35px;
+    border:none;
+    border-radius:5px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+button:hover {
+    background:#003366;
+}
 </style>
 </head>
 
@@ -93,6 +168,7 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 <div class="form-field">
 <label>Category</label>
 <select name="category">
+<option></option>
 <option>SC</option>
 <option>ST</option>
 <option>General</option>
@@ -100,7 +176,7 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 </div>
 
 <div class="form-field">
-<label>Caste</label>
+<label>Cast</label>
 <input type="text" name="cast">
 </div>
 
@@ -289,27 +365,27 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 
 <div class="form-field">
 <label>Preference 1</label>
-<select name="preference_1"><option>EE</option><option>CS</option></select>
+<select name="preference_1"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 2</label>
-<select name="preference_2"><option>EE</option><option>CS</option></select>
+<select name="preference_2"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 3</label>
-<select name="preference_3"><option>EE</option><option>CS</option></select>
+<select name="preference_3"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 4</label>
-<select name="preference_4"><option>EE</option><option>CS</option></select>
+<select name="preference_4"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 5</label>
-<select name="preference_5"><option>EE</option><option>CS</option></select>
+<select name="preference_5"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 </div>
@@ -320,7 +396,6 @@ button { background:#002147; color:#fff; padding:12px 35px; border:none; border-
 </div>
 
 </form>
-
 
 </div>
 

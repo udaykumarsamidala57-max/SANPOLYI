@@ -365,27 +365,27 @@ button:hover {
 
 <div class="form-field">
 <label>Preference 1</label>
-<select name="preference_1"><option>EE</option><option>CS</option></select>
+<select name="preference_1"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 2</label>
-<select name="preference_2"><option>EE</option><option>CS</option></select>
+<select name="preference_2"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 3</label>
-<select name="preference_3"><option>EE</option><option>CS</option></select>
+<select name="preference_3"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 4</label>
-<select name="preference_4"><option>EE</option><option>CS</option></select>
+<select name="preference_4"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 <div class="form-field">
 <label>Preference 5</label>
-<select name="preference_5"><option>EE</option><option>CS</option></select>
+<select name="preference_5"><option>EE</option><option>CS</option><option>ME</option><option>CE</option><option>EC</option></select>
 </div>
 
 </div>
