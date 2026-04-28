@@ -40,9 +40,14 @@ public class UploadCSVServlet extends HttpServlet {
                     new InputStreamReader(filePart.getInputStream()));
 
             CSVParser parser = new CSVParser(reader,
-                    CSVFormat.DEFAULT
-                            .withIgnoreEmptyLines()
-                            .withTrim());
+                    CSVFormat.DEFAULT.withIgnoreEmptyLines().withTrim());
+
+            // ✅ dynamic placeholders
+            StringBuilder placeholders = new StringBuilder();
+            for (int i = 0; i < TOTAL_COLUMNS; i++) {
+                placeholders.append("?");
+                if (i < TOTAL_COLUMNS - 1) placeholders.append(",");
+            }
 
             String sql = "INSERT INTO admission_form (" +
                     "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, " +
@@ -54,9 +59,7 @@ public class UploadCSVServlet extends HttpServlet {
                     "SSLC_Board, SSLC_TMarks, marks_maths, marks_science, SSLC_Aggr, " +
                     "preference_1, preference_2, preference_3, preference_4, preference_5, " +
                     "CBSC_ICSE, PUC_SC, GIRLS, ET_m, ET_s, ET_T, Total" +
-                    ") VALUES (" +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
-                    ")";
+                    ") VALUES (" + placeholders + ")";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -65,7 +68,7 @@ public class UploadCSVServlet extends HttpServlet {
 
             for (CSVRecord record : parser) {
 
-                // ✅ skip header manually
+                // skip header row
                 if (!isHeaderSkipped) {
                     isHeaderSkipped = true;
                     continue;
@@ -85,11 +88,12 @@ public class UploadCSVServlet extends HttpServlet {
                     }
 
                     ps.addBatch();
-                    successCount++;
                     batchSize++;
 
                     if (batchSize == 100) {
-                        executeBatchSafe(ps, con);
+                        int[] result = executeBatch(ps, con);
+                        successCount += countSuccess(result);
+                        failCount += countFail(result);
                         batchSize = 0;
                     }
 
@@ -101,7 +105,9 @@ public class UploadCSVServlet extends HttpServlet {
             }
 
             // final batch
-            executeBatchSafe(ps, con);
+            int[] result = executeBatch(ps, con);
+            successCount += countSuccess(result);
+            failCount += countFail(result);
 
             parser.close();
             ps.close();
@@ -115,31 +121,44 @@ public class UploadCSVServlet extends HttpServlet {
         }
     }
 
-    // ✅ SAFE BATCH EXECUTION
-    private void executeBatchSafe(PreparedStatement ps, Connection con) {
+    // ✅ EXECUTE BATCH WITH ERROR VISIBILITY
+    private int[] executeBatch(PreparedStatement ps, Connection con) {
         try {
-            ps.executeBatch();
+            int[] res = ps.executeBatch();
             con.commit();
+            return res;
         } catch (BatchUpdateException bue) {
 
             System.out.println("🔥 BATCH ERROR");
-            try {
-                con.rollback();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+
+            try { con.rollback(); } catch (Exception e) {}
 
             SQLException ex = bue.getNextException();
             while (ex != null) {
                 System.out.println("👉 SQL Error: " + ex.getMessage());
                 ex = ex.getNextException();
             }
+
+            return bue.getUpdateCounts();
         } catch (Exception e) {
             e.printStackTrace();
+            return new int[0];
         }
     }
 
-    // ✅ SAFE VALUE
+    private int countSuccess(int[] arr) {
+        int count = 0;
+        for (int i : arr) if (i >= 0) count++;
+        return count;
+    }
+
+    private int countFail(int[] arr) {
+        int count = 0;
+        for (int i : arr) if (i == Statement.EXECUTE_FAILED) count++;
+        return count;
+    }
+
+    // SAFE VALUE
     private String getSafeValue(CSVRecord record, int index) {
         try {
             return record.get(index);
@@ -148,50 +167,36 @@ public class UploadCSVServlet extends HttpServlet {
         }
     }
 
-    // ✅ NULL CHECK
     private boolean isNullValue(String val) {
         return val == null || val.trim().isEmpty()
                 || val.equalsIgnoreCase("null")
                 || val.equalsIgnoreCase("NA");
     }
 
-    // ✅ SET NULL
     private void setNull(PreparedStatement ps, int i) throws SQLException {
 
         if (i == 3)
             ps.setNull(i + 1, Types.DATE);
-
         else if (i == 22 || i == 35 || i == 36)
             ps.setNull(i + 1, Types.DECIMAL);
-
         else if (i == 32)
             ps.setNull(i + 1, Types.INTEGER);
-
         else
             ps.setNull(i + 1, Types.VARCHAR);
     }
 
-    // ✅ SET VALUE
     private void setValue(PreparedStatement ps, int i, String val) throws SQLException {
 
         try {
-
-            if (i == 3) { // DATE
+            if (i == 3) {
                 ps.setDate(i + 1, java.sql.Date.valueOf(val));
-            }
-
-            else if (i == 22 || i == 35 || i == 36) { // DECIMAL
+            } else if (i == 22 || i == 35 || i == 36) {
                 ps.setDouble(i + 1, Double.parseDouble(val.replace(",", "")));
-            }
-
-            else if (i == 32) { // YEAR
+            } else if (i == 32) {
                 ps.setInt(i + 1, Integer.parseInt(val));
-            }
-
-            else {
+            } else {
                 ps.setString(i + 1, val);
             }
-
         } catch (Exception e) {
             System.out.println("⚠ Invalid data col=" + i + " value=" + val);
             ps.setNull(i + 1, Types.VARCHAR);
