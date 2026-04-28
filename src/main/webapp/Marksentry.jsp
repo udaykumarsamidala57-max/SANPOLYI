@@ -23,45 +23,79 @@ String User = (String) sess.getAttribute("username");
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
+<style>
+
 body { 
     background:#f4f6f9; 
+    margin:0;
+    padding:0;
 }
 
+/* Full-width container */
+.container-fluid {
+    padding:20px;
+}
+
+/* Box styling */
 .container-box {
     background:#fff;
-    padding:30px;              /* increased */
+    padding:30px;
     border-radius:8px;
     margin-top:20px;
+    width:100%;
+    max-width:100%;
+    overflow:hidden;
 }
 
-/* Make table wider */
+/* Responsive table wrapper */
+.table-responsive {
+    width:100%;
+    overflow-x:auto;        /* horizontal scroll if needed */
+}
+
+/* Table styling */
 .table {
     width:100%;
-    table-layout:auto;
+    border-collapse:collapse;
+    min-width:1200px;       /* ensures columns don’t shrink too much */
 }
 
-/* Header styling */
+/* Header */
 .table th { 
     background:#002147; 
     color:#fff; 
     text-align:center; 
-    padding:15px;              /* increased */
-    font-size:15px;
+    padding:14px;
+    font-size:14px;
+    white-space:nowrap;     /* keep header in one line */
 }
 
-/* Cell styling */
+/* Cells */
 .table td { 
     text-align:center; 
-    padding:12px;              /* increased */
+    padding:10px;
+    white-space:nowrap;     /* prevents text breaking */
 }
 
-/* Input fields inside table */
-input { 
-    text-align:center; 
-    padding:8px;               /* added */
-    width:100%;                /* makes input fill cell */
+/* Inputs inside table */
+.table input {
+    width:100%;
+    min-width:120px;        /* prevents too small inputs */
+    padding:6px;
+    text-align:center;
     box-sizing:border-box;
 }
+
+/* Optional: better hover effect */
+.table tbody tr:hover {
+    background:#f1f1f1;
+}
+
+/* Optional: zebra rows */
+.table tbody tr:nth-child(even) {
+    background:#fafafa;
+}
+
 </style>
 </head>
 
