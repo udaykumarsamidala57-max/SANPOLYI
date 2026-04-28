@@ -29,7 +29,7 @@ body { background:#f4f6f9; }
     padding:30px;
     border-radius:8px;
     margin-top:40px;
-     max-width:120% !important;
+ width:auto;
 }
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center;padding:auto; }
