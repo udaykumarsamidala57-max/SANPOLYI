@@ -54,7 +54,7 @@ function downloadExcel() {
 <%@ include file="header.jsp" %>
 
 <div class="d-flex justify-content-between align-items-center mb-2">
-    <h4>SANPOLY - Admission Records</h4>
+    <h4>SANPOLY - Tabulation</h4>
     <button class="btn btn-success btn-sm" onclick="downloadExcel()">Download Excel</button>
 </div>
 
