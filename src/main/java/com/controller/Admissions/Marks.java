@@ -56,7 +56,7 @@ public class Marks extends HttpServlet {
         }
 
         request.setAttribute("data", list);
-        request.getRequestDispatcher("admission_list.jsp").forward(request, response);
+        request.getRequestDispatcher("Marksentry.jsp").forward(request, response);
     }
 
     // ============================
