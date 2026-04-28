@@ -58,13 +58,26 @@ if(list!=null && !list.isEmpty()){
 
 String id=row.get("id")==null?"":row.get("id");
 String name=row.get("name")==null?"":row.get("name");
-String maths=row.get("maths")==null?"":row.get("maths");
-String science=row.get("science")==null?"":row.get("science");
-String aggr=row.get("aggr")==null?"":row.get("aggr");
-String board=row.get("board")==null?"":row.get("board");
-String puc=row.get("puc")==null?"":row.get("puc");
-String girls=row.get("girls")==null?"":row.get("girls");
-String et=row.get("et")==null?"":row.get("et");
+String maths=row.get("maths")==null?"0":row.get("maths");
+String science=row.get("science")==null?"0":row.get("science");
+String aggr=row.get("aggr")==null?"0":row.get("aggr");
+
+String board=row.get("board")==null?"0":row.get("board");
+String puc=row.get("puc")==null?"0":row.get("puc");
+String girls=row.get("girls")==null?"0":row.get("girls");
+String et=row.get("et")==null?"0":row.get("et");
+
+// 🔥 TOTAL CALCULATION IN JSP
+double avg = 0;
+try{
+    avg = (Double.parseDouble(maths) + Double.parseDouble(science)) / 2;
+}catch(Exception e){}
+
+double total = 0;
+try{
+    total = avg + Double.parseDouble(board) + Double.parseDouble(puc)
+            + Double.parseDouble(girls) + Double.parseDouble(et);
+}catch(Exception e){}
 %>
 
 <tr>
@@ -72,8 +85,8 @@ String et=row.get("et")==null?"":row.get("et");
 <td style="text-align:left;"><%=name%></td>
 <td><%=maths%></td>
 <td><%=science%></td>
-<td><%=aggr%></td>
-<td>-</td>
+<td><%=String.format("%.2f", avg)%></td>
+<td><%=String.format("%.2f", total)%></td>
 
 <td>
 <button class="btn btn-sm btn-primary"
@@ -135,14 +148,14 @@ Edit
 </div>
 
 <div class="form-group">
-<label>Aggregate (Auto)</label>
+<label>Aggregate</label>
 <input id="m_aggr" name="aggr" class="form-control" readonly>
 </div>
 
 <hr>
 
 <div class="form-group">
-<label>Board (CBSC/ICSE)</label>
+<label>Board</label>
 <input type="number" name="board" id="m_board" class="form-control">
 </div>
 
@@ -164,7 +177,7 @@ Edit
 <hr>
 
 <div class="form-group">
-<label>Total (Auto)</label>
+<label>Total</label>
 <input id="m_total" class="form-control" readonly>
 </div>
 
@@ -203,7 +216,6 @@ calculateAll();
 $('#editModal').modal('show');
 }
 
-// calculate avg + total
 function calculateAll(){
 
 let m=parseFloat($('#m_maths').val())||0;
@@ -214,16 +226,13 @@ let puc=parseFloat($('#m_puc').val())||0;
 let girls=parseFloat($('#m_girls').val())||0;
 let et=parseFloat($('#m_et').val())||0;
 
-// avg
-let avg = (m>0 && s>0)? ((m+s)/2).toFixed(2):0;
-$('#m_aggr').val(avg);
+let avg = (m+s)/2;
+$('#m_aggr').val(avg.toFixed(2));
 
-// total
-let total = parseFloat(avg) + board + puc + girls + et;
+let total = avg + board + puc + girls + et;
 $('#m_total').val(total.toFixed(2));
 }
 
-// trigger on change
 $('#m_board, #m_puc, #m_girls, #m_et').on('input', function(){
 calculateAll();
 });
