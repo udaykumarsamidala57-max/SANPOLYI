@@ -26,9 +26,8 @@ public class Marks extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            // ✅ Use alias for problem columns
             String sql = "SELECT id, applicant_name, marks_maths, marks_science, SSLC_Aggr, " +
-                         "`CBSC/ICSE` AS board, `PUC SCI` AS puc, GIRLS, ET " +
+                         "CBSC_ICSE AS board, PUC_SC AS puc, GIRLS, ET " +
                          "FROM admission_form ORDER BY id DESC";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -53,6 +52,7 @@ public class Marks extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("ERROR in GET: " + e.getMessage());
         }
 
         request.setAttribute("data", list);
@@ -70,7 +70,7 @@ public class Marks extends HttpServlet {
 
             String sql = "UPDATE admission_form SET " +
                     "marks_maths=?, marks_science=?, SSLC_Aggr=?, " +
-                    "`CBSC/ICSE`=?, `PUC SCI`=?, GIRLS=?, ET=? " +
+                    "CBSC_ICSE=?, PUC_SC=?, GIRLS=?, ET=? " +
                     "WHERE id=?";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -84,25 +84,26 @@ public class Marks extends HttpServlet {
             ps.setString(7, safe(request.getParameter("et")));
             ps.setInt(8, Integer.parseInt(request.getParameter("id")));
 
-            ps.executeUpdate();
+            int rows = ps.executeUpdate();
+            System.out.println("Updated rows: " + rows);
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("ERROR in POST: " + e.getMessage());
         }
 
-        response.sendRedirect("AdmissionServlet");
+        // ✅ Correct redirect
+        response.sendRedirect("Marks");
     }
 
     // ============================
     // 🔹 UTIL METHODS
     // ============================
 
-    // Null-safe string
     private String safe(String val) {
         return val == null ? "" : val;
     }
 
-    // Convert to BigDecimal safely
     private java.math.BigDecimal getDecimal(String val) {
         try {
             if (val == null || val.trim().isEmpty()) {
