@@ -33,7 +33,7 @@ body { background:#f4f6f9; }
 }
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center;padding:auto; }
-input { text-align:center; width:auto; }
+input { text-align:center; min-width: 40px; }
 </style>
 </head>
 
