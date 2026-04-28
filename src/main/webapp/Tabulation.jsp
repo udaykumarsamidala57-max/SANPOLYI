@@ -79,19 +79,14 @@ if (list != null) {
 <td><%= row.get("gender") %></td>
 <td><%= row.get("Admission_type") %></td>
 
-<!-- ADDRESS -->
-<td><%= row.get("native_place") %></td>
-<td><%= row.get("taluk") %></td>
-<td><%= row.get("district") %></td>
-<td><%= row.get("state") %></td>
-<td><%= row.get("nationality") %></td>
+
 
 <!-- SOCIAL -->
 <td><%= row.get("religion_category") %></td>
 <td><%= row.get("category") %></td>
 <td><%= row.get("cast") %></td>
 <td><%= row.get("mother_tongue") %></td>
-<td><%= row.get("blood_group") %></td>
+
 
 <!-- PARENTS -->
 <td><%= row.get("father_guardian_name") %></td>
@@ -102,12 +97,9 @@ if (list != null) {
 <td><%= row.get("mother_occupation") %></td>
 <td><%= row.get("Mother_org") %></td>
 
-<!-- CONTACT -->
-<td><%= row.get("income") %></td>
-<td><%= row.get("postal_address") %></td>
-<td><%= row.get("permanent_address") %></td>
 
-<td><%= row.get("phone_no") %></td>
+
+
 <td><%= row.get("Whatsapp_no") %></td>
 <td><%= row.get("email") %></td>
 
@@ -144,7 +136,7 @@ if (list != null) {
 
 <td><%= row.get("Total") %></td>
 
-<td><%= row.get("created_at") %></td>
+
 </tr>
 
 <%
