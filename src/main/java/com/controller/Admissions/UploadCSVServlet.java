@@ -54,9 +54,9 @@ public class UploadCSVServlet extends HttpServlet {
                     "SSLC_State, aadhar_no, APAAR_ID, medium_of_instruction, sscl_passing_year, " +
                     "SSLC_Board, SSLC_TMarks, marks_maths, marks_science, SSLC_Aggr, " +
                     "preference_1, preference_2, preference_3, preference_4, preference_5, " +
-                    "CBSC_ICSE, PUC_SC, GIRLS, ET_m, ET_s, ET_T, Total,Segment" +
+                    "CBSC_ICSE, PUC_SC, GIRLS, ET_m, ET_s, ET_T, Total" +
                     ") VALUES (" +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
+                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
                     ")";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -69,18 +69,24 @@ public class UploadCSVServlet extends HttpServlet {
 
                     if (record.size() != TOTAL_COLUMNS) {
                         failCount++;
-                        System.out.println("Column mismatch: " + record);
+                        System.out.println("❌ Column mismatch: " + record.size());
                         continue;
                     }
 
                     for (int i = 0; i < TOTAL_COLUMNS; i++) {
 
-                        String val = record.get(i).trim();
+                        String val = record.get(i);
 
-                        if (val.isEmpty()) {
+                        // 🔥 STRONG NULL HANDLING
+                        if (val == null || val.trim().isEmpty()
+                                || val.equalsIgnoreCase("null")
+                                || val.equalsIgnoreCase("NA")) {
+
                             setNull(ps, i);
+
                         } else {
-                            setValue(ps, i, val);
+
+                            setValue(ps, i, val.trim());
                         }
                     }
 
@@ -96,7 +102,7 @@ public class UploadCSVServlet extends HttpServlet {
 
                 } catch (Exception e) {
                     failCount++;
-                    System.out.println("Error row: " + record);
+                    System.out.println("❌ Error row: " + record);
                     e.printStackTrace();
                 }
             }
@@ -116,36 +122,36 @@ public class UploadCSVServlet extends HttpServlet {
         }
     }
 
-    // ===== TYPE HANDLING =====
-
+    // ===== NULL HANDLING =====
     private void setNull(PreparedStatement ps, int i) throws SQLException {
 
         if (i == 3) // date_of_birth
             ps.setNull(i + 1, Types.DATE);
 
-        else if (i == 22 || i == 35 || i == 36) // income, maths, science
+        else if (i == 22 || i == 35 || i == 36) // numeric
             ps.setNull(i + 1, Types.DECIMAL);
 
-        else if (i == 32) // passing year
+        else if (i == 32) // year
             ps.setNull(i + 1, Types.INTEGER);
 
         else
             ps.setNull(i + 1, Types.VARCHAR);
     }
 
+    // ===== VALUE HANDLING =====
     private void setValue(PreparedStatement ps, int i, String val) throws SQLException {
 
         try {
 
-            if (i == 3) { // date_of_birth
+            if (i == 3) { // date
                 ps.setDate(i + 1, java.sql.Date.valueOf(val));
             }
 
-            else if (i == 22 || i == 35 || i == 36) {
+            else if (i == 22 || i == 35 || i == 36) { // decimal
                 ps.setDouble(i + 1, Double.parseDouble(val.replace(",", "")));
             }
 
-            else if (i == 32) {
+            else if (i == 32) { // year
                 ps.setInt(i + 1, Integer.parseInt(val));
             }
 
@@ -154,8 +160,8 @@ public class UploadCSVServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            System.out.println("Data format issue at column " + i + " value=" + val);
-            throw e;
+            System.out.println("⚠ Invalid data at column " + i + " value=" + val);
+            ps.setNull(i + 1, Types.VARCHAR); // fallback instead of crash
         }
     }
 }
