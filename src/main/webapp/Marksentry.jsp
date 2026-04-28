@@ -222,7 +222,7 @@ $('#m_aggr').val(avg.toFixed(2));
 let ett=(etm+ets)/2;
 $('#m_ett').val(ett.toFixed(2));
 
-let total=avg+board+puc+girls+ett;
+let total=(avg+ett)/2+board+puc+girls;
 $('#m_total').val(total.toFixed(2));
 }
 
