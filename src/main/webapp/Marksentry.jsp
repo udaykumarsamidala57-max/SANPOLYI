@@ -23,72 +23,17 @@ String User = (String) sess.getAttribute("username");
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-
-body { 
-    background:#f4f6f9; 
-    margin:0;
-    padding:0;
-}
-
-/* Container full responsive */
-.container {
-    max-width:100% !important;
-}
-
+body { background:#f4f6f9; }
 .container-box {
     background:#fff;
     padding:15px;
     border-radius:8px;
     margin-top:20px;
-    width:100%;
+     max-width:80% !important;
 }
-
-/* Table */
-.table {
-    width:100%;
-    table-layout:auto;
-    font-size:13px;              /* smaller font to fit */
-}
-
-/* Header */
-.table th { 
-    background:#002147; 
-    color:#fff; 
-    text-align:center; 
-    padding:8px;
-    font-size:12px;
-    white-space:normal;          /* allow wrapping */
-}
-
-/* Cells */
-.table td { 
-    text-align:center; 
-    padding:6px;
-    white-space:normal;          /* allow wrapping */
-    word-break:break-word;
-}
-
-/* Inputs */
-.table input {
-    width:100%;
-    min-width:60px;              /* reduced */
-    padding:4px;
-    font-size:12px;
-    text-align:center;
-    box-sizing:border-box;
-}
-
-/* Button */
-.btn-sm {
-    padding:3px 6px;
-    font-size:12px;
-}
-
-/* Optional compact table */
-.table-sm td, .table-sm th {
-    padding:5px;
-}
-
+.table th { background:#002147; color:#fff; text-align:center; }
+.table td { text-align:center; }
+input { text-align:center; }
 </style>
 </head>
 

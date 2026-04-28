@@ -100,7 +100,7 @@ if (list != null) {
 <tr>
 <td><%= val(row.get("id")) %></td>
 <td><%= val(row.get("APPNO")) %></td>
-
+<td><%= val(row.get("cast_no")) %></td>
 <td><%= val(row.get("applicant_name")) %></td>
 
 <td><%= val(row.get("gender")) %></td>
