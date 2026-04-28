@@ -38,9 +38,9 @@ input, textarea { margin-bottom:5px; }
 <th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
 
 
-<th>Father</th><th>F Occ</th><th>F Org</th>
-<th>Mother</th><th>M Occ</th><th>M Org</th>
-<th>Income</th>
+<th>Father Name</th><th>F Occ</th><th>F Org</th>
+<th>Mother name</th><th>M Occ</th><th>M Org</th>
+<th>Income</th><th>Address</th>
 <th>Phone</th><th>Whatsapp</th><th>Email</th><th>SSLC State</th>
 <th>Aadhar</th><th>APAAR</th>
 <th>Medium</th><th>Year</th><th>Board</th><th>Total</th><th>Aggr</th>
