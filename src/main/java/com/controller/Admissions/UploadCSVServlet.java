@@ -67,26 +67,14 @@ public class UploadCSVServlet extends HttpServlet {
 
                 try {
 
-                    if (record.size() != TOTAL_COLUMNS) {
-                        failCount++;
-                        System.out.println("❌ Column mismatch: " + record.size());
-                        continue;
-                    }
-
                     for (int i = 0; i < TOTAL_COLUMNS; i++) {
 
-                        String val = record.get(i);
+                        String val = getSafeValue(record, i);
 
-                        // 🔥 STRONG NULL HANDLING
-                        if (val == null || val.trim().isEmpty()
-                                || val.equalsIgnoreCase("null")
-                                || val.equalsIgnoreCase("NA")) {
-
+                        if (isNullValue(val)) {
                             setNull(ps, i);
-
                         } else {
-
-                            setValue(ps, i, val.trim());
+                            setValue(ps, i, val);
                         }
                     }
 
@@ -122,36 +110,52 @@ public class UploadCSVServlet extends HttpServlet {
         }
     }
 
-    // ===== NULL HANDLING =====
+    // ✅ SAFE VALUE FETCH (handles missing columns)
+    private String getSafeValue(CSVRecord record, int index) {
+        try {
+            return record.get(index);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // ✅ NULL CHECK
+    private boolean isNullValue(String val) {
+        return val == null || val.trim().isEmpty()
+                || val.equalsIgnoreCase("null")
+                || val.equalsIgnoreCase("NA");
+    }
+
+    // ✅ SET NULL
     private void setNull(PreparedStatement ps, int i) throws SQLException {
 
-        if (i == 3) // date_of_birth
+        if (i == 3)
             ps.setNull(i + 1, Types.DATE);
 
-        else if (i == 22 || i == 35 || i == 36) // numeric
+        else if (i == 22 || i == 35 || i == 36)
             ps.setNull(i + 1, Types.DECIMAL);
 
-        else if (i == 32) // year
+        else if (i == 32)
             ps.setNull(i + 1, Types.INTEGER);
 
         else
             ps.setNull(i + 1, Types.VARCHAR);
     }
 
-    // ===== VALUE HANDLING =====
+    // ✅ SET VALUE
     private void setValue(PreparedStatement ps, int i, String val) throws SQLException {
 
         try {
 
-            if (i == 3) { // date
+            if (i == 3) {
                 ps.setDate(i + 1, java.sql.Date.valueOf(val));
             }
 
-            else if (i == 22 || i == 35 || i == 36) { // decimal
+            else if (i == 22 || i == 35 || i == 36) {
                 ps.setDouble(i + 1, Double.parseDouble(val.replace(",", "")));
             }
 
-            else if (i == 32) { // year
+            else if (i == 32) {
                 ps.setInt(i + 1, Integer.parseInt(val));
             }
 
@@ -161,7 +165,7 @@ public class UploadCSVServlet extends HttpServlet {
 
         } catch (Exception e) {
             System.out.println("⚠ Invalid data at column " + i + " value=" + val);
-            ps.setNull(i + 1, Types.VARCHAR); // fallback instead of crash
+            ps.setNull(i + 1, Types.VARCHAR);
         }
     }
 }
