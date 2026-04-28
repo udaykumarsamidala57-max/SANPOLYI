@@ -58,8 +58,8 @@ input, textarea, select {
 <thead>
 <tr>
 <th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
-<th>Native</th><th>Taluk</th><th>District</th><th>State</th><th>Nationality</th>
-<th>Religion</th><th>Category</th><th>Cast</th><th>MT</th><th>Blood</th>
+
+
 <th>Father</th><th>F Occ</th><th>F Org</th>
 <th>Mother</th><th>M Occ</th><th>M Org</th>
 <th>Income</th><th>Postal</th><th>Permanent</th>
@@ -89,29 +89,19 @@ String dob = (row.get("date_of_birth") != null) ? row.get("date_of_birth").toStr
 <td><%= row.get("APPNO") %></td>
 <td><%= row.get("cast_no") %></td>
 <td><%= row.get("applicant_name") %></td>
-<td><%= dob %></td>
+
 <td><%= row.get("gender") %></td>
 <td><%= row.get("Admission_type") %></td>
 
-<td><%= row.get("native_place") %></td>
-<td><%= row.get("taluk") %></td>
-<td><%= row.get("district") %></td>
-<td><%= row.get("state") %></td>
-<td><%= row.get("nationality") %></td>
 
-<td><%= row.get("religion_category") %></td>
-<td><%= row.get("category") %></td>
-<td><%= row.get("cast") %></td>
-<td><%= row.get("mother_tongue") %></td>
-<td><%= row.get("blood_group") %></td>
+
+
 
 <td><%= row.get("father_guardian_name") %></td>
 <td><%= row.get("father_occupation") %></td>
 <td><%= row.get("Father_org") %></td>
 
-<td><%= row.get("mother_name") %></td>
-<td><%= row.get("mother_occupation") %></td>
-<td><%= row.get("Mother_org") %></td>
+
 
 <td><%= row.get("income") %></td>
 <td><%= row.get("postal_address") %></td>
