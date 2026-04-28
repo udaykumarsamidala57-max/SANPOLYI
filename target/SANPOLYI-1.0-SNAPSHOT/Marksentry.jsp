@@ -26,25 +26,30 @@ String User = (String) sess.getAttribute("username");
 body { background:#f4f6f9; }
 .container-box {
     background:#fff;
-    padding:15px;
+    padding:30px;
     border-radius:8px;
-    margin-top:20px;
+    margin-top:40px;
+ width:auto;
+}
+.table{
+width :80%;
+ margin: 0 auto;
 }
 .table th { background:#002147; color:#fff; text-align:center; }
-.table td { text-align:center; }
-input { text-align:center; }
+.table td { text-align:center;padding:auto; }
+input { text-align:center;  }
 </style>
 </head>
 
 <body>
 <%@ include file="header.jsp" %>
-<div class="container">
-<div class="container-box">
+
+
 
 <h3>Marks Entry </h3>
 
 <div class="table-responsive">
-<table class="table table-bordered table-sm table-hover">
+<table class="table table-bordered table-sm table-hover" >
 
 <thead>
 <tr>
@@ -58,10 +63,10 @@ input { text-align:center; }
     <th>Board(CBSE/ICSE)</th>
     <th>PUC</th>
     <th>Girls</th>
-    <th>ET M</th>
-    <th>ET S</th>
-    <th>ET T</th>
-    <th>Total</th>
+    <th>ET Maths</th>
+    <th>ET Science</th>
+    <th>ET Total</th>
+    <th>Grand Total</th>
     <th>Action</th>
 </tr>
 </thead>
@@ -95,7 +100,7 @@ String id=row.get("id");
 
 <td><input name="aggr" value="<%=row.get("aggr")%>" class="form-control" readonly></td>
 
-<% if("Office".equalsIgnoreCase(role)||"Office".equalsIgnoreCase(role)){%>
+<% if("Office".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td><input name="board" value="<%=row.get("board")%>" class="form-control calc"></td>
 <td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc"></td>
 <td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc"></td>
@@ -106,7 +111,7 @@ String id=row.get("id");
 <%} %>
 
 
-<% if("Academics".equalsIgnoreCase(role)){%>
+<% if("Academics".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc"></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc"></td>
 <%}else { %>

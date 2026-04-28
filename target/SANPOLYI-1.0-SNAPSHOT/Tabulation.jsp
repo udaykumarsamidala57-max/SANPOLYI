@@ -85,7 +85,7 @@ function downloadExcel() {
 <th>ET Maths</th><th>ET Science</th><th>ET Total</th>
 <th>Grand Total</th>
 
-<th>Created</th>
+
 </tr>
 </thead>
 
@@ -100,7 +100,7 @@ if (list != null) {
 <tr>
 <td><%= val(row.get("id")) %></td>
 <td><%= val(row.get("APPNO")) %></td>
-
+<td><%= val(row.get("cast_no")) %></td>
 <td><%= val(row.get("applicant_name")) %></td>
 
 <td><%= val(row.get("gender")) %></td>
@@ -108,7 +108,7 @@ if (list != null) {
 
 
 
-<td><%= val(row.get("cast")) %></td>
+
 
 
 <td><%= val(row.get("father_guardian_name")) %></td>
@@ -148,7 +148,7 @@ if (list != null) {
 
 <td><%= val(row.get("Total")) %></td>
 
-<td><%= val(row.get("created_at")) %></td>
+
 </tr>
 
 <%

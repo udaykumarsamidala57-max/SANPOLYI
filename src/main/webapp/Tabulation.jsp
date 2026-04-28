@@ -85,7 +85,7 @@ function downloadExcel() {
 <th>ET Maths</th><th>ET Science</th><th>ET Total</th>
 <th>Grand Total</th>
 
-<th>Created</th>
+
 </tr>
 </thead>
 

@@ -16,73 +16,90 @@ public class AdmissionServlet extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-        	String sql = "INSERT INTO admission_form ("
-        	        + "applicant_name, date_of_birth, gender, Admission_type, "
-        	        + "native_place, taluk, district, state, nationality, "
-        	        + "religion_category, category, cast, mother_tongue, blood_group, "
-        	        + "father_guardian_name, father_occupation, Father_org, "
-        	        + "mother_name, mother_occupation, Mother_org, income, "
-        	        + "postal_address, permanent_address, phone_no, Whatsapp_no, email,SSLC_State, aadhar_no, `APAAR ID`, "
-        	        + "medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, "
-        	        + "marks_maths, marks_science, "
-        	        + "preference_1, preference_2, preference_3, preference_4, preference_5"
-        	        + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO admission_form ("
+                    + "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, "
+                    + "native_place, taluk, district, state, nationality, "
+                    + "religion_category, category, cast, mother_tongue, blood_group, "
+                    + "father_guardian_name, father_occupation, Father_org, "
+                    + "mother_name, mother_occupation, Mother_org, income, "
+                    + "postal_address, permanent_address, phone_no, Whatsapp_no, email, "
+                    + "SSLC_State, aadhar_no, APAAR_ID, "
+                    + "medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, "
+                    + "marks_maths, marks_science, SSLC_Aggr, "
+                    + "preference_1, preference_2, preference_3, preference_4, preference_5, "
+                    + "CBSC_ICSE, PUC_SC, GIRLS, ET_m, ET_s, ET_T, Total"
+                    + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        	PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
 
-        	ps.setString(1, request.getParameter("applicant_name"));
-        	ps.setDate(2, Date.valueOf(request.getParameter("date_of_birth")));
-        	ps.setString(3, request.getParameter("gender"));
-        	ps.setString(4, request.getParameter("Admission_type"));
+            int i = 1;
 
-        	ps.setString(5, request.getParameter("native_place"));
-        	ps.setString(6, request.getParameter("taluk"));
-        	ps.setString(7, request.getParameter("district"));
-        	ps.setString(8, request.getParameter("state"));
-        	ps.setString(9, request.getParameter("nationality"));
+            ps.setString(i++, getVal(request, "APPNO"));
+            ps.setString(i++, getVal(request, "cast_no"));
+            ps.setString(i++, getVal(request, "applicant_name"));
+            ps.setDate(i++, parseDate(request.getParameter("date_of_birth")));
+            ps.setString(i++, getVal(request, "gender"));
+            ps.setString(i++, getVal(request, "Admission_type"));
 
-        	ps.setString(10, request.getParameter("religion_category"));
-        	ps.setString(11, request.getParameter("category"));
-        	ps.setString(12, request.getParameter("cast"));
-        	ps.setString(13, request.getParameter("mother_tongue"));
-        	ps.setString(14, request.getParameter("blood_group"));
+            ps.setString(i++, getVal(request, "native_place"));
+            ps.setString(i++, getVal(request, "taluk"));
+            ps.setString(i++, getVal(request, "district"));
+            ps.setString(i++, getVal(request, "state"));
+            ps.setString(i++, getVal(request, "nationality"));
 
-        	ps.setString(15, request.getParameter("father_guardian_name"));
-        	ps.setString(16, request.getParameter("father_occupation"));
-        	ps.setString(17, request.getParameter("Father_org"));
-        	ps.setString(18, request.getParameter("mother_name"));
-        	ps.setString(19, request.getParameter("mother_occupation"));
-        	ps.setString(20, request.getParameter("Mother_org"));
+            ps.setString(i++, getVal(request, "religion_category"));
+            ps.setString(i++, getVal(request, "category"));
+            ps.setString(i++, getVal(request, "cast"));
+            ps.setString(i++, getVal(request, "mother_tongue"));
+            ps.setString(i++, getVal(request, "blood_group"));
 
-        	ps.setDouble(21, parseDouble(request.getParameter("income")));
+            ps.setString(i++, getVal(request, "father_guardian_name"));
+            ps.setString(i++, getVal(request, "father_occupation"));
+            ps.setString(i++, getVal(request, "Father_org"));
 
-        	ps.setString(22, request.getParameter("postal_address"));
-        	ps.setString(23, request.getParameter("permanent_address"));
-        	ps.setString(24, request.getParameter("phone_no"));
-        	ps.setString(25, request.getParameter("Whatsapp_no"));   // ✅ FIXED
-        	ps.setString(26, request.getParameter("email"));
-        	ps.setString(27, request.getParameter("SSLC_State"));
-        	ps.setString(28, request.getParameter("aadhar_no"));
-        	ps.setString(29, request.getParameter("APAAR"));
+            ps.setString(i++, getVal(request, "mother_name"));
+            ps.setString(i++, getVal(request, "mother_occupation"));
+            ps.setString(i++, getVal(request, "Mother_org"));
 
-        	ps.setString(30, request.getParameter("medium_of_instruction"));
-        	ps.setString(31, request.getParameter("sscl_passing_year"));
+            ps.setDouble(i++, parseDouble(request.getParameter("income")));
 
-        	ps.setString(32, request.getParameter("SSLC_Board"));
-        	ps.setString(33, request.getParameter("SSLC_TMarks"));
+            ps.setString(i++, getVal(request, "postal_address"));
+            ps.setString(i++, getVal(request, "permanent_address"));
+            ps.setString(i++, getVal(request, "phone_no"));
+            ps.setString(i++, getVal(request, "Whatsapp_no"));
+            ps.setString(i++, getVal(request, "email"));
 
-        	ps.setDouble(34, parseDouble(request.getParameter("marks_maths")));
-        	ps.setDouble(35, parseDouble(request.getParameter("marks_science")));
+            ps.setString(i++, getVal(request, "SSLC_State"));
+            ps.setString(i++, getVal(request, "aadhar_no"));
+            ps.setString(i++, getVal(request, "APAAR_ID"));
 
-        	ps.setString(36, request.getParameter("preference_1"));
-        	ps.setString(37, request.getParameter("preference_2"));
-        	ps.setString(38, request.getParameter("preference_3"));
-        	ps.setString(39, request.getParameter("preference_4"));
-        	ps.setString(40, request.getParameter("preference_5"));
+            ps.setString(i++, getVal(request, "medium_of_instruction"));
+            ps.setString(i++, getVal(request, "sscl_passing_year"));
+            ps.setString(i++, getVal(request, "SSLC_Board"));
+            ps.setString(i++, getVal(request, "SSLC_TMarks"));
+
+            ps.setDouble(i++, parseDouble(request.getParameter("marks_maths")));
+            ps.setDouble(i++, parseDouble(request.getParameter("marks_science")));
+
+            ps.setString(i++, getVal(request, "SSLC_Aggr"));
+
+            ps.setString(i++, getVal(request, "preference_1"));
+            ps.setString(i++, getVal(request, "preference_2"));
+            ps.setString(i++, getVal(request, "preference_3"));
+            ps.setString(i++, getVal(request, "preference_4"));
+            ps.setString(i++, getVal(request, "preference_5"));
+
+            ps.setString(i++, getVal(request, "CBSC_ICSE"));
+            ps.setString(i++, getVal(request, "PUC_SC"));
+            ps.setString(i++, getVal(request, "GIRLS"));
+            ps.setString(i++, getVal(request, "ET_m"));
+            ps.setString(i++, getVal(request, "ET_s"));
+            ps.setString(i++, getVal(request, "ET_T"));
+            ps.setString(i++, getVal(request, "Total"));
 
             ps.executeUpdate();
 
-            response.sendRedirect("enquiry_success.jsp"); // better than println
+            response.sendRedirect("enquiry_success.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,12 +107,24 @@ public class AdmissionServlet extends HttpServlet {
         }
     }
 
-    // 🔥 helper methods (avoid crash)
-    private int parseInt(String val) {
-        try { return Integer.parseInt(val); } catch (Exception e) { return 0; }
+    private String getVal(HttpServletRequest req, String field) {
+        String val = req.getParameter(field);
+        return (val == null || val.trim().isEmpty()) ? null : val.trim();
+    }
+
+    private Date parseDate(String val) {
+        try {
+            return (val == null || val.isEmpty()) ? null : Date.valueOf(val);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private double parseDouble(String val) {
-        try { return Double.parseDouble(val); } catch (Exception e) { return 0.0; }
+        try {
+            return (val == null || val.isEmpty()) ? 0.0 : Double.parseDouble(val);
+        } catch (Exception e) {
+            return 0.0;
+        }
     }
 }
