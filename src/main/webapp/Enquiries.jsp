@@ -37,7 +37,7 @@ th { background:#f3f3f3; }
 <tr>
 <th>ID</th>
 <th>APPNO</th>
-<th>Cast No</th>
+<th>Categ. No</th>
 <th>Name</th>
 <th>DOB</th>
 <th>Gender</th>
@@ -52,9 +52,7 @@ th { background:#f3f3f3; }
 <th>M Org</th>
 
 <th>Income</th>
-
-<th>Postal Address</th>
-<th>Permanent Address</th>
+<th>Address<th>
 
 <th>Phone</th>
 <th>Whatsapp</th>
@@ -64,14 +62,15 @@ th { background:#f3f3f3; }
 <th>Aadhar</th>
 <th>APAAR</th>
 
+
+<th>Board</th>
 <th>Medium</th>
 <th>Year</th>
-<th>Board</th>
-<th>Total</th>
-<th>Aggr</th>
 
 <th>Maths</th>
 <th>Science</th>
+<th>Total</th>
+<th>Aggr</th>
 
 <th>P1</th>
 <th>P2</th>
@@ -114,7 +113,7 @@ if (list != null) {
 <td><%= row.get("income") == null ? "" : row.get("income") %></td>
 
 <td><%= row.get("postal_address") == null ? "" : row.get("postal_address") %></td>
-<td><%= row.get("permanent_address") == null ? "" : row.get("permanent_address") %></td>
+
 
 <td><%= row.get("phone_no") == null ? "" : row.get("phone_no") %></td>
 <td><%= row.get("Whatsapp_no") == null ? "" : row.get("Whatsapp_no") %></td>
@@ -124,14 +123,14 @@ if (list != null) {
 <td><%= row.get("aadhar_no") == null ? "" : row.get("aadhar_no") %></td>
 <td><%= row.get("APAAR_ID") == null ? "" : row.get("APAAR_ID") %></td>
 
+<td><%= row.get("SSLC_Board") == null ? "" : row.get("SSLC_Board") %></td>
 <td><%= row.get("medium_of_instruction") == null ? "" : row.get("medium_of_instruction") %></td>
 <td><%= row.get("sscl_passing_year") == null ? "" : row.get("sscl_passing_year") %></td>
-<td><%= row.get("SSLC_Board") == null ? "" : row.get("SSLC_Board") %></td>
-<td><%= row.get("SSLC_TMarks") == null ? "" : row.get("SSLC_TMarks") %></td>
-<td><%= row.get("SSLC_Aggr") == null ? "" : row.get("SSLC_Aggr") %></td>
 
 <td><%= row.get("marks_maths") == null ? "" : row.get("marks_maths") %></td>
 <td><%= row.get("marks_science") == null ? "" : row.get("marks_science") %></td>
+<td><%= row.get("SSLC_TMarks") == null ? "" : row.get("SSLC_TMarks") %></td>
+<td><%= row.get("SSLC_Aggr") == null ? "" : row.get("SSLC_Aggr") %></td>
 
 <td><%= row.get("preference_1") == null ? "" : row.get("preference_1") %></td>
 <td><%= row.get("preference_2") == null ? "" : row.get("preference_2") %></td>
