@@ -1,5 +1,14 @@
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
+<%
+HttpSession sess = request.getSession(false);
+if (sess == null || sess.getAttribute("username") == null) {
+    response.sendRedirect("login.jsp");
+    return;
+}
+String role = (String) sess.getAttribute("role");
+String User = (String) sess.getAttribute("username");
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -86,12 +95,24 @@ String id=row.get("id");
 
 <td><input name="aggr" value="<%=row.get("aggr")%>" class="form-control" readonly></td>
 
+<% if("Office".equalsIgnoreCase(role)||"Office".equalsIgnoreCase(role)){%>
 <td><input name="board" value="<%=row.get("board")%>" class="form-control calc"></td>
 <td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc"></td>
 <td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc"></td>
+<%} else {%>
+<td><input name="board" value="<%=row.get("board")%>" class="form-control calc" readonly></td>
+<td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc" readonly></td>
+<td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc" readonly></td>
+<%} %>
 
+
+<% if("Academics".equalsIgnoreCase(role)){%>
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc"></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc"></td>
+<%}else { %>
+<td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc" readonly></td>
+<td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc" readonly></td>
+<%} %>
 
 <td><input name="ET_T" value="<%=row.get("ET_T")%>" class="form-control" readonly></td>
 
