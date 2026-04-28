@@ -27,9 +27,8 @@ public class AdmissionServlet extends HttpServlet {
         	        + "medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, "
         	        + "marks_maths, marks_science, SSLC_Aggr, "
         	        + "preference_1, preference_2, preference_3, preference_4, preference_5"
-        	        + ") VALUES ("
-        	        + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"
-        	        + ")";
+        	        + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        	      
             PreparedStatement ps = con.prepareStatement(sql);
 
             int i = 1;
@@ -74,7 +73,7 @@ public class AdmissionServlet extends HttpServlet {
             ps.setString(i++, getVal(request, "APAAR_ID"));
 
             ps.setString(i++, getVal(request, "medium_of_instruction"));
-            ps.setInt(i++, parseInt(request.getParameter("sscl_passing_year")));
+            ps.setString(i++, getVal(request, "sscl_passing_year"));
             ps.setString(i++, getVal(request, "SSLC_Board"));
             ps.setString(i++, getVal(request, "SSLC_TMarks"));
 
