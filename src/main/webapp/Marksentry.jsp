@@ -56,28 +56,19 @@ List<Map<String,String>> list = (List<Map<String,String>>)request.getAttribute("
 if(list!=null && !list.isEmpty()){
  for(Map<String,String> row:list){
 
-String id=row.get("id")==null?"":row.get("id");
-String name=row.get("name")==null?"":row.get("name");
-String maths=row.get("maths")==null?"0":row.get("maths");
-String science=row.get("science")==null?"0":row.get("science");
-String aggr=row.get("aggr")==null?"0":row.get("aggr");
+String id=row.get("id");
+String name=row.get("name");
+String maths=row.get("maths");
+String science=row.get("science");
+String aggr=row.get("aggr");
+String board=row.get("board");
+String puc=row.get("puc");
+String girls=row.get("girls");
 
-String board=row.get("board")==null?"0":row.get("board");
-String puc=row.get("puc")==null?"0":row.get("puc");
-String girls=row.get("girls")==null?"0":row.get("girls");
-String et=row.get("et")==null?"0":row.get("et");
-
-// 🔥 TOTAL CALCULATION IN JSP
-double avg = 0;
-try{
-    avg = (Double.parseDouble(maths) + Double.parseDouble(science)) / 2;
-}catch(Exception e){}
-
-double total = 0;
-try{
-    total = avg + Double.parseDouble(board) + Double.parseDouble(puc)
-            + Double.parseDouble(girls) + Double.parseDouble(et);
-}catch(Exception e){}
+String etm=row.get("ET_m");
+String ets=row.get("ET_s");
+String ett=row.get("ET_T");
+String total=row.get("Total");
 %>
 
 <tr>
@@ -85,8 +76,8 @@ try{
 <td style="text-align:left;"><%=name%></td>
 <td><%=maths%></td>
 <td><%=science%></td>
-<td><%=String.format("%.2f", avg)%></td>
-<td><%=String.format("%.2f", total)%></td>
+<td><%=aggr%></td>
+<td><%=total%></td>
 
 <td>
 <button class="btn btn-sm btn-primary"
@@ -98,7 +89,10 @@ data-science="<%=science%>"
 data-board="<%=board%>"
 data-puc="<%=puc%>"
 data-girls="<%=girls%>"
-data-et="<%=et%>">
+data-etm="<%=etm%>"
+data-ets="<%=ets%>"
+data-ett="<%=ett%>"
+data-total="<%=total%>">
 Edit
 </button>
 </td>
@@ -132,54 +126,44 @@ Edit
 
 <input type="hidden" name="id" id="m_id">
 
-<div class="form-group">
 <label>Name</label>
-<input id="m_name" class="form-control" readonly>
-</div>
+<input id="m_name" class="form-control" readonly><br>
 
-<div class="form-group">
 <label>Maths</label>
-<input id="m_maths" name="maths" class="form-control" readonly>
-</div>
+<input id="m_maths" name="maths" class="form-control" readonly><br>
 
-<div class="form-group">
 <label>Science</label>
-<input id="m_science" name="science" class="form-control" readonly>
-</div>
+<input id="m_science" name="science" class="form-control" readonly><br>
 
-<div class="form-group">
 <label>Aggregate</label>
-<input id="m_aggr" name="aggr" class="form-control" readonly>
-</div>
+<input id="m_aggr" name="aggr" class="form-control" readonly><br>
 
 <hr>
 
-<div class="form-group">
 <label>Board</label>
-<input type="number" name="board" id="m_board" class="form-control">
-</div>
+<input type="number" name="board" id="m_board" class="form-control"><br>
 
-<div class="form-group">
 <label>PUC</label>
-<input type="number" name="puc" id="m_puc" class="form-control">
-</div>
+<input type="number" name="puc" id="m_puc" class="form-control"><br>
 
-<div class="form-group">
 <label>Girls</label>
-<input type="number" name="girls" id="m_girls" class="form-control">
-</div>
-
-<div class="form-group">
-<label>ET</label>
-<input type="number" name="et" id="m_et" class="form-control">
-</div>
+<input type="number" name="girls" id="m_girls" class="form-control"><br>
 
 <hr>
 
-<div class="form-group">
+<label>ET Maths</label>
+<input type="number" name="ET_m" id="m_etm" class="form-control"><br>
+
+<label>ET Science</label>
+<input type="number" name="ET_s" id="m_ets" class="form-control"><br>
+
+<label>ET Total</label>
+<input type="text" name="ET_T" id="m_ett" class="form-control" readonly><br>
+
+<hr>
+
 <label>Total</label>
-<input id="m_total" class="form-control" readonly>
-</div>
+<input name="Total" id="m_total" class="form-control" readonly>
 
 </div>
 
@@ -209,7 +193,11 @@ $('#m_science').val(b.data('science'));
 $('#m_board').val(b.data('board'));
 $('#m_puc').val(b.data('puc'));
 $('#m_girls').val(b.data('girls'));
-$('#m_et').val(b.data('et'));
+
+$('#m_etm').val(b.data('etm'));
+$('#m_ets').val(b.data('ets'));
+$('#m_ett').val(b.data('ett'));
+$('#m_total').val(b.data('total'));
 
 calculateAll();
 
@@ -224,16 +212,22 @@ let s=parseFloat($('#m_science').val())||0;
 let board=parseFloat($('#m_board').val())||0;
 let puc=parseFloat($('#m_puc').val())||0;
 let girls=parseFloat($('#m_girls').val())||0;
-let et=parseFloat($('#m_et').val())||0;
 
-let avg = (m+s)/2;
+let etm=parseFloat($('#m_etm').val())||0;
+let ets=parseFloat($('#m_ets').val())||0;
+
+let avg=(m+s)/2;
 $('#m_aggr').val(avg.toFixed(2));
 
-let total = avg + board + puc + girls + et;
+let ett=etm+ets;
+$('#m_ett').val(ett.toFixed(2));
+
+let total=avg+board+puc+girls+ett;
 $('#m_total').val(total.toFixed(2));
 }
 
-$('#m_board, #m_puc, #m_girls, #m_et').on('input', function(){
+// trigger live calc
+$('#m_board,#m_puc,#m_girls,#m_etm,#m_ets').on('input',function(){
 calculateAll();
 });
 

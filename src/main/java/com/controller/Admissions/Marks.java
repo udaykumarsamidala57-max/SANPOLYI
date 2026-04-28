@@ -27,7 +27,7 @@ public class Marks extends HttpServlet {
         try (Connection con = DBUtil3.getConnection()) {
 
             String sql = "SELECT id, applicant_name, marks_maths, marks_science, SSLC_Aggr, " +
-                         "CBSC_ICSE AS board, PUC_SC AS puc, GIRLS, ET " +
+                         "CBSC_ICSE AS board, PUC_SC AS puc, GIRLS, ET_m,ET_T,Total " +
                          "FROM admission_form ORDER BY id DESC";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -45,7 +45,11 @@ public class Marks extends HttpServlet {
                 row.put("board", safe(rs.getString("board")));
                 row.put("puc", safe(rs.getString("puc")));
                 row.put("girls", safe(rs.getString("GIRLS")));
-                row.put("et", safe(rs.getString("ET")));
+                row.put("ET_m", safe(rs.getString("ET_m")));
+                row.put("ET_s", safe(rs.getString("ET_s")));
+                row.put("ET_T", safe(rs.getString("ET_T")));
+                row.put("Total", safe(rs.getString("Total")));
+                
 
                 list.add(row);
             }
@@ -68,10 +72,10 @@ public class Marks extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "UPDATE admission_form SET " +
-                    "marks_maths=?, marks_science=?, SSLC_Aggr=?, " +
-                    "CBSC_ICSE=?, PUC_SC=?, GIRLS=?, ET=? " +
-                    "WHERE id=?";
+        	String sql = "UPDATE admission_form SET " +
+        			"marks_maths=?, marks_science=?, SSLC_Aggr=?, " +
+        			"CBSC_ICSE=?, PUC_SC=?, GIRLS=?, ET_m=?, ET_s=?, ET_T=?, Total=? " +
+        			"WHERE id=?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -81,8 +85,11 @@ public class Marks extends HttpServlet {
             ps.setString(4, safe(request.getParameter("board")));
             ps.setString(5, safe(request.getParameter("puc")));
             ps.setString(6, safe(request.getParameter("girls")));
-            ps.setString(7, safe(request.getParameter("et")));
-            ps.setInt(8, Integer.parseInt(request.getParameter("id")));
+            ps.setString(7, safe(request.getParameter("ET_m")));
+            ps.setString(8, safe(request.getParameter("ET_s")));
+            ps.setString(9, safe(request.getParameter("ET_T")));
+            ps.setString(10, safe(request.getParameter("Total")));
+            ps.setInt(11, Integer.parseInt(request.getParameter("id")));
 
             int rows = ps.executeUpdate();
             System.out.println("Updated rows: " + rows);
