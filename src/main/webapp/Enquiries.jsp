@@ -205,8 +205,9 @@ data-p5='<%= row.get("preference_5") %>'
 </div>
 
 <!-- ================= EDIT MODAL ================= -->
+
 <div class="modal fade" id="editModal">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
       <form method="post" action="Enquiries">
@@ -216,103 +217,152 @@ data-p5='<%= row.get("preference_5") %>'
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body" style="max-height:70vh; overflow-y:auto;">
 
           <input type="hidden" id="m_id" name="id">
 
           <div class="row">
 
-            <!-- EXISTING FIELDS (NO CHANGE) -->
+            <!-- BASIC -->
+            <div class="col-md-3"><label>App No</label>
+              <input type="text" class="form-control" id="m_appno" name="APPNO"></div>
 
-            <div class="col-md-3">
-              <label>App No</label>
-              <input type="text" class="form-control" id="m_appno" name="APPNO">
-            </div>
+            <div class="col-md-3"><label>Cast No</label>
+              <input type="text" class="form-control" id="m_castno" name="cast_no"></div>
 
-            <div class="col-md-3">
-              <label>Cast No</label>
-              <input type="text" class="form-control" id="m_castno" name="cast_no">
-            </div>
+            <div class="col-md-6"><label>Name</label>
+              <input type="text" class="form-control" id="m_name" name="applicant_name"></div>
 
-            <div class="col-md-6">
-              <label>Name</label>
-              <input type="text" class="form-control" id="m_name" name="applicant_name">
-            </div>
+            <div class="col-md-4"><label>DOB</label>
+              <input type="date" class="form-control" id="m_dob" name="date_of_birth"></div>
 
-            <div class="col-md-4">
-              <label>DOB</label>
-              <input type="date" class="form-control" id="m_dob" name="date_of_birth">
-            </div>
+            <div class="col-md-4"><label>Gender</label>
+              <input type="text" class="form-control" id="m_gender" name="gender"></div>
 
-            <div class="col-md-4">
-              <label>Gender</label>
-              <input type="text" class="form-control" id="m_gender" name="gender">
-            </div>
+            <div class="col-md-4"><label>Admission</label>
+              <input type="text" class="form-control" id="m_admission" name="Admission_type"></div>
 
-            <div class="col-md-4">
-              <label>Admission</label>
-              <input type="text" class="form-control" id="m_admission" name="Admission_type">
-            </div>
+            <!-- LOCATION -->
+            <div class="col-md-4"><label>Native</label>
+              <input type="text" id="m_native" name="native_place" class="form-control"></div>
 
-            <!-- ✅ ADD THESE MISSING FIELDS -->
+            <div class="col-md-4"><label>Taluk</label>
+              <input type="text" id="m_taluk" name="taluk" class="form-control"></div>
 
-            <div class="col-md-6">
-              <label>Postal Address</label>
-              <textarea class="form-control" id="m_postal" name="postal_address"></textarea>
-            </div>
+            <div class="col-md-4"><label>District</label>
+              <input type="text" id="m_district" name="district" class="form-control"></div>
 
-            <div class="col-md-6">
-              <label>Permanent Address</label>
-              <textarea class="form-control" id="m_permanent" name="permanent_address"></textarea>
-            </div>
+            <div class="col-md-4"><label>State</label>
+              <input type="text" id="m_state" name="state" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Total Marks</label>
-              <input type="text" class="form-control" id="m_total" name="SSLC_TMarks">
-            </div>
+            <div class="col-md-4"><label>Nationality</label>
+              <input type="text" id="m_nationality" name="nationality" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Aggregate</label>
-              <input type="text" class="form-control" id="m_aggr" name="SSLC_Aggr">
-            </div>
+            <!-- SOCIAL -->
+            <div class="col-md-4"><label>Religion</label>
+              <input type="text" id="m_religion" name="religion_category" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Maths</label>
-              <input type="text" class="form-control" id="m_maths" name="marks_maths">
-            </div>
+            <div class="col-md-4"><label>Category</label>
+              <input type="text" id="m_category" name="category" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Science</label>
-              <input type="text" class="form-control" id="m_science" name="marks_science">
-            </div>
+            <div class="col-md-4"><label>Cast</label>
+              <input type="text" id="m_cast" name="cast" class="form-control"></div>
 
-            <!-- Preferences -->
-            <div class="col-md-4">
-              <label>Preference 1</label>
-              <input type="text" class="form-control" id="m_p1" name="preference_1">
-            </div>
+            <div class="col-md-4"><label>Mother Tongue</label>
+              <input type="text" id="m_mt" name="mother_tongue" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Preference 2</label>
-              <input type="text" class="form-control" id="m_p2" name="preference_2">
-            </div>
+            <div class="col-md-4"><label>Blood</label>
+              <input type="text" id="m_blood" name="blood_group" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Preference 3</label>
-              <input type="text" class="form-control" id="m_p3" name="preference_3">
-            </div>
+            <!-- PARENTS -->
+            <div class="col-md-6"><label>Father</label>
+              <input type="text" id="m_father" name="father_guardian_name" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Preference 4</label>
-              <input type="text" class="form-control" id="m_p4" name="preference_4">
-            </div>
+            <div class="col-md-3"><label>F Occ</label>
+              <input type="text" id="m_focc" name="father_occupation" class="form-control"></div>
 
-            <div class="col-md-4">
-              <label>Preference 5</label>
-              <input type="text" class="form-control" id="m_p5" name="preference_5">
-            </div>
+            <div class="col-md-3"><label>F Org</label>
+              <input type="text" id="m_forg" name="Father_org" class="form-control"></div>
+
+            <div class="col-md-6"><label>Mother</label>
+              <input type="text" id="m_mother" name="mother_name" class="form-control"></div>
+
+            <div class="col-md-3"><label>M Occ</label>
+              <input type="text" id="m_mocc" name="mother_occupation" class="form-control"></div>
+
+            <div class="col-md-3"><label>M Org</label>
+              <input type="text" id="m_morg" name="Mother_org" class="form-control"></div>
+
+            <!-- FINANCIAL -->
+            <div class="col-md-4"><label>Income</label>
+              <input type="text" id="m_income" name="income" class="form-control"></div>
+
+            <!-- ADDRESS -->
+            <div class="col-md-6"><label>Postal</label>
+              <textarea id="m_postal" name="postal_address" class="form-control"></textarea></div>
+
+            <div class="col-md-6"><label>Permanent</label>
+              <textarea id="m_permanent" name="permanent_address" class="form-control"></textarea></div>
+
+            <!-- CONTACT -->
+            <div class="col-md-4"><label>Phone</label>
+              <input type="text" id="m_phone" name="phone_no" class="form-control"></div>
+
+            <div class="col-md-4"><label>Whatsapp</label>
+              <input type="text" id="m_whatsapp" name="Whatsapp_no" class="form-control"></div>
+
+            <div class="col-md-4"><label>Email</label>
+              <input type="text" id="m_email" name="email" class="form-control"></div>
+
+            <div class="col-md-4"><label>SSLC State</label>
+              <input type="text" id="m_sslcstate" name="SSLC_State" class="form-control"></div>
+
+            <div class="col-md-4"><label>Aadhar</label>
+              <input type="text" id="m_aadhar" name="aadhar_no" class="form-control"></div>
+
+            <div class="col-md-4"><label>APAAR</label>
+              <input type="text" id="m_apaar" name="APAAR_ID" class="form-control"></div>
+
+            <!-- EDUCATION -->
+            <div class="col-md-4"><label>Medium</label>
+              <input type="text" id="m_medium" name="medium_of_instruction" class="form-control"></div>
+
+            <div class="col-md-4"><label>Year</label>
+              <input type="text" id="m_year" name="sscl_passing_year" class="form-control"></div>
+
+            <div class="col-md-4"><label>Board</label>
+              <input type="text" id="m_board" name="SSLC_Board" class="form-control"></div>
+
+            <div class="col-md-4"><label>Total</label>
+              <input type="text" id="m_total" name="SSLC_TMarks" class="form-control"></div>
+
+            <div class="col-md-4"><label>Aggregate</label>
+              <input type="text" id="m_aggr" name="SSLC_Aggr" class="form-control"></div>
+
+            <div class="col-md-4"><label>Maths</label>
+              <input type="text" id="m_maths" name="marks_maths" class="form-control"></div>
+
+            <div class="col-md-4"><label>Science</label>
+              <input type="text" id="m_science" name="marks_science" class="form-control"></div>
+
+            <!-- PREFERENCES -->
+            <div class="col-md-4"><label>P1</label>
+              <input type="text" id="m_p1" name="preference_1" class="form-control"></div>
+
+            <div class="col-md-4"><label>P2</label>
+              <input type="text" id="m_p2" name="preference_2" class="form-control"></div>
+
+            <div class="col-md-4"><label>P3</label>
+              <input type="text" id="m_p3" name="preference_3" class="form-control"></div>
+
+            <div class="col-md-4"><label>P4</label>
+              <input type="text" id="m_p4" name="preference_4" class="form-control"></div>
+
+            <div class="col-md-4"><label>P5</label>
+              <input type="text" id="m_p5" name="preference_5" class="form-control"></div>
 
           </div>
+
         </div>
 
         <div class="modal-footer">
