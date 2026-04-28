@@ -32,7 +32,7 @@ body { background:#f4f6f9; }
  width:auto;
 }
 .table{
-width :auto;
+width :80%;
 }
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center;padding:auto; }
