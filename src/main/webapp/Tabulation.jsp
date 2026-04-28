@@ -31,7 +31,6 @@ th { background:#f3f3f3; }
 <h4>SANPOLY - Admission Records</h4>
 
 <div class="table-wrapper">
-<table>
 <thead>
 <tr>
 <th>ID</th>
@@ -47,21 +46,16 @@ th { background:#f3f3f3; }
 <th>Category</th>
 <th>Cast</th>
 <th>Mother Tongue</th>
-<th>Blood</th>
 
 <!-- PARENTS -->
 <th>Father Name</th>
-<th>F Occ</th>
+<th>F Occupation</th>
 <th>F Org</th>
 <th>Mother Name</th>
-<th>M Occ</th>
+<th>M Occupation</th>
 <th>M Org</th>
 
-<!-- CONTACT -->
-<th>Income</th>
-<th>Postal Address</th>
-<th>Permanent Address</th>
-<th>Phone</th>
+<!-- CONTACT (ONLY WHAT YOU SHOW) -->
 <th>Whatsapp</th>
 <th>Email</th>
 
@@ -95,7 +89,6 @@ th { background:#f3f3f3; }
 <th>ET Total</th>
 <th>Grand Total</th>
 
-<th>Created</th>
 </tr>
 </thead>
 <tbody>
