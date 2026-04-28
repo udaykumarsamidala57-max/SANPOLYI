@@ -51,18 +51,21 @@ public class Tabulation extends HttpServlet {
                 row.put("gender", rs.getString("gender"));
                 row.put("Admission_type", rs.getString("Admission_type"));
 
+                // Address
                 row.put("native_place", rs.getString("native_place"));
                 row.put("taluk", rs.getString("taluk"));
                 row.put("district", rs.getString("district"));
                 row.put("state", rs.getString("state"));
                 row.put("nationality", rs.getString("nationality"));
 
+                // Social
                 row.put("religion_category", rs.getString("religion_category"));
                 row.put("category", rs.getString("category"));
                 row.put("cast", rs.getString("cast"));
                 row.put("mother_tongue", rs.getString("mother_tongue"));
                 row.put("blood_group", rs.getString("blood_group"));
 
+                // Parents
                 row.put("father_guardian_name", rs.getString("father_guardian_name"));
                 row.put("father_occupation", rs.getString("father_occupation"));
                 row.put("Father_org", rs.getString("Father_org"));
@@ -71,23 +74,22 @@ public class Tabulation extends HttpServlet {
                 row.put("mother_occupation", rs.getString("mother_occupation"));
                 row.put("Mother_org", rs.getString("Mother_org"));
 
+                // Contact
                 row.put("income", rs.getBigDecimal("income"));
-
                 row.put("postal_address", rs.getString("postal_address"));
                 row.put("permanent_address", rs.getString("permanent_address"));
-
                 row.put("phone_no", rs.getString("phone_no"));
                 row.put("Whatsapp_no", rs.getString("Whatsapp_no"));
                 row.put("email", rs.getString("email"));
 
+                // IDs
                 row.put("SSLC_State", rs.getString("SSLC_State"));
-
                 row.put("aadhar_no", rs.getString("aadhar_no"));
                 row.put("APAAR_ID", rs.getString("APAAR_ID"));
 
+                // Education
                 row.put("medium_of_instruction", rs.getString("medium_of_instruction"));
                 row.put("sscl_passing_year", rs.getString("sscl_passing_year"));
-
                 row.put("SSLC_Board", rs.getString("SSLC_Board"));
                 row.put("SSLC_TMarks", rs.getString("SSLC_TMarks"));
                 row.put("SSLC_Aggr", rs.getString("SSLC_Aggr"));
@@ -95,12 +97,25 @@ public class Tabulation extends HttpServlet {
                 row.put("marks_maths", rs.getBigDecimal("marks_maths"));
                 row.put("marks_science", rs.getBigDecimal("marks_science"));
 
+                // Preferences
                 row.put("preference_1", rs.getString("preference_1"));
                 row.put("preference_2", rs.getString("preference_2"));
                 row.put("preference_3", rs.getString("preference_3"));
                 row.put("preference_4", rs.getString("preference_4"));
                 row.put("preference_5", rs.getString("preference_5"));
 
+                // Extra Fields (NEW)
+                row.put("CBSC_ICSE", rs.getString("CBSC_ICSE"));
+                row.put("PUC_SC", rs.getString("PUC_SC"));
+                row.put("GIRLS", rs.getString("GIRLS"));
+
+                row.put("ET_m", rs.getString("ET_m"));
+                row.put("ET_s", rs.getString("ET_s"));
+                row.put("ET_T", rs.getString("ET_T"));
+
+                row.put("Total", rs.getString("Total"));
+
+                // Timestamp
                 row.put("created_at", rs.getTimestamp("created_at"));
 
                 list.add(row);

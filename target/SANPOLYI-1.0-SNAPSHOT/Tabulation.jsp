@@ -36,18 +36,32 @@ th { background:#f3f3f3; }
 <tr>
 <th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
 
+<th>Native</th><th>Taluk</th><th>District</th><th>State</th><th>Nationality</th>
+
+<th>Religion</th><th>Category</th><th>Cast</th><th>MT</th><th>Blood</th>
+
 <th>Father Name</th><th>F Occ</th><th>F Org</th>
-<th>Mother name</th><th>M Occ</th><th>M Org</th>
-<th>Income</th><th>Address</th>
-<th>Phone</th><th>Whatsapp</th><th>Email</th><th>SSLC State</th>
-<th>Aadhar</th><th>APAAR</th>
-<th>Medium</th><th>Year</th><th>Board</th><th>Total</th><th>Aggr</th>
+<th>Mother Name</th><th>M Occ</th><th>M Org</th>
+
+<th>Income</th><th>Postal</th><th>Permanent</th>
+
+<th>Phone</th><th>Whatsapp</th><th>Email</th>
+
+<th>SSLC State</th><th>Aadhar</th><th>APAAR</th>
+
+<th>Medium</th><th>Year</th><th>Board</th><th>Total Marks</th><th>Aggr</th>
 <th>Maths</th><th>Science</th>
+
 <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
+
+<!-- NEW -->
+<th>CBSE/ICSE</th><th>PUC/SC</th><th>Girls</th>
+<th>ET Maths</th><th>ET Science</th><th>ET Total</th>
+<th>Grand Total</th>
+
 <th>Created</th>
 </tr>
 </thead>
-
 <tbody>
 
 <%
@@ -65,6 +79,21 @@ if (list != null) {
 <td><%= row.get("gender") %></td>
 <td><%= row.get("Admission_type") %></td>
 
+<!-- ADDRESS -->
+<td><%= row.get("native_place") %></td>
+<td><%= row.get("taluk") %></td>
+<td><%= row.get("district") %></td>
+<td><%= row.get("state") %></td>
+<td><%= row.get("nationality") %></td>
+
+<!-- SOCIAL -->
+<td><%= row.get("religion_category") %></td>
+<td><%= row.get("category") %></td>
+<td><%= row.get("cast") %></td>
+<td><%= row.get("mother_tongue") %></td>
+<td><%= row.get("blood_group") %></td>
+
+<!-- PARENTS -->
 <td><%= row.get("father_guardian_name") %></td>
 <td><%= row.get("father_occupation") %></td>
 <td><%= row.get("Father_org") %></td>
@@ -73,6 +102,7 @@ if (list != null) {
 <td><%= row.get("mother_occupation") %></td>
 <td><%= row.get("Mother_org") %></td>
 
+<!-- CONTACT -->
 <td><%= row.get("income") %></td>
 <td><%= row.get("postal_address") %></td>
 <td><%= row.get("permanent_address") %></td>
@@ -80,11 +110,13 @@ if (list != null) {
 <td><%= row.get("phone_no") %></td>
 <td><%= row.get("Whatsapp_no") %></td>
 <td><%= row.get("email") %></td>
-<td><%= row.get("SSLC_State") %></td>
 
+<!-- IDS -->
+<td><%= row.get("SSLC_State") %></td>
 <td><%= row.get("aadhar_no") %></td>
 <td><%= row.get("APAAR_ID") %></td>
 
+<!-- EDUCATION -->
 <td><%= row.get("medium_of_instruction") %></td>
 <td><%= row.get("sscl_passing_year") %></td>
 <td><%= row.get("SSLC_Board") %></td>
@@ -94,11 +126,23 @@ if (list != null) {
 <td><%= row.get("marks_maths") %></td>
 <td><%= row.get("marks_science") %></td>
 
+<!-- PREFERENCES -->
 <td><%= row.get("preference_1") %></td>
 <td><%= row.get("preference_2") %></td>
 <td><%= row.get("preference_3") %></td>
 <td><%= row.get("preference_4") %></td>
 <td><%= row.get("preference_5") %></td>
+
+<!-- NEW FIELDS -->
+<td><%= row.get("CBSC_ICSE") %></td>
+<td><%= row.get("PUC_SC") %></td>
+<td><%= row.get("GIRLS") %></td>
+
+<td><%= row.get("ET_m") %></td>
+<td><%= row.get("ET_s") %></td>
+<td><%= row.get("ET_T") %></td>
+
+<td><%= row.get("Total") %></td>
 
 <td><%= row.get("created_at") %></td>
 </tr>
