@@ -36,11 +36,11 @@ input, textarea { margin-bottom:5px; }
 <thead>
 <tr>
 <th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
-<th>Nationality</th>
-<th>Religion</th><th>Category</th><th>Cast</th><th>MT</th><th>Blood</th>
+
+
 <th>Father</th><th>F Occ</th><th>F Org</th>
 <th>Mother</th><th>M Occ</th><th>M Org</th>
-<th>Income</th><th>Postal</th><th>Permanent</th>
+<th>Income</th>
 <th>Phone</th><th>Whatsapp</th><th>Email</th><th>SSLC State</th>
 <th>Aadhar</th><th>APAAR</th>
 <th>Medium</th><th>Year</th><th>Board</th><th>Total</th><th>Aggr</th>
@@ -67,12 +67,6 @@ for (Map<String, Object> row : list) {
 <td><%= row.get("date_of_birth") %></td>
 <td><%= row.get("gender") %></td>
 <td><%= row.get("Admission_type") %></td>
-
-
-
-
-
-
 <td><%= row.get("father_guardian_name") %></td>
 <td><%= row.get("father_occupation") %></td>
 <td><%= row.get("Father_org") %></td>
