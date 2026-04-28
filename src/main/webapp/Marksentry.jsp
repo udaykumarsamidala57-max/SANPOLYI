@@ -28,8 +28,8 @@ body { background:#f4f6f9; }
     background:#fff;
     padding:15px;
     border-radius:8px;
-    margin-top:20px;
-     max-width:80% !important;
+    margin-top:40px;
+     max-width:100% !important;
 }
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center; }
