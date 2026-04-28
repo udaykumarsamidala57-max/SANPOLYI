@@ -111,7 +111,7 @@ String id=row.get("id");
 <%} %>
 
 
-<% if("Academics".equalsIgnoreCase(role)){%>
+<% if("Academics".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc"></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc"></td>
 <%}else { %>
