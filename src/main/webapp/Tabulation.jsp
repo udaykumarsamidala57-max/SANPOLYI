@@ -1,7 +1,7 @@
 <%@ page import="java.util.*" %>
-<%
-    // Helper function for null handling
-    String val(Object o) {
+
+<%! 
+    public String val(Object o) {
         return (o == null) ? "" : o.toString();
     }
 %>
@@ -64,53 +64,25 @@ function downloadExcel() {
 
 <thead>
 <tr>
-<th>ID</th>
-<th>APPNO</th>
-<th>Cast No</th>
-<th>Name</th>
-<th>DOB</th>
-<th>Gender</th>
-<th>Admission</th>
+<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>DOB</th><th>Gender</th><th>Admission</th>
 
-<th>Religion</th>
-<th>Category</th>
-<th>Cast</th>
-<th>Mother Tongue</th>
+<th>Religion</th><th>Category</th><th>Cast</th><th>Mother Tongue</th>
 
-<th>Father Name</th>
-<th>F Occupation</th>
-<th>F Org</th>
-<th>Mother Name</th>
-<th>M Occupation</th>
-<th>M Org</th>
+<th>Father Name</th><th>F Occupation</th><th>F Org</th>
+<th>Mother Name</th><th>M Occupation</th><th>M Org</th>
 
-<th>Whatsapp</th>
-<th>Email</th>
+<th>Whatsapp</th><th>Email</th>
 
-<th>SSLC State</th>
-<th>Aadhar</th>
-<th>APAAR</th>
+<th>SSLC State</th><th>Aadhar</th><th>APAAR</th>
 
-<th>Medium</th>
-<th>Year</th>
-<th>Board</th>
-<th>Total Marks</th>
-<th>Aggregate</th>
-<th>Maths</th>
-<th>Science</th>
+<th>Medium</th><th>Year</th><th>Board</th>
+<th>Total Marks</th><th>Aggregate</th>
+<th>Maths</th><th>Science</th>
 
-<th>P1</th>
-<th>P2</th>
-<th>P3</th>
-<th>P4</th>
-<th>P5</th>
+<th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
 
-<th>CBSE/ICSE</th>
-<th>PUC/SC</th>
-<th>Girls</th>
-<th>ET Maths</th>
-<th>ET Science</th>
-<th>ET Total</th>
+<th>CBSE/ICSE</th><th>PUC/SC</th><th>Girls</th>
+<th>ET Maths</th><th>ET Science</th><th>ET Total</th>
 <th>Grand Total</th>
 
 <th>Created</th>
