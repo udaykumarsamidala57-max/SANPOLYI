@@ -15,7 +15,7 @@ import com.bean.DBUtil3;
 @MultipartConfig
 public class UploadCSVServlet extends HttpServlet {
 
-    private static final int TOTAL_COLUMNS = 43;
+    private static final int TOTAL_COLUMNS = 50;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,8 +46,18 @@ public class UploadCSVServlet extends HttpServlet {
                             .withTrim());
 
             String sql = "INSERT INTO admission_form (" +
-                    "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, native_place, taluk, district, state, nationality, religion_category, category, cast, mother_tongue, blood_group, father_guardian_name, father_occupation, Father_org, mother_name, mother_occupation, Mother_org, income, postal_address, permanent_address, phone_no, Whatsapp_no, email, SSLC_State, aadhar_no, APAAR_ID, medium_of_instruction, sscl_passing_year, SSLC_Board, SSLC_TMarks, marks_maths, marks_science, SSLC_Aggr, preference_1, preference_2, preference_3, preference_4, preference_5" +
-                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    "APPNO, cast_no, applicant_name, date_of_birth, gender, Admission_type, " +
+                    "native_place, taluk, district, state, nationality, religion_category, " +
+                    "category, cast, mother_tongue, blood_group, father_guardian_name, " +
+                    "father_occupation, Father_org, mother_name, mother_occupation, Mother_org, " +
+                    "income, postal_address, permanent_address, phone_no, Whatsapp_no, email, " +
+                    "SSLC_State, aadhar_no, APAAR_ID, medium_of_instruction, sscl_passing_year, " +
+                    "SSLC_Board, SSLC_TMarks, marks_maths, marks_science, SSLC_Aggr, " +
+                    "preference_1, preference_2, preference_3, preference_4, preference_5, " +
+                    "CBSC_ICSE, PUC_SC, GIRLS, ET_m, ET_s, ET_T, Total,Segment" +
+                    ") VALUES (" +
+                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" +
+                    ")";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -66,9 +76,6 @@ public class UploadCSVServlet extends HttpServlet {
                     for (int i = 0; i < TOTAL_COLUMNS; i++) {
 
                         String val = record.get(i).trim();
-
-                        // DEBUG (remove later)
-                        System.out.println("Col " + i + " = " + val);
 
                         if (val.isEmpty()) {
                             setNull(ps, i);
@@ -112,25 +119,43 @@ public class UploadCSVServlet extends HttpServlet {
     // ===== TYPE HANDLING =====
 
     private void setNull(PreparedStatement ps, int i) throws SQLException {
-        if (i == 3)
+
+        if (i == 3) // date_of_birth
             ps.setNull(i + 1, Types.DATE);
-        else if (i == 22 || i == 35 || i == 36)
+
+        else if (i == 22 || i == 35 || i == 36) // income, maths, science
             ps.setNull(i + 1, Types.DECIMAL);
-        else if (i == 32)
+
+        else if (i == 32) // passing year
             ps.setNull(i + 1, Types.INTEGER);
+
         else
             ps.setNull(i + 1, Types.VARCHAR);
     }
 
     private void setValue(PreparedStatement ps, int i, String val) throws SQLException {
-        if (i == 3) {
-            ps.setDate(i + 1, java.sql.Date.valueOf(val)); // YYYY-MM-DD
-        } else if (i == 22 || i == 35 || i == 36) {
-            ps.setDouble(i + 1, Double.parseDouble(val.replace(",", "")));
-        } else if (i == 32) {
-            ps.setInt(i + 1, Integer.parseInt(val));
-        } else {
-            ps.setString(i + 1, val);
+
+        try {
+
+            if (i == 3) { // date_of_birth
+                ps.setDate(i + 1, java.sql.Date.valueOf(val));
+            }
+
+            else if (i == 22 || i == 35 || i == 36) {
+                ps.setDouble(i + 1, Double.parseDouble(val.replace(",", "")));
+            }
+
+            else if (i == 32) {
+                ps.setInt(i + 1, Integer.parseInt(val));
+            }
+
+            else {
+                ps.setString(i + 1, val);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Data format issue at column " + i + " value=" + val);
+            throw e;
         }
     }
 }
