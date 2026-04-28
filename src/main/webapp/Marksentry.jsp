@@ -95,7 +95,7 @@ String id=row.get("id");
 
 <td><input name="aggr" value="<%=row.get("aggr")%>" class="form-control" readonly></td>
 
-<% if("Office".equalsIgnoreCase(role)||"Office".equalsIgnoreCase(role)){%>
+<% if("Office".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td><input name="board" value="<%=row.get("board")%>" class="form-control calc"></td>
 <td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc"></td>
 <td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc"></td>
