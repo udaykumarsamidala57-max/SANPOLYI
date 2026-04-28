@@ -32,7 +32,7 @@ body { background:#f4f6f9; }
      max-width:100% !important;
 }
 .table th { background:#002147; color:#fff; text-align:center; }
-.table td { text-align:center;padding:30px; }
+.table td { text-align:center;padding:auto; }
 input { text-align:center; }
 </style>
 </head>
