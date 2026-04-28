@@ -23,16 +23,45 @@ String User = (String) sess.getAttribute("username");
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <style>
-body { background:#f4f6f9; }
+body { 
+    background:#f4f6f9; 
+}
+
 .container-box {
     background:#fff;
-    padding:20px;
+    padding:30px;              /* increased */
     border-radius:8px;
     margin-top:20px;
 }
-.table th { background:#002147; color:#fff; text-align:center; }
-.table td { text-align:center; }
-input { text-align:center; }
+
+/* Make table wider */
+.table {
+    width:100%;
+    table-layout:auto;
+}
+
+/* Header styling */
+.table th { 
+    background:#002147; 
+    color:#fff; 
+    text-align:center; 
+    padding:15px;              /* increased */
+    font-size:15px;
+}
+
+/* Cell styling */
+.table td { 
+    text-align:center; 
+    padding:12px;              /* increased */
+}
+
+/* Input fields inside table */
+input { 
+    text-align:center; 
+    padding:8px;               /* added */
+    width:100%;                /* makes input fill cell */
+    box-sizing:border-box;
+}
 </style>
 </head>
 
