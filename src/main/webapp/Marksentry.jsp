@@ -58,10 +58,10 @@ input { text-align:center; }
     <th>Board(CBSE/ICSE)</th>
     <th>PUC</th>
     <th>Girls</th>
-    <th>ET M</th>
-    <th>ET S</th>
-    <th>ET T</th>
-    <th>Total</th>
+    <th>ET Maths</th>
+    <th>ET Science</th>
+    <th>ET Total</th>
+    <th>Grand Total</th>
     <th>Action</th>
 </tr>
 </thead>
