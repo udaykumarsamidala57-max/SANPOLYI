@@ -26,7 +26,7 @@ public class Marks extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-        	String sql = "SELECT id, applicant_name, marks_maths, marks_science, SSLC_Aggr, " +
+        	String sql = "SELECT id,APPNO,cast_no, applicant_name, marks_maths, marks_science, SSLC_Aggr, " +
                     "CBSC_ICSE AS board, PUC_SC AS puc, GIRLS, ET_m, ET_s, ET_T, Total " +
                     "FROM admission_form ORDER BY id DESC";
 
@@ -38,6 +38,8 @@ public class Marks extends HttpServlet {
                 Map<String, String> row = new HashMap<>();
 
                 row.put("id", safe(rs.getString("id")));
+                row.put("APPNO", safe(rs.getString("APPNO")));
+                row.put("cast_no", safe(rs.getString("cast_no")));
                 row.put("name", safe(rs.getString("applicant_name")));
                 row.put("maths", safe(rs.getString("marks_maths")));
                 row.put("science", safe(rs.getString("marks_science")));

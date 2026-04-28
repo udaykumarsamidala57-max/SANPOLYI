@@ -53,7 +53,6 @@ th { background:#f3f3f3; }
 
 <th>Income</th>
 <th>Address<th>
-
 <th>Phone</th>
 <th>Whatsapp</th>
 <th>Email</th>
