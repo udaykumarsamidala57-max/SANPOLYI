@@ -7,6 +7,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.sql.Date;
+import java.util.*;
+
 import com.bean.DBUtil3;
 
 @WebServlet("/Enquiries")
@@ -17,30 +19,29 @@ public class Enquiries extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        List<Map<String, Object>> list = new ArrayList<>();
+
         String fromDate = request.getParameter("fromDate");
         String toDate = request.getParameter("toDate");
 
-        List<Map<String, Object>> list = new ArrayList<>();
-
         try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "SELECT * FROM admission_form WHERE 1=1";
+            StringBuilder sql = new StringBuilder("SELECT * FROM admission_form WHERE 1=1");
 
-            PreparedStatement ps;
+            if (isValid(fromDate) && isValid(toDate)) {
+                sql.append(" AND DATE(created_at) BETWEEN ? AND ?");
+            }
 
-            if (fromDate != null && toDate != null && !fromDate.isEmpty() && !toDate.isEmpty()) {
-                sql += " AND DATE(created_at) BETWEEN ? AND ?";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, fromDate);
-                ps.setString(2, toDate);
-            } else {
-                ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql.toString());
+
+            if (isValid(fromDate) && isValid(toDate)) {
+                ps.setDate(1, Date.valueOf(fromDate));
+                ps.setDate(2, Date.valueOf(toDate));
             }
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
                 Map<String, Object> row = new HashMap<>();
 
                 row.put("id", rs.getInt("id"));
@@ -81,7 +82,6 @@ public class Enquiries extends HttpServlet {
                 row.put("email", rs.getString("email"));
 
                 row.put("SSLC_State", rs.getString("SSLC_State"));
-
                 row.put("aadhar_no", rs.getString("aadhar_no"));
                 row.put("APAAR_ID", rs.getString("APAAR_ID"));
 
@@ -111,8 +111,7 @@ public class Enquiries extends HttpServlet {
         }
 
         request.setAttribute("data", list);
-        request.getRequestDispatcher("Enquiries.jsp").forward(request, response);
-   
+        response.sendRedirect("Enquiries");
     }
 
     // ========================= POST (UPDATE) =========================
@@ -120,84 +119,86 @@ public class Enquiries extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String id = request.getParameter("id");
-
         try (Connection con = DBUtil3.getConnection()) {
 
-        	String sql = "UPDATE admission_form SET " +
-        	        "APPNO=?, cast_no=?, applicant_name=?, date_of_birth=?, gender=?, Admission_type=?, " +
+            String sql = "UPDATE admission_form SET "
+                    + "APPNO=?, cast_no=?, applicant_name=?, date_of_birth=?, gender=?, Admission_type=?, "
+                    + "native_place=?, taluk=?, district=?, state=?, nationality=?, "
+                    + "religion_category=?, category=?, cast=?, mother_tongue=?, blood_group=?, "
+                    + "father_guardian_name=?, father_occupation=?, Father_org=?, "
+                    + "mother_name=?, mother_occupation=?, Mother_org=?, "
+                    + "income=?, postal_address=?, permanent_address=?, "
+                    + "phone_no=?, Whatsapp_no=?, email=?, SSLC_State=?, "
+                    + "aadhar_no=?, APAAR_ID=?, "
+                    + "medium_of_instruction=?, sscl_passing_year=?, SSLC_Board=?, SSLC_TMarks=?, SSLC_Aggr=?, "
+                    + "marks_maths=?, marks_science=?, "
+                    + "preference_1=?, preference_2=?, preference_3=?, preference_4=?, preference_5=? "
+                    + "WHERE id=?";
 
-        	        "father_guardian_name=?, father_occupation=?, Father_org=?, " +
-        	        "mother_name=?, mother_occupation=?, Mother_org=?, " +
+            PreparedStatement ps = con.prepareStatement(sql);
 
-        	        "income=?, phone_no=?, Whatsapp_no=?, email=?, " +
+            int i = 1;
 
-        	        "SSLC_State=?, aadhar_no=?, APAAR_ID=?, " +
+            ps.setString(i++, getVal(request, "APPNO"));
+            ps.setString(i++, getVal(request, "cast_no"));
+            ps.setString(i++, getVal(request, "applicant_name"));
 
-        	        "medium_of_instruction=?, sscl_passing_year=?, SSLC_Board=?, SSLC_TMarks=?, SSLC_Aggr=?, " +
-        	        "marks_maths=?, marks_science=?, " +
+            ps.setDate(i++, parseDate(request.getParameter("date_of_birth")));
 
-        	        "preference_1=?, preference_2=?, preference_3=?, preference_4=?, preference_5=? " +
+            ps.setString(i++, getVal(request, "gender"));
+            ps.setString(i++, getVal(request, "Admission_type"));
 
-        	        "WHERE id=?";
+            ps.setString(i++, getVal(request, "native_place"));
+            ps.setString(i++, getVal(request, "taluk"));
+            ps.setString(i++, getVal(request, "district"));
+            ps.setString(i++, getVal(request, "state"));
+            ps.setString(i++, getVal(request, "nationality"));
 
-        	PreparedStatement ps = con.prepareStatement(sql);
-        	int i = 1;
+            ps.setString(i++, getVal(request, "religion_category"));
+            ps.setString(i++, getVal(request, "category"));
+            ps.setString(i++, getVal(request, "cast"));
+            ps.setString(i++, getVal(request, "mother_tongue"));
+            ps.setString(i++, getVal(request, "blood_group"));
 
-        	// BASIC
-        	ps.setString(i++, request.getParameter("APPNO"));
-        	ps.setString(i++, request.getParameter("cast_no"));
-        	ps.setString(i++, request.getParameter("applicant_name"));
+            ps.setString(i++, getVal(request, "father_guardian_name"));
+            ps.setString(i++, getVal(request, "father_occupation"));
+            ps.setString(i++, getVal(request, "Father_org"));
 
-        	// DATE
-        	String dob = request.getParameter("date_of_birth");
-        	if (dob != null && !dob.isEmpty())
-        	    ps.setDate(i++, Date.valueOf(dob));
-        	else
-        	    ps.setNull(i++, Types.DATE);
+            ps.setString(i++, getVal(request, "mother_name"));
+            ps.setString(i++, getVal(request, "mother_occupation"));
+            ps.setString(i++, getVal(request, "Mother_org"));
 
-        	ps.setString(i++, request.getParameter("gender"));
-        	ps.setString(i++, request.getParameter("Admission_type"));
+            ps.setObject(i++, parseDouble(request.getParameter("income")), Types.DECIMAL);
 
-        	// PARENTS
-        	ps.setString(i++, request.getParameter("father_guardian_name"));
-        	ps.setString(i++, request.getParameter("father_occupation"));
-        	ps.setString(i++, request.getParameter("Father_org"));
+            ps.setString(i++, getVal(request, "postal_address"));
+            ps.setString(i++, getVal(request, "permanent_address"));
+            ps.setString(i++, getVal(request, "phone_no"));
+            ps.setString(i++, getVal(request, "Whatsapp_no"));
+            ps.setString(i++, getVal(request, "email"));
+            ps.setString(i++, getVal(request, "SSLC_State"));
 
-        	ps.setString(i++, request.getParameter("mother_name"));
-        	ps.setString(i++, request.getParameter("mother_occupation"));
-        	ps.setString(i++, request.getParameter("Mother_org"));
+            ps.setString(i++, getVal(request, "aadhar_no"));
+            ps.setString(i++, getVal(request, "APAAR_ID"));
 
-        	// CONTACT
-        	ps.setObject(i++, parseDouble(request.getParameter("income")), Types.DECIMAL);
-        	ps.setString(i++, request.getParameter("phone_no"));
-        	ps.setString(i++, request.getParameter("Whatsapp_no"));
-        	ps.setString(i++, request.getParameter("email"));
+            ps.setString(i++, getVal(request, "medium_of_instruction"));
 
-        	// EDUCATION
-        	ps.setString(i++, request.getParameter("SSLC_State"));
-        	ps.setString(i++, request.getParameter("aadhar_no"));
-        	ps.setString(i++, request.getParameter("APAAR_ID"));
+            // YEAR FIX
+            ps.setObject(i++, parseInt(request.getParameter("sscl_passing_year")), Types.INTEGER);
 
-        	ps.setString(i++, request.getParameter("medium_of_instruction"));
-        	ps.setObject(i++, parseInt(request.getParameter("sscl_passing_year")), Types.INTEGER);
+            ps.setString(i++, getVal(request, "SSLC_Board"));
+            ps.setString(i++, getVal(request, "SSLC_TMarks"));
+            ps.setString(i++, getVal(request, "SSLC_Aggr"));
 
-        	ps.setString(i++, request.getParameter("SSLC_Board"));
-        	ps.setString(i++, request.getParameter("SSLC_TMarks"));
-        	ps.setString(i++, request.getParameter("SSLC_Aggr"));
+            ps.setObject(i++, parseDouble(request.getParameter("marks_maths")), Types.DECIMAL);
+            ps.setObject(i++, parseDouble(request.getParameter("marks_science")), Types.DECIMAL);
 
-        	ps.setObject(i++, parseDouble(request.getParameter("marks_maths")), Types.DECIMAL);
-        	ps.setObject(i++, parseDouble(request.getParameter("marks_science")), Types.DECIMAL);
+            ps.setString(i++, getVal(request, "preference_1"));
+            ps.setString(i++, getVal(request, "preference_2"));
+            ps.setString(i++, getVal(request, "preference_3"));
+            ps.setString(i++, getVal(request, "preference_4"));
+            ps.setString(i++, getVal(request, "preference_5"));
 
-        	// PREFERENCES
-        	ps.setString(i++, request.getParameter("preference_1"));
-        	ps.setString(i++, request.getParameter("preference_2"));
-        	ps.setString(i++, request.getParameter("preference_3"));
-        	ps.setString(i++, request.getParameter("preference_4"));
-        	ps.setString(i++, request.getParameter("preference_5"));
-
-        	// WHERE
-        	ps.setInt(i++, Integer.parseInt(request.getParameter("id")));
+            ps.setInt(i++, Integer.parseInt(request.getParameter("id")));
 
             int rows = ps.executeUpdate();
             System.out.println("UPDATED ROWS: " + rows);
@@ -211,10 +212,22 @@ public class Enquiries extends HttpServlet {
 
     // ========================= HELPERS =========================
 
+    private String getVal(HttpServletRequest req, String field) {
+        String val = req.getParameter(field);
+        return (val == null || val.trim().isEmpty()) ? null : val.trim();
+    }
+
+    private Date parseDate(String val) {
+        try {
+            return (val == null || val.isEmpty()) ? null : Date.valueOf(val);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private Double parseDouble(String val) {
         try {
-            if (val == null || val.trim().isEmpty()) return null;
-            return Double.parseDouble(val);
+            return (val == null || val.trim().isEmpty()) ? null : Double.parseDouble(val);
         } catch (Exception e) {
             return null;
         }
@@ -222,10 +235,13 @@ public class Enquiries extends HttpServlet {
 
     private Integer parseInt(String val) {
         try {
-            if (val == null || val.trim().isEmpty()) return null;
-            return Integer.parseInt(val);
+            return (val == null || val.trim().isEmpty()) ? null : Integer.parseInt(val);
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private boolean isValid(String val) {
+        return val != null && !val.trim().isEmpty();
     }
 }
