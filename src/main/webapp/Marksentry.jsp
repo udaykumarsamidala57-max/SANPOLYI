@@ -26,7 +26,7 @@ String User = (String) sess.getAttribute("username");
 body { background:#f4f6f9; }
 .container-box {
     background:#fff;
-    padding:15px;
+    padding:20px;
     border-radius:8px;
     margin-top:20px;
 }
