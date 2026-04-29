@@ -11,14 +11,34 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body { background:#eef2f6; padding:20px; font-family: 'Segoe UI'; }
+body {
+    background:#eef2f6;
+    padding:20px;
+    font-family:'Segoe UI';
+}
 
+/* CENTER CONTENT */
+.main-container {
+    width:80%;
+    margin:auto;
+}
+
+/* CARD */
 .card-box {
     background:#fff;
-    padding:20px;
+    padding:18px;
     border-radius:10px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
     margin-bottom:20px;
+    transition:0.2s;
+}
+.card-box:hover {
+    transform: translateY(-2px);
+}
+
+/* TABLE */
+.table {
+    font-size:13px;
 }
 
 th {
@@ -29,25 +49,33 @@ th {
     top:0;
 }
 
-td { text-align:center; }
+td {
+    text-align:center;
+    vertical-align:middle;
+    padding:6px;
+}
 
 .table-hover tbody tr:hover {
-    background:#f1f5f9;
+    background:#f5f9fc;
 }
 
 .total-row {
     font-weight:bold;
-    background:#e9ecef;
+    background:#dee2e6;
 }
 
+/* HEADINGS */
 h4 {
     font-weight:600;
     color:#1b3a57;
+    margin-bottom:15px;
 }
 
+/* CHART */
 .chart-container {
-    width:100%;
-    height:350px;
+    width:90%;
+    height:300px;
+    margin:auto;
 }
 </style>
 </head>
@@ -64,6 +92,10 @@ if (sess == null || sess.getAttribute("username") == null) {
 
 <%@ include file="header.jsp" %>
 
+<div class="main-container">
+
+<!-- ================= TABLE ================= -->
+
 <div class="card-box">
 
 <h4>Caste Prefix vs Category vs Gender</h4>
@@ -74,7 +106,7 @@ if (sess == null || sess.getAttribute("username") == null) {
 
 <thead>
 <tr>
-<th rowspan="2">Caste</th>
+<th rowspan="2">Category</th>
 <th colspan="2">Dayscholar</th>
 <th colspan="2">Residential</th>
 </tr>
@@ -93,7 +125,7 @@ ResultSet rs=null;
 
 int tDSM=0, tDSF=0, tBRM=0, tBRF=0;
 
-// For chart
+// Chart Data
 StringBuilder labels = new StringBuilder();
 StringBuilder dsData = new StringBuilder();
 StringBuilder rsData = new StringBuilder();
@@ -137,7 +169,6 @@ try{
 
         tDSM+=dsm; tDSF+=dsf; tBRM+=brm; tBRF+=brf;
 
-        // chart data
         labels.append("'").append(caste).append("',");
         dsData.append(dsm+dsf).append(",");
         rsData.append(brm+brf).append(",");
@@ -157,7 +188,9 @@ try{
     if(!hasData){
 %>
 <tr>
-<td colspan="5" class="text-danger">No Data Found</td>
+<td colspan="5" class="text-danger text-center font-weight-bold">
+    No Data Found
+</td>
 </tr>
 <%
     }
@@ -175,7 +208,9 @@ try{
 }catch(Exception e){
 %>
 <tr>
-<td colspan="5" class="text-danger"><%=e.getMessage()%></td>
+<td colspan="5" class="text-danger text-center">
+    <%=e.getMessage()%>
+</td>
 </tr>
 <%
 } finally{
@@ -198,6 +233,8 @@ try{
 
 <div class="chart-container">
 <canvas id="myChart"></canvas>
+</div>
+
 </div>
 
 </div>
@@ -226,9 +263,21 @@ new Chart(ctx, {
     options: {
         responsive:true,
         maintainAspectRatio:false,
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size:12
+                    }
+                }
+            }
+        },
         scales: {
             y: {
-                beginAtZero:true
+                beginAtZero:true,
+                ticks: {
+                    stepSize:1
+                }
             }
         }
     }
