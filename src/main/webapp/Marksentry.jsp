@@ -61,7 +61,7 @@ input { text-align:center;  }
     <th>Board</th>
     <th>Maths</th>
     <th>Science</th>
-    <th>Aggr</th>
+    <th>Aggregate</th>
     <th>Board(CBSE/ICSE)</th>
     <th>PUC</th>
     <th>Girls</th>
