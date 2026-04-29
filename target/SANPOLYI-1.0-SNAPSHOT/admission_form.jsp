@@ -117,7 +117,7 @@ button:hover {
 </div>
 
 <div class="form-field">
-<label>Caste Certificate Number</label>
+<label>Castg. Number</label>
 <input type="text" name="cast_no">
 </div>
 
@@ -165,6 +165,12 @@ button:hover {
 <input type="text" name="religion_category">
 </div>
 
+
+<div class="form-field">
+<label>Caste</label>
+<input type="text" name="cast">
+</div>
+
 <div class="form-field">
 <label>Category</label>
 <select name="category">
@@ -172,13 +178,15 @@ button:hover {
 <option>SC</option>
 <option>ST</option>
 <option>General</option>
+<option>CAT1</option>
+<option>2A</option>
+<option>2B</option>
+<option>3A</option>
+<option>3B</option>
 </select>
 </div>
 
-<div class="form-field">
-<label>Cast</label>
-<input type="text" name="cast">
-</div>
+
 
 <div class="form-field">
 <label>Mother Tongue</label>
@@ -322,7 +330,10 @@ button:hover {
 
 <div class="form-field">
 <label>Medium of Instruction</label>
-<input type="text" name="medium_of_instruction">
+<select name="medium_of_instruction">
+<option>KANNADA</option>
+<option>ENGLISH</option>
+</select>
 </div>
 
 <div class="form-field">
@@ -336,7 +347,7 @@ button:hover {
 </div>
 
 <div class="form-field">
-<label>SSLC Total Marks</label>
+<label>SSLC Total Marks Obtained</label>
 <input type="text" name="SSLC_TMarks">
 </div>
 
@@ -351,7 +362,7 @@ button:hover {
 </div>
 
 <div class="form-field">
-<label>SSLC Aggregate</label>
+<label>SSLC Percentage</label>
 <input type="text" name="SSLC_Aggr">
 </div>
 

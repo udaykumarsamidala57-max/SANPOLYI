@@ -52,12 +52,12 @@ input, textarea, select {
 <%@ include file="header.jsp" %>
 
 <h4>SANPOLY - Admission Records</h4>
-
+<button class="btn btn-success mb-2" onclick="downloadExcel()">Download Excel</button>
 <div class="table-wrapper">
-<table>
+<table id="admissionTable">
 <thead>
 <tr>
-<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>Gender</th><th>Admission</th>
+<th>ID</th><th>APPNO</th><th>Catg. No</th><th>Name</th><th>Gender</th><th>Admission</th>
 
 
 <th>Father Name</th><th>F Occ</th><th>F Org</th>
@@ -227,7 +227,7 @@ data-p5='<%= row.get("preference_5") %>'
             <div class="col-md-3"><label>App No</label>
               <input type="text" class="form-control" id="m_appno" name="APPNO"></div>
 
-            <div class="col-md-3"><label>Cast No</label>
+            <div class="col-md-3"><label>Catg No</label>
               <input type="text" class="form-control" id="m_castno" name="cast_no"></div>
 
             <div class="col-md-6"><label>Name</label>
@@ -440,6 +440,52 @@ function editRecord(btn){
 	$('#m_p5').val(b.data('p5'));
 
 	$('#editModal').modal('show');
+}
+
+
+
+</script>
+<script>
+function downloadExcel() {
+
+    let table = document.getElementById("admissionTable");
+
+    if (!table || table.rows.length === 0) {
+        alert("No data available to export!");
+        return;
+    }
+
+    let html = "<table border='1'>";
+
+    // LOOP THROUGH ROWS (THIS FIXES EMPTY EXPORT)
+    for (let i = 0; i < table.rows.length; i++) {
+        html += "<tr>";
+
+        for (let j = 0; j < table.rows[i].cells.length; j++) {
+            let cell = table.rows[i].cells[j].innerText;
+
+            // REMOVE BUTTON COLUMN TEXT (optional)
+            if (j === table.rows[i].cells.length - 1) {
+                cell = "";
+            }
+
+            html += "<td>" + cell + "</td>";
+        }
+
+        html += "</tr>";
+    }
+
+    html += "</table>";
+
+    let blob = new Blob([html], { type: "application/vnd.ms-excel" });
+
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Admission_Records.xls";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 </script>
 

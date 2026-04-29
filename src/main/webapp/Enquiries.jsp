@@ -57,7 +57,7 @@ input, textarea, select {
 <table id="admissionTable">
 <thead>
 <tr>
-<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>Gender</th><th>Admission</th>
+<th>ID</th><th>APPNO</th><th>Catg. No</th><th>Name</th><th>Gender</th><th>Admission</th>
 
 
 <th>Father Name</th><th>F Occ</th><th>F Org</th>
@@ -227,7 +227,7 @@ data-p5='<%= row.get("preference_5") %>'
             <div class="col-md-3"><label>App No</label>
               <input type="text" class="form-control" id="m_appno" name="APPNO"></div>
 
-            <div class="col-md-3"><label>Cast No</label>
+            <div class="col-md-3"><label>Catg No</label>
               <input type="text" class="form-control" id="m_castno" name="cast_no"></div>
 
             <div class="col-md-6"><label>Name</label>

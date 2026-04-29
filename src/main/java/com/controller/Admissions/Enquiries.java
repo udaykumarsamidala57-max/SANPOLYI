@@ -26,7 +26,9 @@ public class Enquiries extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            StringBuilder sql = new StringBuilder("SELECT * FROM admission_form WHERE 1=1");
+        	StringBuilder sql = new StringBuilder(
+        		    "SELECT * FROM admission_form WHERE 1=1 ORDER BY APPNO ASC"
+        		);
 
             if (isValid(fromDate) && isValid(toDate)) {
                 sql.append(" AND DATE(created_at) BETWEEN ? AND ?");
