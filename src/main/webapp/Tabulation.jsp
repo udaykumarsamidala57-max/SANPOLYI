@@ -76,7 +76,7 @@ function downloadExcel() {
 <th>SSLC State</th>
 
 
-<th>Total Marks</th>
+<th>10Th Marks</th>
 <th>Maths</th><th>Science</th>
 <th>Maths & Science Aggregate</th>
 <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>

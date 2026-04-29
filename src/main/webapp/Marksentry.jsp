@@ -94,6 +94,8 @@ String id=row.get("id");
 <td style="text-align:left;"><%=row.get("APPNO")%></td>
 <td style="text-align:left;"><%=row.get("cast_no")%></td>
 <td style="text-align:left;"><%=row.get("name")%></td>
+<td style="text-align:left;"><%=row.get("gender")%></td>
+<td style="text-align:left;"><%=row.get("SSLC_Board")%></td>
 
 <td><input name="maths" value="<%=row.get("maths")%>" class="form-control" readonly></td>
 <td><input name="science" value="<%=row.get("science")%>" class="form-control" readonly></td>

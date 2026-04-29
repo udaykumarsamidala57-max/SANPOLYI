@@ -94,11 +94,13 @@ String id=row.get("id");
 <td style="text-align:left;"><%=row.get("APPNO")%></td>
 <td style="text-align:left;"><%=row.get("cast_no")%></td>
 <td style="text-align:left;"><%=row.get("name")%></td>
+<td style="text-align:left;"><%=row.get("gender")%></td>
+<td style="text-align:left;"><%=row.get("SSLC_Board")%></td>
 
 <td><input name="maths" value="<%=row.get("maths")%>" class="form-control" readonly></td>
 <td><input name="science" value="<%=row.get("science")%>" class="form-control" readonly></td>
 
-<td><input name="aggr" value="<%=row.get("aggr")%>" class="form-control" readonly></td>
+<td><input name="aggr" class="form-control" readonly></td>
 
 <% if("Office".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td><input name="board" value="<%=row.get("board")%>" class="form-control calc"></td>
@@ -145,32 +147,45 @@ String id=row.get("id");
 
 <script>
 
+// Reusable function to calculate everything for one row
+function calculateRow(row){
+
+    let m = parseFloat(row.find('[name="maths"]').val()) || 0;
+    let s = parseFloat(row.find('[name="science"]').val()) || 0;
+
+    let board = parseFloat(row.find('[name="board"]').val()) || 0;
+    let puc = parseFloat(row.find('[name="puc"]').val()) || 0;
+    let girls = parseFloat(row.find('[name="girls"]').val()) || 0;
+
+    let etm = parseFloat(row.find('[name="ET_m"]').val()) || 0;
+    let ets = parseFloat(row.find('[name="ET_s"]').val()) || 0;
+
+    // ✅ AGGR always calculated (NOT from DB)
+    let avg = (m + s) / 2;
+    row.find('[name="aggr"]').val(avg.toFixed(2));
+
+    // ET Total
+    let ett = (etm + ets) / 2;
+    row.find('[name="ET_T"]').val(ett.toFixed(2));
+
+    // Final Total
+    let total = (avg + ett) / 2 + board + puc + girls;
+    row.find('[name="Total"]').val(total.toFixed(2));
+}
+
+
+// ✅ Trigger when user edits fields
 $(document).on('input', '.calc', function(){
+    let row = $(this).closest('tr');
+    calculateRow(row);
+});
 
-let row=$(this).closest('tr');
 
-let m=parseFloat(row.find('[name="maths"]').val())||0;
-let s=parseFloat(row.find('[name="science"]').val())||0;
-
-let board=parseFloat(row.find('[name="board"]').val())||0;
-let puc=parseFloat(row.find('[name="puc"]').val())||0;
-let girls=parseFloat(row.find('[name="girls"]').val())||0;
-
-let etm=parseFloat(row.find('[name="ET_m"]').val())||0;
-let ets=parseFloat(row.find('[name="ET_s"]').val())||0;
-
-// Aggregate
-let avg=(m+s)/2;
-row.find('[name="aggr"]').val(avg.toFixed(2));
-
-// ET Total
-let ett=(etm+ets)/2;
-row.find('[name="ET_T"]').val(ett.toFixed(2));
-
-// Final Total
-let total=(avg+ett)/2 + board + puc + girls;
-row.find('[name="Total"]').val(total.toFixed(2));
-
+// ✅ Trigger on page load (VERY IMPORTANT)
+$(document).ready(function(){
+    $('tbody tr').each(function(){
+        calculateRow($(this));
+    });
 });
 
 </script>

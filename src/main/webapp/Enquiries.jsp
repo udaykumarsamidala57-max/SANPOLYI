@@ -57,7 +57,7 @@ input, textarea, select {
 <table id="admissionTable">
 <thead>
 <tr>
-<th>ID</th><th>APPNO</th><th>Catg. No</th><th>Name</th><th>Gender</th><th>Admission</th>
+<th>S.No</th><th>APPNO</th><th>Catg. No</th><th>Name</th><th>Gender</th><th>Admission</th>
 
 
 <th>Father Name</th><th>F Occ</th><th>F Org</th>
@@ -76,7 +76,7 @@ input, textarea, select {
 
 <%
 List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
-
+int i = 1;
 if (list != null) {
 for (Map<String, Object> row : list) {
 
@@ -85,7 +85,7 @@ String dob = (row.get("date_of_birth") != null) ? row.get("date_of_birth").toStr
 
 <tr>
 
-<td><%= row.get("id") %></td>
+<td><%= i++ %></td>
 <td><%= row.get("APPNO") %></td>
 <td><%= row.get("cast_no") %></td>
 <td><%= row.get("applicant_name") %></td>
