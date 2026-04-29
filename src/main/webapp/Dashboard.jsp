@@ -18,7 +18,16 @@ td { text-align:center; }
 </head>
 
 <body>
-
+<%
+HttpSession sess = request.getSession(false);
+if (sess == null || sess.getAttribute("username") == null) {
+    response.sendRedirect("login.jsp");
+    return;
+}
+String role = (String) sess.getAttribute("role");
+String User = (String) sess.getAttribute("username");
+%>
+<%@ include file="header.jsp" %>
 <h4>Caste Prefix vs Category vs Gender</h4>
 
 <table class="table table-bordered table-sm">
@@ -46,11 +55,11 @@ try{
     con=DBUtil3.getConnection();
 
     String sql = "SELECT LEFT(cast_no,2) AS caste_prefix," +
-                 " SUM(CASE WHEN category='Dayscholars' AND gender='Male' THEN 1 ELSE 0 END) AS DS_M," +
-                 " SUM(CASE WHEN category='Dayscholars' AND gender='Female' THEN 1 ELSE 0 END) AS DS_F," +
-                 " SUM(CASE WHEN category='Boarders' AND gender='Male' THEN 1 ELSE 0 END) AS BR_M," +
-                 " SUM(CASE WHEN category='Boarders' AND gender='Female' THEN 1 ELSE 0 END) AS BR_F" +
-                 " FROM admission_form GROUP BY caste_prefix ORDER BY caste_prefix";
+    		" SUM(CASE WHEN category='Dayscholars' AND UPPER(gender) IN ('MALE','M') THEN 1 ELSE 0 END) AS DS_M," +
+    		" SUM(CASE WHEN category='Dayscholars' AND UPPER(gender) IN ('FEMALE','F') THEN 1 ELSE 0 END) AS DS_F," +
+    		" SUM(CASE WHEN category='Boarders' AND UPPER(gender) IN ('MALE','M') THEN 1 ELSE 0 END) AS BR_M," +
+    		" SUM(CASE WHEN category='Boarders' AND UPPER(gender) IN ('FEMALE','F') THEN 1 ELSE 0 END) AS BR_F" +
+    		" FROM admission_form GROUP BY caste_prefix ORDER BY caste_prefix";
 
     ps=con.prepareStatement(sql);
     rs=ps.executeQuery();

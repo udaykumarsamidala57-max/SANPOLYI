@@ -93,12 +93,13 @@ function downloadExcel() {
 
 <%
 List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
+int i =1;
 if (list != null) {
     for (Map<String, Object> row : list) {
 %>
 
 <tr>
-<td><%= val(row.get("id")) %></td>
+ <td><%= i++ %></td>
 <td><%= val(row.get("APPNO")) %></td>
 <td><%= val(row.get("cast_no")) %></td>
 <td><%= val(row.get("applicant_name")) %></td>

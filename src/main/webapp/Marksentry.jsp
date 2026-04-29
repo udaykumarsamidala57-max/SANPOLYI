@@ -77,7 +77,7 @@ input { text-align:center;  }
 
 <%
 List<Map<String,String>> list = (List<Map<String,String>>)request.getAttribute("data");
-
+int i = 1;
 if(list!=null && !list.isEmpty()){
  for(Map<String,String> row:list){
 
@@ -88,8 +88,7 @@ String id=row.get("id");
 <tr>
 
 <td>
-    <input type="hidden" name="id" value="<%=id%>">
-    <%=id%>
+    <td><%= i++ %></td>
 </td>
 
 
