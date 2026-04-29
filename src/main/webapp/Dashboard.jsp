@@ -98,7 +98,7 @@ if (sess == null || sess.getAttribute("username") == null) {
 
 <div class="card-box">
 
-<h4>Caste Prefix vs Category vs Gender</h4>
+<h4>Category vs Gender</h4>
 
 <div class="table-responsive">
 
