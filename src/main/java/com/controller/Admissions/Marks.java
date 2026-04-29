@@ -28,7 +28,7 @@ public class Marks extends HttpServlet {
 
         	String sql = "SELECT id,APPNO,cast_no, applicant_name, marks_maths, marks_science, SSLC_Aggr, " +
                     "CBSC_ICSE AS board, PUC_SC AS puc, GIRLS, ET_m, ET_s, ET_T, Total " +
-                    "FROM admission_form ORDER BY id DESC";
+                    "FROM admission_form ORDER BY APPNO ASC";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

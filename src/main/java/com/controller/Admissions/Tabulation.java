@@ -24,7 +24,7 @@ public class Tabulation extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "SELECT * FROM admission_form WHERE 1=1";
+        	String sql = "SELECT * FROM admission_form WHERE 1=1 ORDER BY APPNO ASC";
 
             PreparedStatement ps;
 
