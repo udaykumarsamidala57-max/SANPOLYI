@@ -343,7 +343,12 @@ button:hover {
 
 <div class="form-field">
 <label>SSLC Board</label>
-<input type="text" name="SSLC_Board">
+<select name="SSLC_Board">
+<option>KSEAB</option>
+<option>CBSE</option>
+<option>ICSE</option>
+<option>OTHERS</option>
+</select>
 </div>
 
 <div class="form-field">
