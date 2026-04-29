@@ -443,20 +443,39 @@ function editRecord(btn){
 }
 
 
-function downloadExcel() {
-    let table = document.getElementById("admissionTable").outerHTML;
 
-    let html = `
-    <html xmlns:o="urn:schemas-microsoft-com:office:office"
-          xmlns:x="urn:schemas-microsoft-com:office:excel"
-          xmlns="http://www.w3.org/TR/REC-html40">
-    <head>
-    <meta charset="UTF-8">
-    </head>
-    <body>
-    ${table}
-    </body>
-    </html>`;
+</script>
+<script>
+function downloadExcel() {
+
+    let table = document.getElementById("admissionTable");
+
+    if (!table || table.rows.length === 0) {
+        alert("No data available to export!");
+        return;
+    }
+
+    let html = "<table border='1'>";
+
+    // LOOP THROUGH ROWS (THIS FIXES EMPTY EXPORT)
+    for (let i = 0; i < table.rows.length; i++) {
+        html += "<tr>";
+
+        for (let j = 0; j < table.rows[i].cells.length; j++) {
+            let cell = table.rows[i].cells[j].innerText;
+
+            // REMOVE BUTTON COLUMN TEXT (optional)
+            if (j === table.rows[i].cells.length - 1) {
+                cell = "";
+            }
+
+            html += "<td>" + cell + "</td>";
+        }
+
+        html += "</tr>";
+    }
+
+    html += "</table>";
 
     let blob = new Blob([html], { type: "application/vnd.ms-excel" });
 
