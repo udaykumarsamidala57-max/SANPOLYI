@@ -2,80 +2,146 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Pivot Report</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <style>
-        body { background:#f4f6f9; padding:20px; }
-        th { background:#002147; color:#fff; text-align:center; }
-        td { text-align:center; }
-    </style>
+<meta charset="UTF-8">
+<title>Pivot Report</title>
+
+<link rel="stylesheet"
+ href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+
+<style>
+body { background:#f4f6f9; padding:20px; }
+th { background:#002147; color:#fff; text-align:center; }
+td { text-align:center; }
+</style>
 </head>
+
 <body>
+
+<%
+HttpSession sess = request.getSession(false);
+if (sess == null || sess.getAttribute("username") == null) {
+    response.sendRedirect("login.jsp");
+    return;
+}
+%>
 
 <%@ include file="header.jsp" %>
 
-<h4>Caste Prefix vs Category vs Gender (Debug Version)</h4>
+<h4>Caste Prefix vs Category vs Gender</h4>
 
 <table class="table table-bordered table-sm">
-    <thead>
-        <tr>
-            <th>Caste Prefix</th>
-            <th>Dayscholar (M)</th>
-            <th>Dayscholar (F)</th>
-            <th>Residential (M)</th>
-            <th>Residential (F)</th>
-        </tr>
-    </thead>
-    <tbody>
+
+<thead>
+<tr>
+<th rowspan="2">Caste Prefix</th>
+<th colspan="2">Dayscholar</th>
+<th colspan="2">Residential</th>
+</tr>
+<tr>
+<th>M</th><th>F</th>
+<th>M</th><th>F</th>
+</tr>
+</thead>
+
+<tbody>
+
 <%
-    Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
+Connection con=null;
+PreparedStatement ps=null;
+ResultSet rs=null;
 
-    try {
-        con = DBUtil3.getConnection();
-        
-        // Flexible SQL: Using LIKE to catch variations and trimming whitespace
-        String sql = "SELECT LEFT(TRIM(cast_no), 2) AS caste_prefix, " +
-                     "SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%dayscholar%' AND UPPER(TRIM(gender)) = 'M' THEN 1 ELSE 0 END) AS DS_M, " +
-                     "SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%dayscholar%' AND UPPER(TRIM(gender)) = 'F' THEN 1 ELSE 0 END) AS DS_F, " +
-                     "SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%residential%' AND UPPER(TRIM(gender)) = 'M' THEN 1 ELSE 0 END) AS BR_M, " +
-                     "SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%residential%' AND UPPER(TRIM(gender)) = 'F' THEN 1 ELSE 0 END) AS BR_F " +
-                     "FROM admission_form " +
-                     "GROUP BY LEFT(TRIM(cast_no), 2) " +
-                     "ORDER BY caste_prefix ASC";
+// Totals
+int tDSM=0, tDSF=0, tBRM=0, tBRF=0;
 
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
+try{
+    con=DBUtil3.getConnection();
 
-        boolean hasData = false;
-        while(rs.next()){
-            hasData = true;
+    String sql =
+    "SELECT LEFT(TRIM(cast_no),2) AS caste_prefix," +
+
+    " SUM(CASE WHEN COALESCE(LOWER(TRIM(Admission_type)),'') LIKE '%day%' " +
+    " AND COALESCE(UPPER(TRIM(gender)),'') IN ('M','MALE') THEN 1 ELSE 0 END) AS DS_M," +
+
+    " SUM(CASE WHEN COALESCE(LOWER(TRIM(Admission_type)),'') LIKE '%day%' " +
+    " AND COALESCE(UPPER(TRIM(gender)),'') IN ('F','FEMALE') THEN 1 ELSE 0 END) AS DS_F," +
+
+    " SUM(CASE WHEN COALESCE(LOWER(TRIM(Admission_type)),'') LIKE '%res%' " +
+    " AND COALESCE(UPPER(TRIM(gender)),'') IN ('M','MALE') THEN 1 ELSE 0 END) AS BR_M," +
+
+    " SUM(CASE WHEN COALESCE(LOWER(TRIM(Admission_type)),'') LIKE '%res%' " +
+    " AND COALESCE(UPPER(TRIM(gender)),'') IN ('F','FEMALE') THEN 1 ELSE 0 END) AS BR_F" +
+
+    " FROM admission_form " +
+    " WHERE cast_no IS NOT NULL AND cast_no <> '' " +
+    " GROUP BY LEFT(TRIM(cast_no),2) " +
+    " ORDER BY caste_prefix";
+
+    ps=con.prepareStatement(sql);
+    rs=ps.executeQuery();
+
+    boolean hasData=false;
+
+    while(rs.next()){
+        hasData=true;
+
+        int dsm = rs.getInt("DS_M");
+        int dsf = rs.getInt("DS_F");
+        int brm = rs.getInt("BR_M");
+        int brf = rs.getInt("BR_F");
+
+        tDSM += dsm;
+        tDSF += dsf;
+        tBRM += brm;
+        tBRF += brf;
 %>
-            <tr>
-                <td><%= rs.getString("caste_prefix") %></td>
-                <td><%= rs.getInt("DS_M") %></td>
-                <td><%= rs.getInt("DS_F") %></td>
-                <td><%= rs.getInt("BR_M") %></td>
-                <td><%= rs.getInt("BR_F") %></td>
-            </tr>
-<%
-        }
-        
-        if(!hasData) {
-            out.println("<tr><td colspan='5'>Query returned no data. Ensure 'admission_form' has entries.</td></tr>");
-        }
 
-    } catch(Exception e) {
-        out.println("<tr><td colspan='5' class='text-danger'>Error: " + e.getMessage() + "</td></tr>");
-    } finally {
-        if(rs!=null) rs.close();
-        if(ps!=null) ps.close();
-        if(con!=null) con.close();
+<tr>
+<td><%= rs.getString("caste_prefix") %></td>
+<td><%= dsm %></td>
+<td><%= dsf %></td>
+<td><%= brm %></td>
+<td><%= brf %></td>
+</tr>
+
+<%
+    }
+
+    if(!hasData){
+%>
+<tr>
+<td colspan="5" class="text-danger">No data found in table</td>
+</tr>
+<%
     }
 %>
-    </tbody>
+
+<!-- TOTAL ROW -->
+<tr style="font-weight:bold; background:#e9ecef;">
+<td>Total</td>
+<td><%= tDSM %></td>
+<td><%= tDSF %></td>
+<td><%= tBRM %></td>
+<td><%= tBRF %></td>
+</tr>
+
+<%
+}catch(Exception e){
+%>
+<tr>
+<td colspan="5" class="text-danger">
+Error: <%= e.getMessage() %>
+</td>
+</tr>
+<%
+} finally{
+    if(rs!=null) try{rs.close();}catch(Exception e){}
+    if(ps!=null) try{ps.close();}catch(Exception e){}
+    if(con!=null) try{con.close();}catch(Exception e){}
+}
+%>
+
+</tbody>
 </table>
+
 </body>
 </html>
