@@ -234,9 +234,9 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
 </main>
 
 <footer>
-  <p>© <%= currentYear %> | SRS | Office Central |  
+  <p>© <%= currentYear %> | SANPOLY | Office Central |  
   <i class="fas fa-leaf" style="color:green;"></i> Developed by
-  <i class="fas fa-leaf" style="color:green;"></i> School IT Department</p>
+  <i class="fas fa-leaf" style="color:green;"></i> SSS IT Department</p>
 </footer>
 
 <script>
