@@ -52,9 +52,9 @@ input, textarea, select {
 <%@ include file="header.jsp" %>
 
 <h4>SANPOLY - Admission Records</h4>
-
+<button class="btn btn-success mb-2" onclick="downloadExcel()">Download Excel</button>
 <div class="table-wrapper">
-<table>
+<table id="admissionTable">
 <thead>
 <tr>
 <th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>Gender</th><th>Admission</th>
@@ -440,6 +440,33 @@ function editRecord(btn){
 	$('#m_p5').val(b.data('p5'));
 
 	$('#editModal').modal('show');
+}
+
+
+function downloadExcel() {
+    let table = document.getElementById("admissionTable").outerHTML;
+
+    let html = `
+    <html xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns="http://www.w3.org/TR/REC-html40">
+    <head>
+    <meta charset="UTF-8">
+    </head>
+    <body>
+    ${table}
+    </body>
+    </html>`;
+
+    let blob = new Blob([html], { type: "application/vnd.ms-excel" });
+
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Admission_Records.xls";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 </script>
 
