@@ -76,9 +76,9 @@ function downloadExcel() {
 <th>SSLC State</th>
 
 
-<th>Total Marks</th><th>Aggregate</th>
+<th>Total Marks</th>
 <th>Maths</th><th>Science</th>
-
+<th>Maths & Science Aggregate</th>
 <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
 
 <th>CBSE/ICSE</th><th>PUC/SC</th><th>Girls</th>
@@ -127,11 +127,22 @@ if (list != null) {
 
 
 <td><%= val(row.get("SSLC_TMarks")) %></td>
-<td><%= val(row.get("SSLC_Aggr")) %></td>
+
 
 <td><%= val(row.get("marks_maths")) %></td>
 <td><%= val(row.get("marks_science")) %></td>
+<td>
+<%
+    double m = 0, s = 0;
+    try {
+        m = Double.parseDouble(val(row.get("marks_maths")));
+        s = Double.parseDouble(val(row.get("marks_science")));
+    } catch(Exception e){}
 
+    double avg = (m + s) / 2;
+%>
+<%= String.format("%.2f", avg) %>
+</td>
 <td><%= val(row.get("preference_1")) %></td>
 <td><%= val(row.get("preference_2")) %></td>
 <td><%= val(row.get("preference_3")) %></td>

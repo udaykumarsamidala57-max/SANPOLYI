@@ -98,7 +98,7 @@ String id=row.get("id");
 <td><input name="maths" value="<%=row.get("maths")%>" class="form-control" readonly></td>
 <td><input name="science" value="<%=row.get("science")%>" class="form-control" readonly></td>
 
-<td><td><input name="aggr" class="form-control" readonly></td></td>
+<td><input name="aggr" class="form-control" readonly></td>
 
 <% if("Office".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td><input name="board" value="<%=row.get("board")%>" class="form-control calc"></td>
