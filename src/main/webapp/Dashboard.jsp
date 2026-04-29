@@ -16,14 +16,10 @@ body {
     padding:20px;
     font-family:'Segoe UI';
 }
-
-/* CENTER CONTENT */
 .main-container {
     width:80%;
     margin:auto;
 }
-
-/* CARD */
 .card-box {
     background:#fff;
     padding:18px;
@@ -35,12 +31,9 @@ body {
 .card-box:hover {
     transform: translateY(-2px);
 }
-
-/* TABLE */
 .table {
     font-size:13px;
 }
-
 th {
     background:#1b3a57;
     color:#fff;
@@ -48,30 +41,23 @@ th {
     position:sticky;
     top:0;
 }
-
 td {
     text-align:center;
     vertical-align:middle;
     padding:6px;
 }
-
 .table-hover tbody tr:hover {
     background:#f5f9fc;
 }
-
 .total-row {
     font-weight:bold;
     background:#dee2e6;
 }
-
-/* HEADINGS */
 h4 {
     font-weight:600;
     color:#1b3a57;
     margin-bottom:15px;
 }
-
-/* CHART */
 .chart-container {
     width:90%;
     height:300px;
@@ -94,8 +80,6 @@ if (sess == null || sess.getAttribute("username") == null) {
 
 <div class="main-container">
 
-<!-- ================= TABLE ================= -->
-
 <div class="card-box">
 
 <h4>Category vs Gender</h4>
@@ -109,6 +93,7 @@ if (sess == null || sess.getAttribute("username") == null) {
 <th rowspan="2">Category</th>
 <th colspan="2">Dayscholar</th>
 <th colspan="2">Residential</th>
+<th rowspan="2">Total</th>
 </tr>
 <tr>
 <th>M</th><th>F</th>
@@ -124,8 +109,8 @@ PreparedStatement ps=null;
 ResultSet rs=null;
 
 int tDSM=0, tDSF=0, tBRM=0, tBRF=0;
+int grandTotal = 0;
 
-// Chart Data
 StringBuilder labels = new StringBuilder();
 StringBuilder dsData = new StringBuilder();
 StringBuilder rsData = new StringBuilder();
@@ -135,19 +120,14 @@ try{
 
     String sql =
     "SELECT LEFT(TRIM(cast_no),2) AS caste_prefix," +
-
     " SUM(CASE WHEN LOWER(TRIM(Admission_type)) LIKE '%day%' " +
     " AND UPPER(TRIM(gender)) IN ('M','MALE') THEN 1 ELSE 0 END) AS DS_M," +
-
     " SUM(CASE WHEN LOWER(TRIM(Admission_type)) LIKE '%day%' " +
     " AND UPPER(TRIM(gender)) IN ('F','FEMALE') THEN 1 ELSE 0 END) AS DS_F," +
-
     " SUM(CASE WHEN LOWER(TRIM(Admission_type)) LIKE '%res%' " +
     " AND UPPER(TRIM(gender)) IN ('M','MALE') THEN 1 ELSE 0 END) AS BR_M," +
-
     " SUM(CASE WHEN LOWER(TRIM(Admission_type)) LIKE '%res%' " +
     " AND UPPER(TRIM(gender)) IN ('F','FEMALE') THEN 1 ELSE 0 END) AS BR_F" +
-
     " FROM admission_form " +
     " WHERE cast_no IS NOT NULL AND cast_no<>'' " +
     " GROUP BY caste_prefix ORDER BY caste_prefix";
@@ -167,7 +147,13 @@ try{
         int brm = rs.getInt("BR_M");
         int brf = rs.getInt("BR_F");
 
-        tDSM+=dsm; tDSF+=dsf; tBRM+=brm; tBRF+=brf;
+        int rowTotal = dsm + dsf + brm + brf;
+
+        tDSM+=dsm; 
+        tDSF+=dsf; 
+        tBRM+=brm; 
+        tBRF+=brf;
+        grandTotal += rowTotal;
 
         labels.append("'").append(caste).append("',");
         dsData.append(dsm+dsf).append(",");
@@ -180,6 +166,7 @@ try{
 <td><%=dsf%></td>
 <td><%=brm%></td>
 <td><%=brf%></td>
+<td><b><%=rowTotal%></b></td>
 </tr>
 
 <%
@@ -188,7 +175,7 @@ try{
     if(!hasData){
 %>
 <tr>
-<td colspan="5" class="text-danger text-center font-weight-bold">
+<td colspan="6" class="text-danger text-center font-weight-bold">
     No Data Found
 </td>
 </tr>
@@ -197,18 +184,21 @@ try{
 %>
 
 <tr class="total-row">
-<td>Total</td>
-<td><%=tDSM%></td>
-<td><%=tDSF%></td>
-<td><%=tBRM%></td>
-<td><%=tBRF%></td>
+<td><b>Grand Total</b></td>
+<td><b><%=tDSM%></b></td>
+<td><b><%=tDSF%></b></td>
+<td><b><%=tBRM%></b></td>
+<td><b><%=tBRF%></b></td>
+<td style="background:#1b3a57; color:#fff; font-size:15px;">
+<b><%=grandTotal%></b>
+</td>
 </tr>
 
 <%
 }catch(Exception e){
 %>
 <tr>
-<td colspan="5" class="text-danger text-center">
+<td colspan="6" class="text-danger text-center">
     <%=e.getMessage()%>
 </td>
 </tr>
@@ -225,8 +215,6 @@ try{
 
 </div>
 </div>
-
-<!-- ================= CHART ================= -->
 
 <div class="card-box">
 <h4>Category Distribution</h4>
