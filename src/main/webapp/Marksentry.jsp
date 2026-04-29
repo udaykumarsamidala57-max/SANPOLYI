@@ -57,6 +57,8 @@ input { text-align:center;  }
     <th>App. No</th>
     <th>Catg. No</th>
     <th>Name</th>
+    <th>Gender</th>
+    <th>Board</th>
     <th>Maths</th>
     <th>Science</th>
     <th>Aggr</th>
