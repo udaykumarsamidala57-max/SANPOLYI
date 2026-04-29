@@ -37,7 +37,7 @@ if (sess == null || sess.getAttribute("username") == null) {
 <tr>
 <th rowspan="2">Caste Prefix</th>
 <th colspan="2">Dayscholars</th>
-<th colspan="2">Boarders</th>
+<th colspan="2">Residential</th>
 </tr>
 <tr>
 <th>M</th><th>F</th>
@@ -52,26 +52,25 @@ Connection con=null;
 PreparedStatement ps=null;
 ResultSet rs=null;
 
-// Totals
 int tDSM=0, tDSF=0, tBRM=0, tBRF=0;
 
 try{
     con=DBUtil3.getConnection();
 
-    String sql = 
+    String sql =
     "SELECT LEFT(cast_no,2) AS caste_prefix," +
 
-    " SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%day%' " +
-    " AND LOWER(TRIM(gender)) IN ('male','m') THEN 1 ELSE 0 END) AS DS_M," +
+    " SUM(CASE WHEN LOWER(TRIM(category)) = 'dayscholar' " +
+    " AND UPPER(TRIM(gender)) = 'M' THEN 1 ELSE 0 END) AS DS_M," +
 
-    " SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%day%' " +
-    " AND LOWER(TRIM(gender)) IN ('female','f') THEN 1 ELSE 0 END) AS DS_F," +
+    " SUM(CASE WHEN LOWER(TRIM(category)) = 'dayscholar' " +
+    " AND UPPER(TRIM(gender)) = 'F' THEN 1 ELSE 0 END) AS DS_F," +
 
-    " SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%board%' " +
-    " AND LOWER(TRIM(gender)) IN ('male','m') THEN 1 ELSE 0 END) AS BR_M," +
+    " SUM(CASE WHEN LOWER(TRIM(category)) = 'residential' " +
+    " AND UPPER(TRIM(gender)) = 'M' THEN 1 ELSE 0 END) AS BR_M," +
 
-    " SUM(CASE WHEN LOWER(TRIM(category)) LIKE '%board%' " +
-    " AND LOWER(TRIM(gender)) IN ('female','f') THEN 1 ELSE 0 END) AS BR_F" +
+    " SUM(CASE WHEN LOWER(TRIM(category)) = 'residential' " +
+    " AND UPPER(TRIM(gender)) = 'F' THEN 1 ELSE 0 END) AS BR_F" +
 
     " FROM admission_form " +
     " WHERE cast_no IS NOT NULL AND cast_no <> '' " +
@@ -105,7 +104,7 @@ try{
     }
 %>
 
-<!-- ✅ TOTAL ROW -->
+<!-- TOTAL ROW -->
 <tr style="font-weight:bold; background:#e9ecef;">
 <td>Total</td>
 <td><%= tDSM %></td>
