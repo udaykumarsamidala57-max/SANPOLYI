@@ -117,7 +117,7 @@ button:hover {
 </div>
 
 <div class="form-field">
-<label>Castg. Number</label>
+<label>Category Number</label>
 <input type="text" name="cast_no">
 </div>
 
