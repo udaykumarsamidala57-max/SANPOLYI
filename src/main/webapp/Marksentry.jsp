@@ -88,7 +88,7 @@ String id=row.get("id");
 <tr>
 
 <td>
-    <td><%= i++ %></td>
+    <%= i++ %>
 </td>
 
 
