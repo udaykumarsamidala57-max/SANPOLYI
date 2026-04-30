@@ -86,7 +86,7 @@ String id=row.get("id");
 
 <form method="post" action="Marks">
 <tr>
-
+<input type="hidden" name="id" value="<%=id%>">
 <td>
     <%= i++ %>
 </td>
