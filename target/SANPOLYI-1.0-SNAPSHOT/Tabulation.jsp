@@ -72,10 +72,8 @@ function downloadExcel() {
 
 
 <th>Whatsapp</th>
-
-<th>SSLC State</th>
-
-
+<th>P / AB
+<th>10th Board</th>
 <th>10Th Marks</th>
 <th>Maths</th><th>Science</th>
 <th>Maths & Science Aggregate</th>
@@ -93,12 +91,13 @@ function downloadExcel() {
 
 <%
 List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
+int i =1;
 if (list != null) {
     for (Map<String, Object> row : list) {
 %>
 
 <tr>
-<td><%= val(row.get("id")) %></td>
+ <td><%= i++ %></td>
 <td><%= val(row.get("APPNO")) %></td>
 <td><%= val(row.get("cast_no")) %></td>
 <td><%= val(row.get("applicant_name")) %></td>
@@ -118,9 +117,9 @@ if (list != null) {
 
 
 <td><%= val(row.get("Whatsapp_no")) %></td>
+<td><%= val(row.get("Attendance")) %></td>
 
-
-<td><%= val(row.get("SSLC_State")) %></td>
+<td><%= val(row.get("SSLC_Board")) %></td>
 
 
 

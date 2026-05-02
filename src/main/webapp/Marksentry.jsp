@@ -58,6 +58,7 @@ input { text-align:center;  }
     <th>Catg. No</th>
     <th>Name</th>
     <th>Gender</th>
+     
     <th>Board</th>
     <th>Maths</th>
     <th>Science</th>
@@ -65,6 +66,7 @@ input { text-align:center;  }
     <th>Board(CBSE/ICSE)</th>
     <th>PUC</th>
     <th>Girls</th>
+    <th>P/AB</th>
     <th>ET Maths</th>
     <th>ET Science</th>
     <th>ET Total</th>
@@ -96,6 +98,7 @@ String id=row.get("id");
 <td style="text-align:left;"><%=row.get("cast_no")%></td>
 <td style="text-align:left;"><%=row.get("name")%></td>
 <td style="text-align:left;"><%=row.get("gender")%></td>
+
 <td style="text-align:left;"><%=row.get("SSLC_Board")%></td>
 
 <td><input name="maths" value="<%=row.get("maths")%>" class="form-control" readonly></td>
@@ -115,6 +118,12 @@ String id=row.get("id");
 
 
 <% if("Academics".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
+<td>
+    <select name="Attendance" class="form-control">
+        <option value="P" <%= "P".equals(row.get("Attendance")) ? "selected" : "" %>>P</option>
+        <option value="AB" <%= "AB".equals(row.get("Attendance")) ? "selected" : "" %>>AB</option>
+    </select>
+</td>
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc"></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc"></td>
 <%}else { %>

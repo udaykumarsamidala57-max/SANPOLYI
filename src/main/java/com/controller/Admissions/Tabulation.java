@@ -80,6 +80,7 @@ public class Tabulation extends HttpServlet {
                 row.put("permanent_address", rs.getString("permanent_address"));
                 row.put("phone_no", rs.getString("phone_no"));
                 row.put("Whatsapp_no", rs.getString("Whatsapp_no"));
+                row.put("Attendance", rs.getString("Attendance"));
                 row.put("email", rs.getString("email"));
 
                 // IDs

@@ -187,11 +187,11 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
     <button class="dropdown-btn"><i class="fas fa-graduation-cap text-info"></i> Admissions <i class="fas fa-caret-down"></i></button>
     <div class="dropdown-content">
      <% if ("Global".equalsIgnoreCase(roles)|| "Finance".equalsIgnoreCase(depts)||"Academics".equalsIgnoreCase(depts)||"Office".equalsIgnoreCase(depts)){ %>
-     
-     <a href="admission_form.jsp"><i class="fas fa-file-signature"></i> Enquiry Form</a>
+     <a href="Dashboard.jsp"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+     <a href="admission_form.jsp"><i class="fas fa-user-plus"></i> Enquiry Form</a>
       <a href="Enquiries"><i class="fas fa-search"></i> Enquiries</a>
-      <a href="Marks"><i class="fas fa-search"></i> Marks Entry</a>
-      <a href="Tabulation"><i class="fas fa-search"></i> Tabulation</a>
+      <a href="Marks"><i class="fas fa-edit"></i> Marks Entry</a>
+      <a href="Tabulation"><i class="fas fa-table"></i> Tabulation</a>
       <% } %>
       
       
@@ -234,9 +234,9 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
 </main>
 
 <footer>
-  <p>© <%= currentYear %> | SRS | Office Central |  
+  <p>© <%= currentYear %> | SANPOLY | Office Central |  
   <i class="fas fa-leaf" style="color:green;"></i> Developed by
-  <i class="fas fa-leaf" style="color:green;"></i> School IT Department</p>
+  <i class="fas fa-leaf" style="color:green;"></i> SSS IT Department</p>
 </footer>
 
 <script>
