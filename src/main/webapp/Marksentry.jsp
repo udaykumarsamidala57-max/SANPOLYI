@@ -141,8 +141,11 @@ String id=row.get("id");
 
 <script>
 
-// 🔹 CALCULATION (UNCHANGED)
+// 🔹 CALCULATION (UPDATED WITH AB LOGIC)
 function calculateRow(row){
+
+    let attendance = row.find('[name="Attendance"]').val();
+
     let m = parseFloat(row.find('[name="maths"]').val()) || 0;
     let s = parseFloat(row.find('[name="science"]').val()) || 0;
 
@@ -153,15 +156,25 @@ function calculateRow(row){
     let etm = parseFloat(row.find('[name="ET_m"]').val()) || 0;
     let ets = parseFloat(row.find('[name="ET_s"]').val()) || 0;
 
+    // 🔹 Aggregate
     let avg = (m + s) / 2;
     row.find('[name="aggr"]').val(avg.toFixed(2));
 
+    // 🔹 ET Total
     let ett = (etm + ets) / 2;
     row.find('[name="ET_T"]').val(ett.toFixed(2));
 
+    // 🔴 IF ABSENT → TOTAL = AB
+    if(attendance === "AB"){
+        row.find('[name="Total"]').val("AB");
+        return;
+    }
+
+    // 🔹 Final Total
     let total = (avg + ett) / 2 + board + puc + girls;
     row.find('[name="Total"]').val(total.toFixed(2));
 }
+
 
 // 🔹 EDIT CLICK
 $(document).on('click', '.editBtn', function () {
@@ -173,7 +186,8 @@ $(document).on('click', '.editBtn', function () {
     row.find('.saveBtn').show();
 });
 
-// 🔹 AUTO LOCK AFTER SAVE (before submit)
+
+// 🔹 AUTO LOCK AFTER SAVE
 $(document).on('submit', 'form', function () {
     let row = $(this).closest('tr');
 
@@ -183,20 +197,32 @@ $(document).on('submit', 'form', function () {
     row.find('.saveBtn').hide();
 });
 
+
 // 🔹 CALC TRIGGER
 $(document).on('input', '.calc', function(){
     let row = $(this).closest('tr');
     calculateRow(row);
 });
 
-// 🔹 LOAD CALC
+
+// 🔹 LOAD CALC ON PAGE LOAD
 $(document).ready(function(){
     $('tbody tr').each(function(){
         calculateRow($(this));
+
+        // Apply AB logic on load also
+        let row = $(this);
+        let attendance = row.find('[name="Attendance"]').val();
+
+        if(attendance === "AB"){
+            row.find('[name="ET_m"], [name="ET_s"]').val(0).prop('disabled', true);
+            row.find('[name="Total"]').val("AB");
+        }
     });
 });
 
-// 🔹 Attendance logic
+
+// 🔹 Attendance change logic
 $(document).on('change', '[name="Attendance"]', function () {
     let row = $(this).closest('tr');
     let val = $(this).val();
@@ -206,6 +232,9 @@ $(document).on('change', '[name="Attendance"]', function () {
     } else {
         row.find('[name="ET_m"], [name="ET_s"]').prop('disabled', false);
     }
+
+    // Recalculate after change
+    calculateRow(row);
 });
 
 </script>
