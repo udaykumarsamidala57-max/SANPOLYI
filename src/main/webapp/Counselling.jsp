@@ -140,11 +140,11 @@ select {
 <thead>
 <tr>
     <th class="col-rank">Rank</th>
-    <th class="col-app">App</th>
+    <th class="col-app">Catg./App</th>
     <th class="col-name">Name</th>
     <th class="col-total">Total</th>
     <th class="col-branch">Branch</th>
-    <th class="col-seg">Segment</th>
+    <th class="col-seg">Category</th>
     <th class="col-sp">Spcl Cat</th>
     <th class="col-act">Action</th>
 </tr>
