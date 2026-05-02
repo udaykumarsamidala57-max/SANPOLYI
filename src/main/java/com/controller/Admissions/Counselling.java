@@ -28,7 +28,7 @@ public class Counselling extends HttpServlet {
         try (Connection con = DBUtil3.getConnection()) {
 
             // 🔹 STUDENT DATA
-            String sql = "SELECT id, APPNO, cast_no, applicant_name, gender, phone_no, Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg, Segment " +
+            String sql = "SELECT id, APPNO, cast_no, applicant_name, gender,Admission_type, phone_no, Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg, Segment " +
                          "FROM admission_form " +
                          "ORDER BY (CASE WHEN Total='AB' THEN -1 ELSE CAST(Total AS DECIMAL(10,2)) END) DESC";
 
@@ -42,6 +42,7 @@ public class Counselling extends HttpServlet {
                 row.put("cast_no", safe(rs.getString("cast_no")));
                 row.put("name", safe(rs.getString("applicant_name")));
                 row.put("gender", safe(rs.getString("gender")));
+                row.put("Admission_type", safe(rs.getString("Admission_type")));
                 row.put("phone_no", safe(rs.getString("phone_no")));
                 row.put("Whatsapp_no", safe(rs.getString("Whatsapp_no")));
                 row.put("Attendance", safe(rs.getString("Attendance")));
