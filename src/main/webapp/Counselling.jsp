@@ -169,7 +169,8 @@ for(Map<String,String> row:list){
 </td>
 
 <td class="name-cell" title="<%=row.get("name")%>">
-    <b><%=row.get("name")%> (<%=row.get("gender")%>)</b>
+    <b><%=row.get("name")%> (<%=row.get("gender")%>)</b><br>
+    <%=row.get("phone_no")%>,<%=row.get("Whatsapp_no")%>
 </td>
 
 <td><b><%=row.get("Total")%></b></td>
