@@ -72,7 +72,7 @@ function downloadExcel() {
 
 
 <th>Whatsapp</th>
-<th>P / AB
+
 <th>10th Board</th>
 <th>10Th Marks</th>
 <th>Maths</th><th>Science</th>
@@ -117,7 +117,7 @@ if (list != null) {
 
 
 <td><%= val(row.get("Whatsapp_no")) %></td>
-<td><%= val(row.get("Attendance")) %></td>
+
 
 <td><%= val(row.get("SSLC_Board")) %></td>
 
