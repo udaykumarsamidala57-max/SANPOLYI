@@ -70,13 +70,13 @@ thead th {
 }
 
 .col-rank { width:5%; }
-.col-app  { width:12%; }
-.col-name { width:30%; }
-.col-total{ width:8%; }
+.col-app  { width:8%; }
+.col-name { width:20%; }
+.col-total{ width:6%; }
 .col-branch{ width:12%; }
 .col-seg  { width:10%; }
 .col-sp   { width:13%; }
-.col-act  { width:10%; }
+.col-act  { width:8%; }
 
 .name-cell {
     text-align:left !important;
@@ -145,7 +145,8 @@ select {
     <th class="col-total">Total</th>
     <th class="col-branch">Branch</th>
     <th class="col-seg">Category</th>
-    <th class="col-sp">Spcl Cat</th>
+    <th class="col-sp">Spcl Cat</th>.
+    <th class="col-sp">Allt. Status</th>
     <th class="col-act">Action</th>
 </tr>
 </thead>
@@ -206,6 +207,15 @@ for(Map<String,String> row:list){
 <option value="Arjas" <%= "Arjas".equals(row.get("Special_Catg"))?"selected":"" %>>Arjas</option>
 <option value="SMIORE" <%= "SMIORE".equals(row.get("Special_Catg"))?"selected":"" %>>SMIORE</option>
 <option value="SVPS" <%= "SVPS".equals(row.get("Special_Catg"))?"selected":"" %>>SVPS</option>
+</select>
+</td>
+
+<td>
+<select class="form-control status editable" disabled>
+<option value="">Select</option>
+<option value="Confirmed" <%= "Confirmed".equals(row.get("Status_Allot"))?"selected":"" %>>Confirmed</option>
+<option value="Waiting List" <%= "Waiting List".equals(row.get("Status_Allot"))?"selected":"" %>>Waiting List</option>
+<option value="Widthdrawn" <%= "Widthdrawn".equals(row.get("Status_Allot"))?"selected":"" %>>Widthdrawn</option>
 </select>
 </td>
 
@@ -335,6 +345,7 @@ $(document).on('click','.saveBtn',function(){
 
     let branch = row.find('.seat').val();
     let segment = row.find('.segment').val();
+    let status = row.find('.status').val();   // ✅ NEW
 
     let catMap = seatMap[segment];
 
@@ -343,7 +354,7 @@ $(document).on('click','.saveBtn',function(){
         let total = catMap[branch+"_total"] || 0;
 
         if(used >= total){
-            alert(" Seats not available for selected category");
+            alert("Seats not available for selected category");
             return;
         }
     }
@@ -355,9 +366,16 @@ $(document).on('click','.saveBtn',function(){
             id:row.data('id'),
             Seat_Allot:branch,
             Segment:segment,
-            Special_Catg:row.find('.spcat').val()
+            Special_Catg:row.find('.spcat').val(),
+            Status_Allot:status   // ✅ FIXED
         },
-        success:function(){
+        success:function(res){
+
+            if(res==="FULL"){
+                alert("Seats already full!");
+                return;
+            }
+
             location.reload();
         }
     });

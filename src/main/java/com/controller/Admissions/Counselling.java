@@ -28,9 +28,9 @@ public class Counselling extends HttpServlet {
         try (Connection con = DBUtil3.getConnection()) {
 
             // 🔹 STUDENT DATA
-            String sql = "SELECT id, APPNO, cast_no, applicant_name, gender,Admission_type, phone_no, Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg, Segment " +
-                         "FROM admission_form " +
-                         "ORDER BY (CASE WHEN Total='AB' THEN -1 ELSE CAST(Total AS DECIMAL(10,2)) END) DESC";
+        	String sql = "SELECT id, APPNO, cast_no, applicant_name, gender, Admission_type, phone_no, Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg, Segment, Status_Allot " +
+                    "FROM admission_form " +
+                    "ORDER BY (CASE WHEN Total='AB' THEN -1 ELSE CAST(Total AS DECIMAL(10,2)) END) DESC";
 
             ResultSet rs = con.createStatement().executeQuery(sql);
 
@@ -50,6 +50,7 @@ public class Counselling extends HttpServlet {
                 row.put("Seat_Allot", safe(rs.getString("Seat_Allot")));
                 row.put("Special_Catg", safe(rs.getString("Special_Catg")));
                 row.put("Segment", safe(rs.getString("Segment")));
+                row.put("Status_Allot", safe(rs.getString("Status_Allot")));
 
                 list.add(row);
             }
@@ -81,9 +82,11 @@ public class Counselling extends HttpServlet {
 
             // 🔹 USED COUNT (BASED ON Segment)
             String countSql = "SELECT Seat_Allot, Segment, COUNT(*) as cnt " +
-                              "FROM admission_form " +
-                              "WHERE Seat_Allot IS NOT NULL AND Seat_Allot<>'' " +
-                              "GROUP BY Seat_Allot, Segment";
+                    "FROM admission_form " +
+                    "WHERE Seat_Allot IS NOT NULL " +
+                    "AND Seat_Allot<>'' " +
+                    "AND Status_Allot='Confirmed' " +
+                    "GROUP BY Seat_Allot, Segment";
 
             ResultSet cntRs = con.createStatement().executeQuery(countSql);
 
@@ -122,6 +125,7 @@ public class Counselling extends HttpServlet {
             String newSeat = safe(request.getParameter("Seat_Allot")).toUpperCase();
             String newSegment = safe(request.getParameter("Segment")).toUpperCase();
             String spCat = safe(request.getParameter("Special_Catg"));
+            String Sallot = safe(request.getParameter("Status_Allot"));
 
             int id = Integer.parseInt(idStr);
 
@@ -174,13 +178,14 @@ public class Counselling extends HttpServlet {
             }
 
             // 🔴 5. UPDATE
-            String updateSql = "UPDATE admission_form SET Seat_Allot=?, Segment=?, Special_Catg=? WHERE id=?";
+            String updateSql = "UPDATE admission_form SET Seat_Allot=?, Segment=?, Special_Catg=?, Status_Allot=? WHERE id=?";
             PreparedStatement ps = con.prepareStatement(updateSql);
 
             ps.setString(1, newSeat);
             ps.setString(2, newSegment);
             ps.setString(3, spCat);
-            ps.setInt(4, id);
+            ps.setString(4, Sallot);
+            ps.setInt(5, id);
 
             ps.executeUpdate();
 
