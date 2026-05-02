@@ -64,7 +64,7 @@ function downloadExcel() {
 
 <thead>
 <tr>
-<th>ID</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>Gender</th><th>Admission</th>
+<th>Rank</th><th>APPNO</th><th>Cast No</th><th>Name</th><th>Gender</th><th>Admission</th>
 
 
 
