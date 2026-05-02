@@ -24,19 +24,12 @@ String User = (String) sess.getAttribute("username");
 
 <style>
 body { background:#f4f6f9; }
-.container-box {
-    background:#fff;
-    padding:30px;
-    border-radius:8px;
-    margin-top:40px;
- width:auto;
-}
 .table{
-width :80%;
+width :90%;
  margin: 0 auto;
 }
 .table th { background:#002147; color:#fff; text-align:center; }
-.table td { text-align:center;padding:auto; }
+.table td { text-align:center; }
 input { text-align:center;  }
 </style>
 </head>
@@ -44,12 +37,10 @@ input { text-align:center;  }
 <body>
 <%@ include file="header.jsp" %>
 
-
-
 <h3>Marks Entry </h3>
 
 <div class="table-responsive">
-<table class="table table-bordered table-sm table-hover" >
+<table class="table table-bordered table-sm table-hover">
 
 <thead>
 <tr>
@@ -58,7 +49,6 @@ input { text-align:center;  }
     <th>Catg. No</th>
     <th>Name</th>
     <th>Gender</th>
-     
     <th>Board</th>
     <th>Maths</th>
     <th>Science</th>
@@ -89,10 +79,8 @@ String id=row.get("id");
 <form method="post" action="Marks">
 <tr>
 <input type="hidden" name="id" value="<%=id%>">
-<td>
-    <%= i++ %>
-</td>
 
+<td><%= i++ %></td>
 
 <td style="text-align:left;"><%=row.get("APPNO")%></td>
 <td style="text-align:left;"><%=row.get("cast_no")%></td>
@@ -107,59 +95,54 @@ String id=row.get("id");
 <td><input name="aggr" class="form-control" readonly></td>
 
 <% if("Office".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
-<td><input name="board" value="<%=row.get("board")%>" class="form-control calc"></td>
-<td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc"></td>
-<td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc"></td>
+<td><input name="board" value="<%=row.get("board")%>" class="form-control calc editable" disabled></td>
+<td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc editable" disabled></td>
+<td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc editable" disabled></td>
 <%} else {%>
 <td><input name="board" value="<%=row.get("board")%>" class="form-control calc" readonly></td>
 <td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc" readonly></td>
 <td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc" readonly></td>
 <%} %>
 
-
 <% if("Academics".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td>
-    <select name="Attendance" class="form-control">
+    <select name="Attendance" class="form-control editable" disabled>
         <option value="P" <%= "P".equals(row.get("Attendance")) ? "selected" : "" %>>P</option>
         <option value="AB" <%= "AB".equals(row.get("Attendance")) ? "selected" : "" %>>AB</option>
     </select>
 </td>
-<td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc"></td>
-<td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc"></td>
+<td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc editable" disabled></td>
+<td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc editable" disabled></td>
 <%}else { %>
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc" readonly></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc" readonly></td>
 <%} %>
 
 <td><input name="ET_T" value="<%=row.get("ET_T")%>" class="form-control" readonly></td>
-
 <td><input name="Total" value="<%=row.get("Total")%>" class="form-control" readonly></td>
 
 <td>
-    <button class="btn btn-success btn-sm">Save</button>
+    <button type="button" class="btn btn-primary btn-sm editBtn">Edit</button>
+    <button type="submit" class="btn btn-success btn-sm saveBtn" style="display:none;">Save</button>
 </td>
 
 </tr>
 </form>
 
 <% }} else { %>
-<tr><td colspan="13" class="text-danger">No Records</td></tr>
+<tr><td colspan="18" class="text-danger">No Records</td></tr>
 <% } %>
 
 </tbody>
 </table>
 </div>
 
-</div>
-</div>
-
 <!-- ================= SCRIPT ================= -->
 
 <script>
 
-// Reusable function to calculate everything for one row
+// 🔹 CALCULATION (UNCHANGED)
 function calculateRow(row){
-
     let m = parseFloat(row.find('[name="maths"]').val()) || 0;
     let s = parseFloat(row.find('[name="science"]').val()) || 0;
 
@@ -170,32 +153,59 @@ function calculateRow(row){
     let etm = parseFloat(row.find('[name="ET_m"]').val()) || 0;
     let ets = parseFloat(row.find('[name="ET_s"]').val()) || 0;
 
-    // ✅ AGGR always calculated (NOT from DB)
     let avg = (m + s) / 2;
     row.find('[name="aggr"]').val(avg.toFixed(2));
 
-    // ET Total
     let ett = (etm + ets) / 2;
     row.find('[name="ET_T"]').val(ett.toFixed(2));
 
-    // Final Total
     let total = (avg + ett) / 2 + board + puc + girls;
     row.find('[name="Total"]').val(total.toFixed(2));
 }
 
+// 🔹 EDIT CLICK
+$(document).on('click', '.editBtn', function () {
+    let row = $(this).closest('tr');
 
-// ✅ Trigger when user edits fields
+    row.find('.editable').prop('disabled', false);
+
+    row.find('.editBtn').hide();
+    row.find('.saveBtn').show();
+});
+
+// 🔹 AUTO LOCK AFTER SAVE (before submit)
+$(document).on('submit', 'form', function () {
+    let row = $(this).closest('tr');
+
+    row.find('.editable').prop('disabled', true);
+
+    row.find('.editBtn').show();
+    row.find('.saveBtn').hide();
+});
+
+// 🔹 CALC TRIGGER
 $(document).on('input', '.calc', function(){
     let row = $(this).closest('tr');
     calculateRow(row);
 });
 
-
-// ✅ Trigger on page load (VERY IMPORTANT)
+// 🔹 LOAD CALC
 $(document).ready(function(){
     $('tbody tr').each(function(){
         calculateRow($(this));
     });
+});
+
+// 🔹 Attendance logic
+$(document).on('change', '[name="Attendance"]', function () {
+    let row = $(this).closest('tr');
+    let val = $(this).val();
+
+    if (val === 'AB') {
+        row.find('[name="ET_m"], [name="ET_s"]').val(0).prop('disabled', true);
+    } else {
+        row.find('[name="ET_m"], [name="ET_s"]').prop('disabled', false);
+    }
 });
 
 </script>
