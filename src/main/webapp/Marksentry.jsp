@@ -66,7 +66,7 @@ input { text-align:center;  }
     <th>Board(CBSE/ICSE)</th>
     <th>PUC</th>
     <th>Girls</th>
-    <th>P/AB</th>
+    <th>Present/Absent</th>
     <th>ET Maths</th>
     <th>ET Science</th>
     <th>ET Total</th>
