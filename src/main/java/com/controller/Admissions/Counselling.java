@@ -28,12 +28,11 @@ public class Counselling extends HttpServlet {
         try (Connection con = DBUtil3.getConnection()) {
 
             // 🔹 STUDENT DATA
-            String sql = "SELECT id, APPNO, cast_no, applicant_name, gender,phone_no,Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg " +
+            String sql = "SELECT id, APPNO, cast_no, applicant_name, gender, phone_no, Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg, Segment " +
                          "FROM admission_form " +
                          "ORDER BY (CASE WHEN Total='AB' THEN -1 ELSE CAST(Total AS DECIMAL(10,2)) END) DESC";
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = con.createStatement().executeQuery(sql);
 
             while (rs.next()) {
                 Map<String, String> row = new HashMap<>();
@@ -49,18 +48,18 @@ public class Counselling extends HttpServlet {
                 row.put("Total", safe(rs.getString("Total")));
                 row.put("Seat_Allot", safe(rs.getString("Seat_Allot")));
                 row.put("Special_Catg", safe(rs.getString("Special_Catg")));
+                row.put("Segment", safe(rs.getString("Segment")));
 
                 list.add(row);
             }
 
-            // ============================
-            // 🔹 SEAT MATRIX (TOTAL)
-            // ============================
+            // 🔹 SEAT MATRIX
             String seatSql = "SELECT * FROM seat_matrix";
             ResultSet seatRs = con.createStatement().executeQuery(seatSql);
 
             while (seatRs.next()) {
-                String cat = safe(seatRs.getString("category")).trim();
+
+                String cat = safe(seatRs.getString("category")).trim().toUpperCase();
 
                 Map<String, Integer> branchMap = new HashMap<>();
 
@@ -70,7 +69,6 @@ public class Counselling extends HttpServlet {
                 branchMap.put("EC_total", seatRs.getInt("EC"));
                 branchMap.put("CE_total", seatRs.getInt("CE"));
 
-                // initialize used = 0
                 branchMap.put("ME_used", 0);
                 branchMap.put("EE_used", 0);
                 branchMap.put("CS_used", 0);
@@ -80,32 +78,24 @@ public class Counselling extends HttpServlet {
                 seatMap.put(cat, branchMap);
             }
 
-            // ============================
-            // 🔹 ALREADY ALLOTTED COUNT
-            // 🔥 USING cast_no FIRST 2 LETTERS
-            // ============================
-            String countSql = "SELECT Seat_Allot, " +
-                              "TRIM(SUBSTRING(cast_no,1,2)) as category, " +
-                              "COUNT(*) as cnt " +
+            // 🔹 USED COUNT (BASED ON Segment)
+            String countSql = "SELECT Seat_Allot, Segment, COUNT(*) as cnt " +
                               "FROM admission_form " +
                               "WHERE Seat_Allot IS NOT NULL AND Seat_Allot<>'' " +
-                              "GROUP BY Seat_Allot, TRIM(SUBSTRING(cast_no,1,2))";
+                              "GROUP BY Seat_Allot, Segment";
 
             ResultSet cntRs = con.createStatement().executeQuery(countSql);
 
             while (cntRs.next()) {
 
-                String branch = safe(cntRs.getString("Seat_Allot")).trim();
-                String cat = safe(cntRs.getString("category")).trim();
+                String branch = safe(cntRs.getString("Seat_Allot")).trim().toUpperCase();
+                String cat = safe(cntRs.getString("Segment")).trim().toUpperCase();
                 int count = cntRs.getInt("cnt");
 
                 if (!seatMap.containsKey(cat)) continue;
 
                 Map<String, Integer> branchMap = seatMap.get(cat);
-
-                String key = branch + "_used";
-
-                branchMap.put(key, branchMap.getOrDefault(key, 0) + count);
+                branchMap.put(branch + "_used", count);
             }
 
         } catch (Exception e) {
@@ -119,7 +109,7 @@ public class Counselling extends HttpServlet {
     }
 
     // ============================
-    // 🔹 POST → UPDATE DATA
+    // 🔹 POST → SAFE UPDATE (NO OVER-ALLOCATION)
     // ============================
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -127,25 +117,78 @@ public class Counselling extends HttpServlet {
 
         try (Connection con = DBUtil3.getConnection()) {
 
-            String sql = "UPDATE admission_form SET " +
-                         "Seat_Allot=?, Special_Catg=? " +
-                         "WHERE id=?";
+            String idStr = request.getParameter("id");
+            String newSeat = safe(request.getParameter("Seat_Allot")).toUpperCase();
+            String newSegment = safe(request.getParameter("Segment")).toUpperCase();
+            String spCat = safe(request.getParameter("Special_Catg"));
 
-            PreparedStatement ps = con.prepareStatement(sql);
+            int id = Integer.parseInt(idStr);
 
-            ps.setString(1, safe(request.getParameter("Seat_Allot")));
-            ps.setString(2, safe(request.getParameter("Special_Catg")));
-            ps.setInt(3, Integer.parseInt(request.getParameter("id")));
+            // 🔴 1. GET OLD DATA (important for edit case)
+            String oldSql = "SELECT Seat_Allot, Segment FROM admission_form WHERE id=?";
+            PreparedStatement psOld = con.prepareStatement(oldSql);
+            psOld.setInt(1, id);
+            ResultSet rsOld = psOld.executeQuery();
 
-            int rows = ps.executeUpdate();
-            System.out.println("Updated rows: " + rows);
+            String oldSeat = "";
+            String oldSegment = "";
+
+            if (rsOld.next()) {
+                oldSeat = safe(rsOld.getString("Seat_Allot")).toUpperCase();
+                oldSegment = safe(rsOld.getString("Segment")).toUpperCase();
+            }
+
+            // 🔴 2. GET TOTAL SEATS
+            String totalSql = "SELECT " + newSeat + " FROM seat_matrix WHERE UPPER(category)=?";
+            PreparedStatement psTotal = con.prepareStatement(totalSql);
+            psTotal.setString(1, newSegment);
+            ResultSet rsTotal = psTotal.executeQuery();
+
+            int total = 0;
+            if (rsTotal.next()) {
+                total = rsTotal.getInt(1);
+            }
+
+            // 🔴 3. GET USED SEATS
+            String usedSql = "SELECT COUNT(*) FROM admission_form " +
+                             "WHERE Seat_Allot=? AND UPPER(Segment)=?";
+            PreparedStatement psUsed = con.prepareStatement(usedSql);
+            psUsed.setString(1, newSeat);
+            psUsed.setString(2, newSegment);
+            ResultSet rsUsed = psUsed.executeQuery();
+
+            int used = 0;
+            if (rsUsed.next()) {
+                used = rsUsed.getInt(1);
+            }
+
+            // 🔴 4. HANDLE EDIT CASE (same seat → don't block)
+            if (newSeat.equals(oldSeat) && newSegment.equals(oldSegment)) {
+                // OK (same seat, just editing category etc.)
+            } else {
+                if (used >= total) {
+                    response.getWriter().write("FULL");
+                    return;
+                }
+            }
+
+            // 🔴 5. UPDATE
+            String updateSql = "UPDATE admission_form SET Seat_Allot=?, Segment=?, Special_Catg=? WHERE id=?";
+            PreparedStatement ps = con.prepareStatement(updateSql);
+
+            ps.setString(1, newSeat);
+            ps.setString(2, newSegment);
+            ps.setString(3, spCat);
+            ps.setInt(4, id);
+
+            ps.executeUpdate();
+
+            response.getWriter().write("OK");
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("ERROR in POST: " + e.getMessage());
+            response.getWriter().write("ERROR");
         }
-
-        response.sendRedirect("Counselling");
     }
 
     // ============================
@@ -153,16 +196,5 @@ public class Counselling extends HttpServlet {
     // ============================
     private String safe(String val) {
         return val == null ? "" : val;
-    }
-
-    private java.math.BigDecimal getDecimal(String val) {
-        try {
-            if (val == null || val.trim().isEmpty()) {
-                return null;
-            }
-            return new java.math.BigDecimal(val);
-        } catch (Exception e) {
-            return null;
-        }
     }
 }

@@ -1,10 +1,17 @@
 <%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 
 <%
 HttpSession sess = request.getSession(false);
 if (sess == null || sess.getAttribute("username") == null) {
     response.sendRedirect("login.jsp");
+    return;
+}
+
+String role = (String) sess.getAttribute("role");
+if (!"Global".equalsIgnoreCase(role)) {
+    out.println("<h3 style='color:red;text-align:center;'>Access Denied!</h3>");
     return;
 }
 %>
@@ -14,24 +21,20 @@ if (sess == null || sess.getAttribute("username") == null) {
 <meta charset="UTF-8">
 <title>Counselling - Seat Allotment</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <link rel="stylesheet"
  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <style>
+
 body { background:#f4f6f9; }
 
-/* TITLE */
 h3 {
     text-align:center;
-    margin:12px 0;
+    margin:10px 0;
     font-weight:600;
 }
 
-/* MAIN TABLE BOX */
 .main-box {
     background:#fff;
     border-radius:10px;
@@ -41,60 +44,57 @@ h3 {
     overflow:auto;
 }
 
-/* STICKY HEADER */
-thead th {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-
-/* TABLE */
 .table {
-    table-layout: fixed;
+    table-layout:fixed;
     width:100%;
+    margin:0;
 }
 
 .table th {
     background:#002147;
     color:#fff;
-    text-align:center;
     font-size:13px;
+    text-align:center;
 }
 
 .table td {
-    text-align:center;
     font-size:13px;
+    text-align:center;
+    vertical-align:middle;
 }
 
-/* COLUMN WIDTH CONTROL */
-.col-id { width:5%; }
-.col-app { width:12%; }
-.col-name { width:28%; text-align:left; }
-.col-total { width:8%; }
-.col-seat { width:15%; }
-.col-cat { width:15%; }
-.col-action { width:12%; }
+thead th {
+    position:sticky;
+    top:0;
+    z-index:2;
+}
 
-/* NAME */
+.col-rank { width:5%; }
+.col-app  { width:12%; }
+.col-name { width:30%; }
+.col-total{ width:8%; }
+.col-branch{ width:12%; }
+.col-seg  { width:10%; }
+.col-sp   { width:13%; }
+.col-act  { width:10%; }
+
 .name-cell {
-     text-align:left !important;
+    text-align:left !important;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
 
-/* SELECT FULL WIDTH */
 select {
     width:100%;
+    font-size:12px;
 }
 
-/* DASHBOARD */
 .dashboard {
     height:88vh;
     overflow-y:auto;
 }
 
-/* GRID (RESPONSIVE FOR BIG SCREENS) */
 .dashboard-grid {
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -107,7 +107,6 @@ select {
     }
 }
 
-/* CARD */
 .branch-box{
     background:#fff;
     border-radius:10px;
@@ -115,11 +114,9 @@ select {
     box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* STATUS */
 .full { color:red; font-weight:bold; }
 .available { color:green; font-weight:bold; }
 
-/* BUTTON */
 .btn-sm { padding:3px 8px; font-size:12px; }
 
 </style>
@@ -134,21 +131,22 @@ select {
 <div class="container-fluid">
 <div class="row">
 
-<!-- LEFT SIDE -->
+<!-- LEFT TABLE -->
 <div class="col-lg-8">
 <div class="main-box">
 
-<table class="table table-bordered table-sm table-hover">
+<table class="table table-bordered table-hover table-sm">
 
 <thead>
 <tr>
-    <th class="col-id">Rank</th>
+    <th class="col-rank">Rank</th>
     <th class="col-app">App</th>
     <th class="col-name">Name</th>
     <th class="col-total">Total</th>
-    <th class="col-seat">Seat</th>
-    <th class="col-cat">Category</th>
-    <th class="col-action">Action</th>
+    <th class="col-branch">Branch</th>
+    <th class="col-seg">Segment</th>
+    <th class="col-sp">Spcl Cat</th>
+    <th class="col-act">Action</th>
 </tr>
 </thead>
 
@@ -170,7 +168,7 @@ for(Map<String,String> row:list){
     <small><%=row.get("cast_no")%></small>
 </td>
 
-<td class="name-cell" title="<%=row.get("name")%>" >
+<td class="name-cell" title="<%=row.get("name")%>">
     <b><%=row.get("name")%> (<%=row.get("gender")%>)</b>
 </td>
 
@@ -188,7 +186,19 @@ for(Map<String,String> row:list){
 </td>
 
 <td>
-<select class="form-control cat editable" disabled>
+<select class="form-control segment editable" disabled>
+<option value="">Select</option>
+<option value="GM" <%= "GM".equals(row.get("Segment"))?"selected":"" %>>GM</option>
+<option value="SC" <%= "SC".equals(row.get("Segment"))?"selected":"" %>>SC</option>
+<option value="ST" <%= "ST".equals(row.get("Segment"))?"selected":"" %>>ST</option>
+<option value="OS" <%= "OS".equals(row.get("Segment"))?"selected":"" %>>OS</option>
+<option value="MQ" <%= "MQ".equals(row.get("Segment"))?"selected":"" %>>MQ</option>
+<option value="EQ" <%= "EQ".equals(row.get("Segment"))?"selected":"" %>>EQ</option>
+</select>
+</td>
+
+<td>
+<select class="form-control spcat editable" disabled>
 <option value="">Select</option>
 <option value="General" <%= "General".equals(row.get("Special_Catg"))?"selected":"" %>>General</option>
 <option value="Arjas" <%= "Arjas".equals(row.get("Special_Catg"))?"selected":"" %>>Arjas</option>
@@ -212,7 +222,8 @@ for(Map<String,String> row:list){
 </div>
 </div>
 
-<!-- RIGHT SIDE -->
+<!-- RIGHT DASHBOARD (UNCHANGED) -->
+
 <div class="col-lg-4">
 <div class="dashboard">
 
@@ -234,7 +245,7 @@ for(String br : branches){
 <b><%=br%></b>
 
 <table class="table table-sm">
-<tr><th>Cat</th><th>F</th><th>T</th></tr>
+<tr><th>Cat</th><th>Used</th><th>Total</th></tr>
 
 <%
 for(String cat : seatMap.keySet()){
@@ -260,14 +271,50 @@ String cls = (used>=total)?"full":"available";
 <% } %>
 
 </div>
-
 </div>
 </div>
 
 </div>
 </div>
+<%
+StringBuilder json = new StringBuilder("{");
 
-<!-- AJAX SCRIPT -->
+for(String cat : seatMap.keySet()){
+    json.append("\"").append(cat).append("\":{");
+
+    Map<String,Integer> b = seatMap.get(cat);
+
+    json.append("\"ME_total\":").append(b.get("ME_total")).append(",");
+    json.append("\"ME_used\":").append(b.get("ME_used")).append(",");
+
+    json.append("\"EE_total\":").append(b.get("EE_total")).append(",");
+    json.append("\"EE_used\":").append(b.get("EE_used")).append(",");
+
+    json.append("\"CS_total\":").append(b.get("CS_total")).append(",");
+    json.append("\"CS_used\":").append(b.get("CS_used")).append(",");
+
+    json.append("\"EC_total\":").append(b.get("EC_total")).append(",");
+    json.append("\"EC_used\":").append(b.get("EC_used")).append(",");
+
+    json.append("\"CE_total\":").append(b.get("CE_total")).append(",");
+    json.append("\"CE_used\":").append(b.get("CE_used"));
+
+    json.append("},");
+}
+
+// remove last comma
+if(json.charAt(json.length()-1)==','){
+    json.deleteCharAt(json.length()-1);
+}
+
+json.append("}");
+%>
+<!-- 🔥 PASS SEAT MAP TO JS -->
+<script>
+let seatMap = <%= json.toString() %>;
+</script>
+
+<!-- AJAX WITH VALIDATION -->
 
 <script>
 
@@ -279,30 +326,37 @@ $(document).on('click','.editBtn',function(){
     row.find('.saveBtn').show();
 });
 
-// SAVE (AJAX)
+// SAVE WITH VALIDATION
 $(document).on('click','.saveBtn',function(){
 
     let row=$(this).closest('tr');
 
-    let id=row.data('id');
-    let seat=row.find('.seat').val();
-    let cat=row.find('.cat').val();
+    let branch = row.find('.seat').val();
+    let segment = row.find('.segment').val();
+
+    let catMap = seatMap[segment];
+
+    if(catMap){
+        let used = catMap[branch+"_used"] || 0;
+        let total = catMap[branch+"_total"] || 0;
+
+        if(used >= total){
+            alert("❌ Seats not available for selected category");
+            return;
+        }
+    }
 
     $.ajax({
         url:'Counselling',
         method:'POST',
         data:{
-            id:id,
-            Seat_Allot:seat,
-            Special_Catg:cat
+            id:row.data('id'),
+            Seat_Allot:branch,
+            Segment:segment,
+            Special_Catg:row.find('.spcat').val()
         },
         success:function(){
-
-            row.find('.editable').prop('disabled',true);
-            row.find('.editBtn').show();
-            row.find('.saveBtn').hide();
-
-            // 🔥 OPTIONAL: update dashboard via AJAX later
+            location.reload();
         }
     });
 

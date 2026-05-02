@@ -74,11 +74,11 @@ function downloadExcel() {
 <th>Whatsapp</th>
 
 <th>10th Board</th>
-<th>10Th Marks</th>
-<th>Maths</th><th>Science</th>
-<th>Maths & Science Aggregate</th>
-<th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
+<th>10th Marks</th>
 
+<th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
+<th>Maths</th><th>Science</th>
+<th>M & S Aggr.</th>
 <th>CBSE/ICSE</th><th>PUC/SC</th><th>Girls</th>
 <th>ET Maths</th><th>ET Science</th><th>ET Total</th>
 <th>Grand Total</th>
@@ -126,7 +126,11 @@ if (list != null) {
 
 
 <td><%= val(row.get("SSLC_TMarks")) %></td>
-
+<td><%= val(row.get("preference_1")) %></td>
+<td><%= val(row.get("preference_2")) %></td>
+<td><%= val(row.get("preference_3")) %></td>
+<td><%= val(row.get("preference_4")) %></td>
+<td><%= val(row.get("preference_5")) %></td>
 
 <td><%= val(row.get("marks_maths")) %></td>
 <td><%= val(row.get("marks_science")) %></td>
@@ -142,11 +146,7 @@ if (list != null) {
 %>
 <%= String.format("%.2f", avg) %>
 </td>
-<td><%= val(row.get("preference_1")) %></td>
-<td><%= val(row.get("preference_2")) %></td>
-<td><%= val(row.get("preference_3")) %></td>
-<td><%= val(row.get("preference_4")) %></td>
-<td><%= val(row.get("preference_5")) %></td>
+
 
 <td><%= val(row.get("CBSC_ICSE")) %></td>
 <td><%= val(row.get("PUC_SC")) %></td>
