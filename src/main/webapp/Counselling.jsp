@@ -7,6 +7,14 @@ if (sess == null || sess.getAttribute("username") == null) {
     response.sendRedirect("login.jsp");
     return;
 }
+
+String role = (String) sess.getAttribute("role");
+String dept = (String) sess.getAttribute("department");
+if (!"Global".equalsIgnoreCase(role)) {
+
+	    out.println("<h3 style='color:red;text-align:center;'>Access Denied! You are not authorized.</h3>");
+	    return;
+	}
 %>
 
 <html>
