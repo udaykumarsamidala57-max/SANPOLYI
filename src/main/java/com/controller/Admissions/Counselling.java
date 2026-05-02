@@ -28,7 +28,7 @@ public class Counselling extends HttpServlet {
         try (Connection con = DBUtil3.getConnection()) {
 
             // 🔹 STUDENT DATA
-        	String sql = "SELECT id, APPNO, cast_no, applicant_name, gender, Admission_type, phone_no, Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg, Segment, Status_Allot " +
+            String sql = "SELECT id, APPNO, cast_no, applicant_name, gender, Admission_type, phone_no, Whatsapp_no, Attendance, Total, Seat_Allot, Special_Catg, Segment,preference_1,preference_2,preference_3,preference_4,preference_5, Status_Allot " +
                     "FROM admission_form " +
                     "ORDER BY (CASE WHEN Total='AB' THEN -1 ELSE CAST(Total AS DECIMAL(10,2)) END) DESC";
 
@@ -51,6 +51,11 @@ public class Counselling extends HttpServlet {
                 row.put("Special_Catg", safe(rs.getString("Special_Catg")));
                 row.put("Segment", safe(rs.getString("Segment")));
                 row.put("Status_Allot", safe(rs.getString("Status_Allot")));
+                row.put("preference_1", safe(rs.getString("preference_1")));
+                row.put("preference_2", safe(rs.getString("preference_2")));
+                row.put("preference_3", safe(rs.getString("preference_3")));
+                row.put("preference_4", safe(rs.getString("preference_4")));
+                row.put("preference_5", safe(rs.getString("preference_5")));
 
                 list.add(row);
             }
@@ -80,7 +85,7 @@ public class Counselling extends HttpServlet {
                 seatMap.put(cat, branchMap);
             }
 
-            // 🔹 USED COUNT (BASED ON Segment)
+            // 🔹 USED COUNT (ONLY CONFIRMED)
             String countSql = "SELECT Seat_Allot, Segment, COUNT(*) as cnt " +
                     "FROM admission_form " +
                     "WHERE Seat_Allot IS NOT NULL " +
@@ -113,7 +118,7 @@ public class Counselling extends HttpServlet {
     }
 
     // ============================
-    // 🔹 POST → SAFE UPDATE (NO OVER-ALLOCATION)
+    // 🔹 POST → UPDATE
     // ============================
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -125,11 +130,27 @@ public class Counselling extends HttpServlet {
             String newSeat = safe(request.getParameter("Seat_Allot")).toUpperCase();
             String newSegment = safe(request.getParameter("Segment")).toUpperCase();
             String spCat = safe(request.getParameter("Special_Catg"));
-            String Sallot = safe(request.getParameter("Status_Allot"));
+            String status = safe(request.getParameter("Status_Allot"));
 
             int id = Integer.parseInt(idStr);
 
-            // 🔴 1. GET OLD DATA (important for edit case)
+            // ✅ 1. HANDLE EMPTY (CLEAR CASE)
+            if (newSeat.isEmpty() || newSegment.isEmpty()) {
+
+                String updateSql = "UPDATE admission_form SET Seat_Allot=NULL, Segment=NULL, Special_Catg=?, Status_Allot=? WHERE id=?";
+                PreparedStatement ps = con.prepareStatement(updateSql);
+
+                ps.setString(1, spCat);
+                ps.setString(2, status);
+                ps.setInt(3, id);
+
+                ps.executeUpdate();
+
+                response.getWriter().write("OK");
+                return;
+            }
+
+            // ✅ 2. GET OLD DATA
             String oldSql = "SELECT Seat_Allot, Segment FROM admission_form WHERE id=?";
             PreparedStatement psOld = con.prepareStatement(oldSql);
             psOld.setInt(1, id);
@@ -143,7 +164,7 @@ public class Counselling extends HttpServlet {
                 oldSegment = safe(rsOld.getString("Segment")).toUpperCase();
             }
 
-            // 🔴 2. GET TOTAL SEATS
+            // ✅ 3. TOTAL SEATS
             String totalSql = "SELECT " + newSeat + " FROM seat_matrix WHERE UPPER(category)=?";
             PreparedStatement psTotal = con.prepareStatement(totalSql);
             psTotal.setString(1, newSegment);
@@ -154,9 +175,9 @@ public class Counselling extends HttpServlet {
                 total = rsTotal.getInt(1);
             }
 
-            // 🔴 3. GET USED SEATS
+            // ✅ 4. USED SEATS (ONLY CONFIRMED)
             String usedSql = "SELECT COUNT(*) FROM admission_form " +
-                             "WHERE Seat_Allot=? AND UPPER(Segment)=?";
+                    "WHERE Seat_Allot=? AND UPPER(Segment)=? AND Status_Allot='Confirmed'";
             PreparedStatement psUsed = con.prepareStatement(usedSql);
             psUsed.setString(1, newSeat);
             psUsed.setString(2, newSegment);
@@ -167,24 +188,22 @@ public class Counselling extends HttpServlet {
                 used = rsUsed.getInt(1);
             }
 
-            // 🔴 4. HANDLE EDIT CASE (same seat → don't block)
-            if (newSeat.equals(oldSeat) && newSegment.equals(oldSegment)) {
-                // OK (same seat, just editing category etc.)
-            } else {
+            // ✅ 5. VALIDATION (EDIT SAFE)
+            if (!(newSeat.equals(oldSeat) && newSegment.equals(oldSegment))) {
                 if (used >= total) {
                     response.getWriter().write("FULL");
                     return;
                 }
             }
 
-            // 🔴 5. UPDATE
+            // ✅ 6. UPDATE
             String updateSql = "UPDATE admission_form SET Seat_Allot=?, Segment=?, Special_Catg=?, Status_Allot=? WHERE id=?";
             PreparedStatement ps = con.prepareStatement(updateSql);
 
             ps.setString(1, newSeat);
             ps.setString(2, newSegment);
             ps.setString(3, spCat);
-            ps.setString(4, Sallot);
+            ps.setString(4, status);
             ps.setInt(5, id);
 
             ps.executeUpdate();

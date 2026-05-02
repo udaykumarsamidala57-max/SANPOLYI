@@ -172,7 +172,9 @@ for(Map<String,String> row:list){
 <td class="name-cell" title="<%=row.get("name")%>">
     <b><%=row.get("name")%> (<%=row.get("gender")%>)</b><br>
     <%=row.get("phone_no")%>,<%=row.get("Whatsapp_no")%><br>
-    <%=row.get("Admission_type")%>
+    <%=row.get("Admission_type")%><br>
+    <%=row.get("preference_1")%> |<%=row.get("preference_2")%>| <%=row.get("preference_3")%>| <%=row.get("preference_4")%>| <%=row.get("preference_5")%>
+    
 </td>
 
 <td><b><%=row.get("Total")%></b></td>
@@ -189,6 +191,7 @@ for(Map<String,String> row:list){
 </td>
 
 <td>
+
 <select class="form-control segment editable" disabled>
 <option value="">Select</option>
 <option value="GM" <%= "GM".equals(row.get("Segment"))?"selected":"" %>>GM</option>
@@ -260,12 +263,19 @@ for(String br : branches){
 <tr><th>Cat</th><th>Used</th><th>Total</th></tr>
 
 <%
-for(String cat : seatMap.keySet()){
-Map<String,Integer> b = seatMap.get(cat);
+int grandUsed = 0;
+int grandTotal = 0;
 
-int total = b.getOrDefault(br+"_total",0);
-int used = b.getOrDefault(br+"_used",0);
-String cls = (used>=total)?"full":"available";
+for(String cat : seatMap.keySet()){
+    Map<String,Integer> b = seatMap.get(cat);
+
+    int total = b.getOrDefault(br+"_total",0);
+    int used = b.getOrDefault(br+"_used",0);
+
+    grandUsed += used;
+    grandTotal += total;
+
+    String cls = (used>=total)?"full":"available";
 %>
 
 <tr>
@@ -275,6 +285,15 @@ String cls = (used>=total)?"full":"available";
 </tr>
 
 <% } %>
+
+<!-- 🔥 GRAND TOTAL ROW -->
+<tr style="font-weight:bold; background:#f1f1f1;">
+    <td>Total</td>
+    <td class="<%= (grandUsed>=grandTotal) ? "full" : "available" %>">
+        <%=grandUsed%>
+    </td>
+    <td><%=grandTotal%></td>
+</tr>
 
 </table>
 
