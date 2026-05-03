@@ -165,25 +165,28 @@ function calculateRow(row){
     let avg = (m + s) / 2;
     row.find('[name="aggr"]').val(avg.toFixed(2));
 
-    let ett = (etm + ets);
+    let ett = (etm + ets) ;
     row.find('[name="ET_T"]').val(ett.toFixed(2));
 
-    // 🔴 ABSENT CHECK
     if(attendance === "AB"){
         row.find('[name="Total"]').val("AB");
         return;
     }
 
-    // 🔴 FAIL CONDITION (ANY SUBJECT ZERO)
-    if( etm === 0 || ets === 0){
-        row.find('[name="Total"]').val("FAIL");
-        return;
-    }
-
-    // ✅ NORMAL CALCULATION
-    let total = (avg + ett) / 2 + board + puc + girls;
+    let total = (avg + ett) /2 + board + puc + girls;
     row.find('[name="Total"]').val(total.toFixed(2));
 }
+
+
+// 🔹 EDIT CLICK (UNCHANGED)
+$(document).on('click', '.editBtn', function () {
+    let row = $(this).closest('tr');
+
+    row.find('.editable').prop('disabled', false);
+
+    row.find('.editBtn').hide();
+    row.find('.saveBtn').show();
+});
 
 
 // 🔥 SAVE USING CLICK (NO FORM SUBMIT)
