@@ -25,10 +25,11 @@ public class Tabulation extends HttpServlet {
         try (Connection con = DBUtil3.getConnection()) {
 
         	String sql = "SELECT * FROM admission_form " +
-                    "WHERE Total IS NOT NULL " +
-                    "AND Total <> '' " +
-                    "AND Total <> 'AB' " +
-                    "ORDER BY CAST(Total AS DECIMAL(10,2)) DESC";
+                    "ORDER BY " +
+                    "CASE " +
+                    "WHEN Total IS NULL OR Total = '' OR Total = 'AB' THEN -1 " +
+                    "ELSE CAST(Total AS DECIMAL(10,2)) " +
+                    "END DESC";
             PreparedStatement ps;
 
             if (fromDate != null && toDate != null && !fromDate.isEmpty() && !toDate.isEmpty()) {

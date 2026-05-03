@@ -24,7 +24,40 @@ body { margin:0; font-family:'Segoe UI',Arial; background:#f5f7fa; }
 .header {
     background:#002147;
     color:#fff;
-    padding:18px 30px;
+    padding:6px 14px;
+
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    float:left;
+    border-radius:8px;
+    margin:10px;
+
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
+}
+
+.header h1 {
+    margin:0;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.3px;
+}
+
+.header p {
+    margin:0;
+    font-size:12px;
+    opacity:0.85;
+    padding-left:8px;
+    border-left:1px solid rgba(255,255,255,0.4);
+}
+
+.page-title {
+    font-size:13px;
+    font-weight:500;
+    padding-left:10px;
+    border-left:1px solid rgba(255,255,255,0.4);
+    opacity:0.9;
 }
 
 .container {
@@ -110,10 +143,7 @@ button:hover {
 
 <body>
 <%@ include file="header.jsp" %>
-<div class="header">
-    <h1>SANPOLY Admission Portal</h1>
-    <p>Academic Year 2026–27</p>
-</div>
+
 
 <div class="container">
 

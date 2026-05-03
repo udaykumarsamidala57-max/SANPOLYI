@@ -52,8 +52,8 @@ input, textarea, select {
 <body>
 
 <%@ include file="header.jsp" %>
-
-<h4>SANPOLY - Admission Records</h4>
+<%@ include file="Admissionheader.jsp" %>
+<br>
 <% if("Global".equalsIgnoreCase(role)){%>
 <button class="btn btn-success mb-2" onclick="downloadExcel()">Download Excel</button>
 <%} %>

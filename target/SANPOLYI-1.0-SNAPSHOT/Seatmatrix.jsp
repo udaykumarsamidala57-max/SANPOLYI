@@ -152,7 +152,7 @@ window.onload = calculateTotal;
 
 <%@ include file="header.jsp" %>
 
-<h2>Seat Matrix</h2>
+<%@ include file="Admissionheader.jsp" %>
 
 <!-- FORM -->
 <form method="post">

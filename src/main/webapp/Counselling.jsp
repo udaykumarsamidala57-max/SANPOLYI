@@ -126,7 +126,8 @@ select {
 
 <%@ include file="header.jsp" %>
 
-<h3>Seat Allotment (Counselling)</h3>
+
+
 
 <div class="container-fluid">
 <div class="row">

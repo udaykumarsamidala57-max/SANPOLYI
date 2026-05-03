@@ -52,11 +52,12 @@ input { text-align:center;  }
 
 <body>
 <%@ include file="header.jsp" %>
+
 <div id="statusBox">
     Filled: <span id="filledCount">0</span> |
     Empty: <span id="emptyCount">0</span>
 </div>
-<h3>Marks Entry </h3>
+
 
 <div class="table-responsive">
 <table class="table table-bordered table-sm table-hover">

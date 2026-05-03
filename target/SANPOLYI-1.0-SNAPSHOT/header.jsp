@@ -20,6 +20,17 @@
     // Extract year for the footer specifically
     int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 %>
+<%
+    String pageTitle = (String) request.getAttribute("pageTitle");
+    if(pageTitle == null || pageTitle.trim().isEmpty()){
+        pageTitle = "Dashboard";
+    }
+
+    String breadcrumb = (String) request.getAttribute("breadcrumb");
+    if(breadcrumb == null){
+        breadcrumb = "Admissions";
+    }
+    %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +41,51 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+.adm-header {
+    background: linear-gradient(to right, #f8fbff, #ffffff);
+    border:1px solid #d6e2f0;
+    border-left:7px solid #002147;
+    padding:16px 22px;
+    border-radius:10px;
+    margin:10px 0 20px 0;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.adm-left {
+    display:flex;
+    flex-direction:column;
+}
+
+.adm-breadcrumb {
+    font-size:13px;
+    color:#6c757d;
+    margin-bottom:4px;
+}
+
+.adm-title {
+    font-size:22px;
+    font-weight:700;
+    color:#002147;
+    letter-spacing:0.4px;
+}
+
+.adm-right {
+    text-align:right;
+}
+
+.adm-badge {
+    background:#002147;
+    color:#fff;
+    padding:6px 12px;
+    font-size:13px;
+    border-radius:20px;
+    letter-spacing:0.6px;
+}
 /* ... (Existing CSS) ... */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', 'Poppins', sans-serif; background-color: #f6f8fa; color: #333; transition: margin-left 0.3s ease; overflow-x: hidden; min-height: 100vh; position: relative; padding-bottom: 60px; }
@@ -195,7 +251,7 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
           <% if ("Global".equalsIgnoreCase(roles)){ %>
           <a href="Seatmatrix.jsp"><i class="fas fa-table"></i> Seat Matrix</a>
           <a href="Counselling"><i class="fas fa-user-graduate"></i> Counselling</a>
-          <a href="SeatAllotmentReport"><i class="ffas fa-table"></i> Seat Allotement Report</a>
+          <a href="SeatAllotmentReport"><i class="fas fa-chart-bar"></i> Seat Allotement Report</a>
      
          <% }  %>
        
@@ -238,8 +294,31 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
 </header>
 
 <main>
-  <h2>Welcome back, <%= users.toUpperCase() %></h2>
-  <p style="color: #64748b; font-size: 14px;">Current Session: <%= todayDate %></p>
+
+    <!-- 🔷 ADMISSIONS HEADER (TOP FIRST) -->
+   
+
+
+   <div class="adm-header">
+    <div style="margin-top:10px;">
+        <h2 style="margin-bottom:5px;">
+            Welcome back, <%= users.toUpperCase() %>
+        </h2>
+         
+
+        <!-- LEFT -->
+        <div class="adm-left">
+            <div class="adm-breadcrumb" id="admBreadcrumb"></div>
+            <div class="adm-title" id="admPageTitle"></div>
+        </div>
+  
+    </div>
+
+        <p style="color:#64748b; font-size:14px;">
+            Current Session: <%= todayDate %>
+        </p>
+    </div>
+
 </main>
 
 <footer>
@@ -249,6 +328,36 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
 </footer>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // 🔹 TITLE AUTO
+    let title = document.title;
+    title = title.replace(" - SANPOLY", "").trim();
+    document.getElementById("admPageTitle").innerText = title;
+
+    // 🔹 BREADCRUMB AUTO FROM URL
+    let path = window.location.pathname;
+    let parts = path.split("/").filter(p => p !== "");
+
+    if(parts.length > 0){
+        parts.shift(); // remove project name
+    }
+
+    let formatted = parts.map(p => {
+        return p
+            .replace(".jsp", "")
+            .replace(/([A-Z])/g, " $1")
+            .trim();
+    });
+
+    let breadcrumb = "Home";
+
+    formatted.forEach(p => {
+        breadcrumb += " / " + p;
+    });
+
+    document.getElementById("admBreadcrumb").innerText = breadcrumb;
+});
 document.querySelectorAll('.dropdown-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.dropdown').forEach(drop => {
