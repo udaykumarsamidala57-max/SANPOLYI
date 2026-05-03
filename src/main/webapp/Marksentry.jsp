@@ -165,7 +165,7 @@ function calculateRow(row){
     let avg = (m + s) / 2;
     row.find('[name="aggr"]').val(avg.toFixed(2));
 
-    let ett = (etm + ets) / 2;
+    let ett = (etm + ets) ;
     row.find('[name="ET_T"]').val(ett.toFixed(2));
 
     if(attendance === "AB"){
