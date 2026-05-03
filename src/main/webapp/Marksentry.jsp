@@ -59,7 +59,7 @@ input { text-align:center;  }
     <th>Present/Absent</th>
     <th>ET Maths</th>
     <th>ET Science</th>
-    <th>ET Total</th>
+    <th>ET Avg.</th>
     <th>Grand Total</th>
     <th>Action</th>
 </tr>
@@ -173,7 +173,7 @@ function calculateRow(row){
         return;
     }
 
-    let total = (avg + ett) / 2 + board + puc + girls;
+    let total = (avg/2 + ett/2)  + board + puc + girls;
     row.find('[name="Total"]').val(total.toFixed(2));
 }
 
