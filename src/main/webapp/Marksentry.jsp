@@ -114,6 +114,12 @@ String id=row.get("id");
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc editable" disabled></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc editable" disabled></td>
 <%}else { %>
+<td>
+    <select name="Attendance" class="form-control editable" disabled>
+        <option value="P" <%= "P".equals(row.get("Attendance")) ? "selected" : "" %>>P</option>
+        <option value="AB" <%= "AB".equals(row.get("Attendance")) ? "selected" : "" %>>AB</option>
+    </select>
+</td>
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc" readonly></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc" readonly></td>
 <%} %>

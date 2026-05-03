@@ -68,7 +68,7 @@ input, textarea, select {
 <th>Medium</th><th>Year</th><th>Board</th><th>Total</th><th>Aggr</th>
 <th>Maths</th><th>Science</th>
 <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
-<th>Created</th><th>Action</th>
+<th>Created</th>
 </tr>
 </thead>
 
