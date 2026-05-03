@@ -173,7 +173,7 @@ function calculateRow(row){
         return;
     }
 
-    let total = (avg/2 + ett/2)  + board + puc + girls;
+    let total = (avg + ett) /2 + board + puc + girls;
     row.find('[name="Total"]').val(total.toFixed(2));
 }
 
