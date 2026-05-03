@@ -125,7 +125,7 @@ select {
 <body>
 
 <%@ include file="header.jsp" %>
-<%@ include file="Admissionheader.jsp" %>
+
 
 
 

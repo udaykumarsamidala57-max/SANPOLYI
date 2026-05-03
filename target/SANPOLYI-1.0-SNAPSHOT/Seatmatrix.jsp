@@ -152,7 +152,7 @@ window.onload = calculateTotal;
 
 <%@ include file="header.jsp" %>
 
-<%@ include file="Admissionheader.jsp" %>
+
 
 <!-- FORM -->
 <form method="post">

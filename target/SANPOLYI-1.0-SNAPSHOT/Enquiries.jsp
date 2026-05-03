@@ -52,7 +52,7 @@ input, textarea, select {
 <body>
 
 <%@ include file="header.jsp" %>
-<%@ include file="Admissionheader.jsp" %>
+
 <br>
 <% if("Global".equalsIgnoreCase(role)){%>
 <button class="btn btn-success mb-2" onclick="downloadExcel()">Download Excel</button>

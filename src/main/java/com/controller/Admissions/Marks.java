@@ -7,7 +7,7 @@ import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
+import java.io.BufferedReader;
 import com.bean.DBUtil3;
 
 @WebServlet("/Marks")
@@ -75,14 +75,65 @@ public class Marks extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String contentType = request.getContentType();
+
         try (Connection con = DBUtil3.getConnection()) {
 
-        	String sql = "UPDATE admission_form SET " +
-        			"marks_maths=?, marks_science=?, SSLC_Aggr=?, " +
-        			"CBSC_ICSE=?, PUC_SC=?, GIRLS=?,Attendance=?, ET_m=?, ET_s=?, ET_T=?, Total=? " +
-        			"WHERE id=?";
+            String sql = "UPDATE admission_form SET " +
+                    "marks_maths=?, marks_science=?, SSLC_Aggr=?, " +
+                    "CBSC_ICSE=?, PUC_SC=?, GIRLS=?, Attendance=?, " +
+                    "ET_m=?, ET_s=?, ET_T=?, Total=? WHERE id=?";
 
             PreparedStatement ps = con.prepareStatement(sql);
+
+            // ============================
+            // 🔴 BULK UPDATE (JSON)
+            // ============================
+            if (contentType != null && contentType.contains("application/json")) {
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                try (BufferedReader reader = request.getReader()) {
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                }
+
+                String jsonData = sb.toString();
+
+                org.json.JSONArray arr = new org.json.JSONArray(jsonData);
+
+                for (int i = 0; i < arr.length(); i++) {
+
+                    org.json.JSONObject obj = arr.getJSONObject(i);
+
+                    ps.setBigDecimal(1, getDecimal(obj.optString("maths")));
+                    ps.setBigDecimal(2, getDecimal(obj.optString("science")));
+                    ps.setString(3, ""); // aggregate already calculated in UI
+                    ps.setString(4, safe(obj.optString("board")));
+                    ps.setString(5, safe(obj.optString("puc")));
+                    ps.setString(6, safe(obj.optString("girls")));
+                    ps.setString(7, safe(obj.optString("Attendance")));
+                    ps.setString(8, safe(obj.optString("ET_m")));
+                    ps.setString(9, safe(obj.optString("ET_s")));
+                    ps.setString(10, safe(obj.optString("ET_T")));
+                    ps.setString(11, safe(obj.optString("Total")));
+                    ps.setInt(12, Integer.parseInt(obj.getString("id")));
+
+                    ps.addBatch();
+                }
+
+                int[] result = ps.executeBatch();
+                System.out.println("Bulk updated rows: " + result.length);
+
+                response.setStatus(HttpServletResponse.SC_OK);
+                return; // 🔴 IMPORTANT: stop here
+            }
+
+            // ============================
+            // 🔵 SINGLE ROW UPDATE
+            // ============================
 
             ps.setBigDecimal(1, getDecimal(request.getParameter("maths")));
             ps.setBigDecimal(2, getDecimal(request.getParameter("science")));
@@ -98,14 +149,14 @@ public class Marks extends HttpServlet {
             ps.setInt(12, Integer.parseInt(request.getParameter("id")));
 
             int rows = ps.executeUpdate();
-            System.out.println("Updated rows: " + rows);
+            System.out.println("Single updated rows: " + rows);
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("ERROR in POST: " + e.getMessage());
         }
 
-        // ✅ Correct redirect
+        // 🔵 redirect only for single update
         response.sendRedirect("Marks");
     }
 

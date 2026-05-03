@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admission Records</title>
+<title>Tabulation</title>
 
 <%
 HttpSession sess = request.getSession(false);
@@ -61,7 +61,7 @@ function downloadExcel() {
 <%@ include file="header.jsp" %>
 
 <div class="d-flex justify-content-between align-items-center mb-2">
-    <h4>SANPOLY - Tabulation</h4>
+   
     <button class="btn btn-success btn-sm" onclick="downloadExcel()">Download Excel</button>
 </div>
 

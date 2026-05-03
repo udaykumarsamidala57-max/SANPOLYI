@@ -77,7 +77,7 @@ if (sess == null || sess.getAttribute("username") == null) {
 %>
 
 <%@ include file="header.jsp" %>
-<%@ include file="Admissionheader.jsp" %>
+
 <div class="main-container">
 
 <div class="card-box">

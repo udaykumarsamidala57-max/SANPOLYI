@@ -53,9 +53,10 @@ input { text-align:center;  }
 <body>
 <%@ include file="header.jsp" %>
 
-<div id="statusBox">
-    Filled: <span id="filledCount">0</span> |
-    Empty: <span id="emptyCount">0</span>
+<div style="width:90%; margin:10px auto; text-align:right;">
+    <button id="bulkSaveBtn" class="btn btn-danger">
+        Bulk Save All
+    </button>
 </div>
 
 
@@ -348,7 +349,46 @@ $(document).on('change', '[name="Attendance"]', function () {
 
     calculateRow(row);
 });
+$('#bulkSaveBtn').click(function(){
 
+    let allData = [];
+
+    $('tbody tr').each(function(){
+
+        let row = $(this);
+
+        let rowData = {
+            id: row.find('[name="id"]').val(),
+            maths: row.find('[name="maths"]').val(),
+            science: row.find('[name="science"]').val(),
+            board: row.find('[name="board"]').val(),
+            puc: row.find('[name="puc"]').val(),
+            girls: row.find('[name="girls"]').val(),
+            Attendance: row.find('[name="Attendance"]').val(),
+            ET_m: row.find('[name="ET_m"]').val(),
+            ET_s: row.find('[name="ET_s"]').val(),
+            ET_T: row.find('[name="ET_T"]').val(),
+            Total: row.find('[name="Total"]').val()
+        };
+
+        allData.push(rowData);
+    });
+
+    $.ajax({
+        url: "Marks",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(allData),
+
+        success: function(){
+            alert("Bulk Updated Successfully");
+        },
+        error: function(){
+            alert("Bulk update failed");
+        }
+    });
+
+});
 </script>
 
 </body>
