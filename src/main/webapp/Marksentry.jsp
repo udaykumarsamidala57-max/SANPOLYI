@@ -35,12 +35,27 @@ input { text-align:center;  }
     background-color: #f8d7da !important;  /* light red */
     border: 1px solid #dc3545 !important; /* red border */
 }
+#statusBox{
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    background: #002147;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 999;
+}
 </style>
 </head>
 
 <body>
 <%@ include file="header.jsp" %>
-
+<div id="statusBox">
+    Filled: <span id="filledCount">0</span> |
+    Empty: <span id="emptyCount">0</span>
+</div>
 <h3>Marks Entry </h3>
 
 <div class="table-responsive">
@@ -205,7 +220,7 @@ function calculateRow(row){
     }
 
     // 🔴 FAIL CONDITION
-    if(m === 0 || s === 0 || etm === 0 || ets === 0){
+    if( etm === 0 || ets === 0){
         row.find('[name="Total"]').val("FAIL");
         return;
     }
@@ -214,7 +229,35 @@ function calculateRow(row){
     row.find('[name="Total"]').val(total.toFixed(2));
 }
 
+function updateStatus(){
 
+    let filled = 0;
+    let empty = 0;
+
+    $('tbody tr').each(function(){
+
+        let row = $(this);
+
+        let fields = [
+            row.find('[name="maths"]'),
+            row.find('[name="science"]'),
+            row.find('[name="ET_m"]'),
+            row.find('[name="ET_s"]')
+        ];
+
+        fields.forEach(function(input){
+            if(input.val().trim() === ""){
+                empty++;
+            } else {
+                filled++;
+            }
+        });
+
+    });
+
+    $('#filledCount').text(filled);
+    $('#emptyCount').text(empty);
+}
 // 🔹 EDIT CLICK (UNCHANGED)
 $(document).on('click', '.editBtn', function () {
     let row = $(this).closest('tr');
