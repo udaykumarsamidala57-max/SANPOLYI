@@ -195,6 +195,8 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
           <% if ("Global".equalsIgnoreCase(roles)){ %>
           <a href="Seatmatrix.jsp"><i class="fas fa-table"></i> Seat Matrix</a>
           <a href="Counselling"><i class="fas fa-user-graduate"></i> Counselling</a>
+          <a href="SeatAllotmentReport"><i class="ffas fa-table"></i> Seat Allotement Report</a>
+     
          <% }  %>
        
           

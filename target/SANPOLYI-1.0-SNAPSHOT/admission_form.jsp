@@ -4,7 +4,20 @@
 <head>
 <meta charset="UTF-8">
 <title>SANPOLY Admission Form</title>
+<%
+HttpSession sess = request.getSession(false);
+if (sess == null || sess.getAttribute("username") == null) {
+    response.sendRedirect("login.jsp");
+    return;
+}
+String role = (String) sess.getAttribute("role");
+String User = (String) sess.getAttribute("username");
+if (!"Global".equalsIgnoreCase(role)&& !"Office".equalsIgnoreCase(role)) {
 
+    out.println("<h3 style='color:red;text-align:center;'>Access Denied! You are not authorized.</h3>");
+    return;
+}
+%>
 <style>
 body { margin:0; font-family:'Segoe UI',Arial; background:#f5f7fa; }
 
@@ -96,7 +109,7 @@ button:hover {
 </head>
 
 <body>
-
+<%@ include file="header.jsp" %>
 <div class="header">
     <h1>SANPOLY Admission Portal</h1>
     <p>Academic Year 2026–27</p>
