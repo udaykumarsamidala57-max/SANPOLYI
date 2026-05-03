@@ -137,7 +137,7 @@ String dob = (row.get("date_of_birth") != null) ? row.get("date_of_birth").toStr
 <td><%= row.get("created_at") %></td>
 
 <td>
-<% if("Office".equalsIgnoreCase(role)){%>
+<% if("Office".equalsIgnoreCase(role) || "Global".equalsIgnoreCase(role)){%>
 <button class="btn btn-primary btn-sm" onclick="editRecord(this)"
 
 data-id='<%= row.get("id") %>'
