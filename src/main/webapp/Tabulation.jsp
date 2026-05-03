@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admission Records</title>
+<title>Tabulation</title>
 
 <%
 HttpSession sess = request.getSession(false);

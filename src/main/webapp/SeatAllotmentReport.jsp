@@ -121,7 +121,7 @@ function downloadExcel() {
 <body>
 
 <%@ include file="header.jsp" %>
-<%@ include file="Admissionheader.jsp" %>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     
     <button class="btn btn-success btn-sm" onclick="downloadExcel()">Download Excel</button>
