@@ -31,6 +31,10 @@ width :90%;
 .table th { background:#002147; color:#fff; text-align:center; }
 .table td { text-align:center; }
 input { text-align:center;  }
+.blank {
+    background-color: #f8d7da !important;  /* light red */
+    border: 1px solid #dc3545 !important; /* red border */
+}
 </style>
 </head>
 
@@ -148,28 +152,61 @@ String id=row.get("id");
 <script>
 
 // 🔹 CALCULATION (UNCHANGED)
+function markBlank(input){
+    if(input.val().trim() === ""){
+        input.addClass("blank");
+        return true;
+    } else {
+        input.removeClass("blank");
+        return false;
+    }
+}
 function calculateRow(row){
 
     let attendance = row.find('[name="Attendance"]').val();
 
-    let m = parseFloat(row.find('[name="maths"]').val()) || 0;
-    let s = parseFloat(row.find('[name="science"]').val()) || 0;
+    let mInput = row.find('[name="maths"]');
+    let sInput = row.find('[name="science"]');
+    let etmInput = row.find('[name="ET_m"]');
+    let etsInput = row.find('[name="ET_s"]');
+
+    let isBlank =
+        markBlank(mInput) |
+        markBlank(sInput) |
+        markBlank(etmInput) |
+        markBlank(etsInput);
+
+    let m = parseFloat(mInput.val()) || 0;
+    let s = parseFloat(sInput.val()) || 0;
 
     let board = parseFloat(row.find('[name="board"]').val()) || 0;
     let puc = parseFloat(row.find('[name="puc"]').val()) || 0;
     let girls = parseFloat(row.find('[name="girls"]').val()) || 0;
 
-    let etm = parseFloat(row.find('[name="ET_m"]').val()) || 0;
-    let ets = parseFloat(row.find('[name="ET_s"]').val()) || 0;
+    let etm = parseFloat(etmInput.val()) || 0;
+    let ets = parseFloat(etsInput.val()) || 0;
 
     let avg = (m + s) / 2;
     row.find('[name="aggr"]').val(avg.toFixed(2));
 
-    let ett = (etm + ets) ;
+    let ett = (etm + ets);
     row.find('[name="ET_T"]').val(ett.toFixed(2));
 
+    // 🔴 ABSENT
     if(attendance === "AB"){
         row.find('[name="Total"]').val("AB");
+        return;
+    }
+
+    // 🔴 BLANK CHECK → STOP CALC
+    if(isBlank){
+        row.find('[name="Total"]').val("");
+        return;
+    }
+
+    // 🔴 FAIL CONDITION
+    if(m === 0 || s === 0 || etm === 0 || ets === 0){
+        row.find('[name="Total"]').val("FAIL");
         return;
     }
 
