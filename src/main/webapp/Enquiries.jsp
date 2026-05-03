@@ -11,6 +11,8 @@ if (sess == null || sess.getAttribute("username") == null) {
     response.sendRedirect("login.jsp");
     return;
 }
+String role = (String) sess.getAttribute("role");
+String User = (String) sess.getAttribute("username");
 %>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
@@ -52,7 +54,9 @@ input, textarea, select {
 <%@ include file="header.jsp" %>
 
 <h4>SANPOLY - Admission Records</h4>
+<% if("Global".equalsIgnoreCase(role)){%>
 <button class="btn btn-success mb-2" onclick="downloadExcel()">Download Excel</button>
+<%} %>
 <div class="table-wrapper">
 <table id="admissionTable">
 <thead>
@@ -133,6 +137,7 @@ String dob = (row.get("date_of_birth") != null) ? row.get("date_of_birth").toStr
 <td><%= row.get("created_at") %></td>
 
 <td>
+<% if("Office".equalsIgnoreCase(role)){%>
 <button class="btn btn-primary btn-sm" onclick="editRecord(this)"
 
 data-id='<%= row.get("id") %>'
@@ -194,7 +199,7 @@ data-p5='<%= row.get("preference_5") %>'
 </td>
 
 </tr>
-
+<%} %>
 <%
 }
 }

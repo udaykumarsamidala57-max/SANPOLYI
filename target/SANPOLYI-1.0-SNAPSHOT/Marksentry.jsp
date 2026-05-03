@@ -114,6 +114,12 @@ String id=row.get("id");
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc editable" disabled></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc editable" disabled></td>
 <%}else { %>
+<td>
+    <select name="Attendance" class="form-control editable" disabled>
+        <option value="P" <%= "P".equals(row.get("Attendance")) ? "selected" : "" %>>P</option>
+        <option value="AB" <%= "AB".equals(row.get("Attendance")) ? "selected" : "" %>>AB</option>
+    </select>
+</td>
 <td><input name="ET_m" value="<%=row.get("ET_m")%>" class="form-control calc" readonly></td>
 <td><input name="ET_s" value="<%=row.get("ET_s")%>" class="form-control calc" readonly></td>
 <%} %>
@@ -123,7 +129,7 @@ String id=row.get("id");
 
 <td>
     <button type="button" class="btn btn-primary btn-sm editBtn">Edit</button>
-    <button type="submit" class="btn btn-success btn-sm saveBtn" style="display:none;">Save</button>
+    <button type="button" class="btn btn-success btn-sm saveBtn" style="display:none;">Save</button>
 </td>
 
 </tr>
@@ -141,7 +147,7 @@ String id=row.get("id");
 
 <script>
 
-// 🔹 CALCULATION (UPDATED WITH AB LOGIC)
+// 🔹 CALCULATION (UNCHANGED)
 function calculateRow(row){
 
     let attendance = row.find('[name="Attendance"]').val();
@@ -156,27 +162,23 @@ function calculateRow(row){
     let etm = parseFloat(row.find('[name="ET_m"]').val()) || 0;
     let ets = parseFloat(row.find('[name="ET_s"]').val()) || 0;
 
-    // 🔹 Aggregate
     let avg = (m + s) / 2;
     row.find('[name="aggr"]').val(avg.toFixed(2));
 
-    // 🔹 ET Total
     let ett = (etm + ets) / 2;
     row.find('[name="ET_T"]').val(ett.toFixed(2));
 
-    // 🔴 IF ABSENT → TOTAL = AB
     if(attendance === "AB"){
         row.find('[name="Total"]').val("AB");
         return;
     }
 
-    // 🔹 Final Total
     let total = (avg + ett) / 2 + board + puc + girls;
     row.find('[name="Total"]').val(total.toFixed(2));
 }
 
 
-// 🔹 EDIT CLICK
+// 🔹 EDIT CLICK (UNCHANGED)
 $(document).on('click', '.editBtn', function () {
     let row = $(this).closest('tr');
 
@@ -187,30 +189,60 @@ $(document).on('click', '.editBtn', function () {
 });
 
 
-// 🔹 AUTO LOCK AFTER SAVE
-$(document).on('submit', 'form', function () {
+// 🔥 SAVE USING CLICK (NO FORM SUBMIT)
+$(document).on('click', '.saveBtn', function () {
+
     let row = $(this).closest('tr');
 
-    row.find('.editable').prop('disabled', true);
+    let data = {
+        id: row.find('[name="id"]').val(),
+        maths: row.find('[name="maths"]').val(),
+        science: row.find('[name="science"]').val(),
+        board: row.find('[name="board"]').val(),
+        puc: row.find('[name="puc"]').val(),
+        girls: row.find('[name="girls"]').val(),
+        Attendance: row.find('[name="Attendance"]').val(),
+        ET_m: row.find('[name="ET_m"]').val(),
+        ET_s: row.find('[name="ET_s"]').val(),
+        ET_T: row.find('[name="ET_T"]').val(),
+        Total: row.find('[name="Total"]').val()
+    };
 
-    row.find('.editBtn').show();
-    row.find('.saveBtn').hide();
+    $.ajax({
+        url: "Marks",
+        type: "POST",
+        data: data,
+
+        success: function (res) {
+
+            row.find('.editable').prop('disabled', true);
+            row.find('.editBtn').show();
+            row.find('.saveBtn').hide();
+
+            // optional
+            // alert("Saved");
+
+        },
+        error: function () {
+            alert("Error saving data");
+        }
+    });
+
 });
 
 
-// 🔹 CALC TRIGGER
+// 🔹 CALC TRIGGER (UNCHANGED)
 $(document).on('input', '.calc', function(){
     let row = $(this).closest('tr');
     calculateRow(row);
 });
 
 
-// 🔹 LOAD CALC ON PAGE LOAD
+// 🔹 LOAD CALC (UNCHANGED)
 $(document).ready(function(){
     $('tbody tr').each(function(){
         calculateRow($(this));
 
-        // Apply AB logic on load also
         let row = $(this);
         let attendance = row.find('[name="Attendance"]').val();
 
@@ -222,7 +254,7 @@ $(document).ready(function(){
 });
 
 
-// 🔹 Attendance change logic
+// 🔹 Attendance change (UNCHANGED)
 $(document).on('change', '[name="Attendance"]', function () {
     let row = $(this).closest('tr');
     let val = $(this).val();
@@ -233,7 +265,6 @@ $(document).on('change', '[name="Attendance"]', function () {
         row.find('[name="ET_m"], [name="ET_s"]').prop('disabled', false);
     }
 
-    // Recalculate after change
     calculateRow(row);
 });
 
