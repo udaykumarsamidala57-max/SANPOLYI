@@ -211,6 +211,8 @@ for(Map<String,String> row:list){
 <option value="Arjas" <%= "Arjas".equals(row.get("Special_Catg"))?"selected":"" %>>Arjas</option>
 <option value="SMIORE" <%= "SMIORE".equals(row.get("Special_Catg"))?"selected":"" %>>SMIORE</option>
 <option value="SVPS" <%= "SVPS".equals(row.get("Special_Catg"))?"selected":"" %>>SVPS</option>
+<option value="SC" <%= "SC".equals(row.get("Special_Catg"))?"selected":"" %>>SC</option>
+<option value="ST" <%= "ST".equals(row.get("Special_Catg"))?"selected":"" %>>ST</option>
 </select>
 </td>
 
