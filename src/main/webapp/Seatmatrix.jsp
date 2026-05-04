@@ -183,7 +183,7 @@ window.onload = calculateTotal;
     <td><input type="number" id="total" value="<%=totalVal%>" readonly></td>
 
     <td>
-    <% if (!"secretary".equalsIgnoreCase(user)) {%>
+    <% if ("secretary".equalsIgnoreCase(user)) {%>
     <button type="submit" class="btn save-btn">Save</button>
     <%} %>
     </td>
@@ -239,7 +239,7 @@ while(rs.next()){
     <td><%=ce%></td>
     <td><%=tot%></td>
     <td>
-    <% if (!"secretary".equalsIgnoreCase(user)) {%>
+    <% if ("secretary".equalsIgnoreCase(user)) {%>
         <a class="edit-btn" href="Seatmatrix.jsp?edit=<%=rs.getInt("id")%>">Edit</a> |
         <a class="delete-btn" href="Seatmatrix.jsp?delete=<%=rs.getInt("id")%>"
            onclick="return confirm('Delete?')">Delete</a>
