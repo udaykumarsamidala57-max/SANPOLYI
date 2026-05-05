@@ -223,6 +223,45 @@ table {
 </thead>
 
 <tbody>
+<%
+List<Map<String,String>> lists = (List<Map<String,String>>)request.getAttribute("data");
+
+// ✅ COUNT LOGIC HERE
+int dayScholarCount = 0;
+int residentialCount = 0;
+int RM = 0;
+int RF = 0;
+int T = 0;
+for(Map<String,String> r : lists){   // 🔥 use different variable name
+
+    String status = val(r.get("Status_Allot"));
+    String admissionType = val(r.get("Admission_type"));
+    String gender = val(r.get("gender"));
+    String Total = val(r.get("Confirmed"));
+
+    if("Confirmed".equalsIgnoreCase(status)){
+    	     T++;
+        if("Dayscholar".equalsIgnoreCase(admissionType)){
+            dayScholarCount++;
+            
+        }else if("Residential".equalsIgnoreCase(admissionType)){
+            residentialCount++;
+            if("F".equalsIgnoreCase(gender)){
+            	RF++;
+            }
+            else{
+            	RM++;
+            }
+        }
+    }
+}
+
+
+%>
+
+
+
+
 
 <%
 List<Map<String,String>> list = (List<Map<String,String>>)request.getAttribute("data");
@@ -380,11 +419,21 @@ for(String cat : seatMap.keySet()){
 <% } %>
 
 </div>
+<div class="alert alert-info text-center">
+    <b>Total:</b> <%=T%><br>
+    <b>Day Scholar:</b> <%=dayScholarCount%> / 89 |
+    <b>Residential:</b> <%=residentialCount%> / 138 <br>
+    <b>Res F:</b> <%=RF%> / 33 |
+    <b>Res G:</b> <%=RM%> / 105
 </div>
 </div>
 
 </div>
+
 </div>
+
+</div>
+
 <%
 StringBuilder json = new StringBuilder("{");
 
