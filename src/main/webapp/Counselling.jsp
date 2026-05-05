@@ -189,6 +189,40 @@ table {
 .rej-row td {
     transition: all 0.2s ease;
 }
+
+
+/*Waiting row*/
+
+
+.wait-row td {
+   
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Left curve */
+.wait-row td:first-child {
+    border-left: 10px solid #02A0EB;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Right curve */
+.wait-row td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+
+/* Smooth feel */
+.wait-row td {
+    transition: all 0.2s ease;
+}
+.wait-row {
+    background-color: #D2EBF7;   /* soft green */
+    border-left: 4px solid #28a745;
+    transition: all 0.2s ease;
+}
 </style>
 </head>
 
@@ -274,6 +308,7 @@ for(Map<String,String> row:list){
 class="<%= 
     "Confirmed".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "confirmed-row" : 
     "Widthdrawn".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "rej-row" : 
+    	"Waiting List".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "wait-row" : 
     "" 
 %>">
 
