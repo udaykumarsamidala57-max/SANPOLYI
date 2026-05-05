@@ -231,7 +231,8 @@ int i = 1;
 for(Map<String,String> row:list){
 %>
 
-<tr class="<%= 
+<tr data-id="<%= row.get("id") %>" 
+class="<%= 
     "Confirmed".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "confirmed-row" : 
     "Widthdrawn".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "rej-row" : 
     "" 
