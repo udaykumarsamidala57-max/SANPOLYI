@@ -360,7 +360,13 @@ class="<%=
 <div class="dashboard">
 
 <h5 class="text-center mb-2">Seat Availability</h5>
-
+<div class="alert alert-info text-center">
+    <b>Total:</b> <%=T%><br>
+    <b>Day Scholar:</b> <%=dayScholarCount%> / 89 |
+    <b>Residential:</b> <%=residentialCount%> / 138 <br>
+    <b>Res F:</b> <%=RF%> / 33 |
+    <b>Res G:</b> <%=RM%> / 105
+</div>
 <div class="dashboard-grid">
 
 <%
@@ -419,13 +425,7 @@ for(String cat : seatMap.keySet()){
 <% } %>
 
 </div>
-<div class="alert alert-info text-center">
-    <b>Total:</b> <%=T%><br>
-    <b>Day Scholar:</b> <%=dayScholarCount%> / 89 |
-    <b>Residential:</b> <%=residentialCount%> / 138 <br>
-    <b>Res F:</b> <%=RF%> / 33 |
-    <b>Res G:</b> <%=RM%> / 105
-</div>
+
 </div>
 
 </div>
