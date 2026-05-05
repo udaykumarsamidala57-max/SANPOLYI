@@ -286,6 +286,7 @@ for(Map<String,Object> row : students){
         <input type="hidden" name="total" value="<%= val(row.get("Total")) %>">
         <input type="hidden" name="branch" value="<%= val(row.get("Seat_Allot")) %>">
         <input type="hidden" name="Segment" value="<%= val(row.get("Segment")) %>">
+        <input type="hidden" name="Special_Catg" value="<%= val(row.get("Special_Catg")) %>">
         <button type="submit" class="btn btn-sm btn-primary">Print</button>
     </form>
 </td>
