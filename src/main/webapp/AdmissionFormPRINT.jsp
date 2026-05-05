@@ -4,123 +4,130 @@
 <%
 String appno = request.getParameter("APPNO");
 String name = request.getParameter("name");
-String father = request.getParameter("father");
-String phone = request.getParameter("phone");
 String branch = request.getParameter("branch");
 String Segment = request.getParameter("Segment");
+String sp = request.getParameter("Special_Catg");
 String Admission_t  = request.getParameter("Admission_type");
-String gender = request.getParameter("gender");
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Seat Allotment Slip</title>
+<title>Provisional Admission Order</title>
 
 <style>
 
-/* ===== A5 FULL PAGE ===== */
+/* ✅ A4 PAGE */
 @page {
-    size: A5 portrait;
-    margin: 8mm;
+    size: A4 portrait;
+    margin: 10mm;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     margin: 0;
 }
 
-/* FULL HEIGHT CARD */
-.card {
-    height: 100%;
+/* HALF PAGE */
+.copy {
+    height: 48%;
     border: 2px solid #000;
-    padding: 18px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* ===== HEADER ===== */
+/* LABEL (Office / Parent) */
+.copy-label {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 11px;
+    font-weight: bold;
+}
 
+/* TEAR LINE */
+.tear-line {
+    border-top: 2px dashed #000;
+    text-align: center;
+    font-size: 11px;
+    margin: 6px 0;
+}
+
+/* HEADER */
 .header {
     text-align: center;
 }
 
-.college-name {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 1px;
+.header h2 {
+    margin: 0;
+    font-size: 16px;
 }
 
-.location {
+.header h3 {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
+/* CONTENT */
+.content {
     font-size: 13px;
-    margin-top: 2px;
+    line-height: 1.6;
 }
 
-.divider {
-    border-top: 2px solid #000;
-    margin: 8px 0;
-}
-
-.title {
-    font-size: 17px;
-    font-weight: 600;
-}
-
-.year {
-    font-size: 12px;
-    margin-top: 2px;
-}
-
-/* ===== INFO GRID ===== */
-
-.info-grid {
-    margin-top: 15px;
-    border-top: 1px solid #000;
-}
-
-.row {
+.field {
     display: flex;
-    border-bottom: 1px solid #000;
+    margin-bottom: 6px;
 }
 
 .label {
     width: 40%;
-    padding: 10px;
-    font-weight: bold;
-    border-right: 1px solid #000;
 }
 
 .value {
     width: 60%;
-    padding: 10px;
+    border-bottom: 1px dotted #000;
 }
 
-/* ===== FOOTER ===== */
+/* DECLARATION */
+.declaration {
+    font-size: 12px;
+    margin-top: 8px;
+}
 
-.footer {
+/* SIGNATURES */
+.signatures {
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 20px;
+    font-size: 12px;
 }
 
-/* LEFT FOOTER TEXT */
+.sign-line {
+    border-top: 1px solid #000;
+    width: 150px;
+    margin-top: 25px;
+}
+
+/* PRINCIPAL */
+.principal {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.principal-line {
+    border-top: 1px solid #000;
+    width: 150px;
+    margin-left: auto;
+    margin-top: 25px;
+}
+
+/* NOTE */
 .note {
     font-size: 11px;
-    width: 55%;
-}
-
-/* SIGNATURE */
-.signature {
-    text-align: center;
-}
-
-.signature-line {
-    width: 140px;
-    border-top: 1px solid #000;
-    margin-top: 40px;
 }
 
 /* PRINT BUTTON */
@@ -147,79 +154,102 @@ function printPage(){
 
 <body>
 
-<div class="card">
+<!-- ===== TOP COPY (OFFICE) ===== -->
+<div class="copy" style="position:relative;">
+    <div class="copy-label">Office Copy</div>
 
-    <!-- ===== HEADER ===== -->
     <div class="header">
-        <div class="college-name">SANDUR POLYTECHNIC</div>
-        <div class="location">Yeshwantnagar</div>
-
-        <div class="divider"></div>
-
-        <div class="title">SEAT ALLOTMENT SLIP</div>
-        <div class="year">Academic Year 2026–27</div>
+        <h2>SANDUR POLYTECHNIC, YESHWANTNAGAR</h2>
+        <h3>PROVISIONAL ADMISSION ORDER 2026-27</h3>
+        <hr>
+    </div>
+<br><br>	
+    <div class="content">
+        <div class="field"><div class="label">Name of Candidate</div><div class="value"><%= name %></div></div>
+        <div class="field"><div class="label">Application No</div><div class="value"><%= appno %></div></div>
+        <div class="field"><div class="label">Branch Selected</div><div class="value"><%= branch %></div></div>
+        <div class="field"><div class="label">Category</div><div class="value"><%= Segment %></div></div>
+        <div class="field"><div class="label">Special Category</div><div class="value"><%= sp %></div></div>
+    </div>
+<br><br>
+    <div class="declaration">
+        <b>Declaration:</b><br>
+        I have accepted the course and taking admission as 
+        <b><%= Admission_t %></b>.  
+        The last date for admission: ______________________
+    </div>
+<br><br>
+    <div class="signatures">
+        <div>
+            <div class="sign-line"></div>
+            Student Signature
+        </div>
+        <br><br><br>
+        <div>
+            <div class="sign-line"></div>
+            Parent/Guardian
+        </div>
     </div>
 
-    <!-- ===== DETAILS GRID ===== -->
-    <div class="info-grid">
-
-        <div class="row">
-            <div class="label">Application No</div>
-            <div class="value"><%= appno %></div>
-        </div>
-
-        <div class="row">
-            <div class="label">Candidate Name</div>
-            <div class="value"><%= name %></div>
-        </div>
-
-        <div class="row">
-            <div class="label">Gender</div>
-            <div class="value"><%= gender %></div>
-        </div>
-
-        <div class="row">
-            <div class="label">Father Name</div>
-            <div class="value"><%= father %></div>
-        </div>
-
-        <div class="row">
-            <div class="label">Phone Number</div>
-            <div class="value"><%= phone %></div>
-        </div>
-
-        <div class="row">
-            <div class="label">Branch Allotted</div>
-            <div class="value"><b><%= branch %></b></div>
-        </div>
-
-        <div class="row">
-            <div class="label">Category</div>
-            <div class="value"><%= Segment %></div>
-        </div>
-
-        <div class="row">
-            <div class="label">Admission Type</div>
-            <div class="value"><%= Admission_t %></div>
-        </div>
-
+    <div class="principal">
+        <div class="principal-line"></div>
+        Principal Signature
     </div>
 
-    <!-- ===== FOOTER ===== -->
-    <div class="footer">
+    <div class="note">
+        (Seat will be cancelled if admission is not taken within due date)
+    </div>
+</div>
 
-        <div class="note">
-            * This is a provisional seat allotment slip.  
-            Candidates must report to the college with required documents.
+<!-- ===== TEAR LINE ===== -->
+<br><div class="tear-line"></div>
+
+<!-- ===== BOTTOM COPY (PARENT) ===== -->
+<div class="copy" style="position:relative;">
+    <div class="copy-label">Student Copy</div>
+
+    <div class="header">
+        <h2>SANDUR POLYTECHNIC, YESHWANTNAGAR</h2>
+        <h3>PROVISIONAL ADMISSION ORDER 2026-27</h3>
+        <hr>
+    </div>
+<br><br>
+    <div class="content">
+        <div class="field"><div class="label">Name of Candidate</div><div class="value"><%= name %></div></div>
+        <div class="field"><div class="label">Application No</div><div class="value"><%= appno %></div></div>
+        <div class="field"><div class="label">Branch Selected</div><div class="value"><%= branch %></div></div>
+        <div class="field"><div class="label">Category</div><div class="value"><%= Segment %></div></div>
+        <div class="field"><div class="label">Special Category</div><div class="value"><%= sp %></div></div>
+    </div>
+<br><br>
+    <div class="declaration">
+        <b>Declaration:</b><br>
+        I have accepted the course and taking admission as 
+        <b><%= Admission_t %></b>.  
+        The last date for admission: ______________________
+    </div>
+<br><br>
+    <div class="signatures">
+        <div>
+            <div class="sign-line"></div>
+            Student Signature
         </div>
-
-        <div class="signature">
-            <div class="signature-line"></div>
-            <div><b>Principal</b></div>
+        
+        <br><br>
+        <div>
+            <div class="sign-line"></div>
+            Parent/Guardian
         </div>
-
+    </div>
+<br><br>
+    <div class="principal">
+        <div class="principal-line"></div>
+        Principal Signature
     </div>
 
+    <div class="note">
+        (Seat will be cancelled if admission is not taken within due date)
+    </div>
 </div>
 
 <div class="print-btn">

@@ -7,7 +7,8 @@ if (sess == null || sess.getAttribute("username") == null) {
     return;
 }
 String role = (String) sess.getAttribute("role");
-String User = (String) sess.getAttribute("username");
+//String User = (String) sess.getAttribute("username");
+String User = "udaykumar";
 %>
 <html>
 <head>
