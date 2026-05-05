@@ -82,16 +82,27 @@ public class Counselling extends HttpServlet {
                 branchMap.put("EC_used", 0);
                 branchMap.put("CE_used", 0);
 
+                branchMap.put("ME_wl", 0);
+                branchMap.put("EE_wl", 0);
+                branchMap.put("CS_wl", 0);
+                branchMap.put("EC_wl", 0);
+                branchMap.put("CE_wl", 0);
+                
+                branchMap.put("ME_cl", 0);
+                branchMap.put("EE_cl", 0);
+                branchMap.put("CS_cl", 0);
+                branchMap.put("EC_cl", 0);
+                branchMap.put("CE_cl", 0);
+
                 seatMap.put(cat, branchMap);
             }
 
             // 🔹 USED COUNT (ONLY CONFIRMED)
-            String countSql = "SELECT Seat_Allot, Segment, COUNT(*) as cnt " +
+            String countSql = "SELECT Seat_Allot, Segment, Status_Allot, COUNT(*) as cnt " +
                     "FROM admission_form " +
                     "WHERE Seat_Allot IS NOT NULL " +
                     "AND Seat_Allot<>'' " +
-                    "AND Status_Allot='Confirmed' " +
-                    "GROUP BY Seat_Allot, Segment";
+                    "GROUP BY Seat_Allot, Segment, Status_Allot";
 
             ResultSet cntRs = con.createStatement().executeQuery(countSql);
 
@@ -99,14 +110,24 @@ public class Counselling extends HttpServlet {
 
                 String branch = safe(cntRs.getString("Seat_Allot")).trim().toUpperCase();
                 String cat = safe(cntRs.getString("Segment")).trim().toUpperCase();
+                String status = safe(cntRs.getString("Status_Allot")).trim().toUpperCase();
                 int count = cntRs.getInt("cnt");
 
                 if (!seatMap.containsKey(cat)) continue;
 
                 Map<String, Integer> branchMap = seatMap.get(cat);
-                branchMap.put(branch + "_used", count);
-            }
 
+                if ("CONFIRMED".equals(status)) {
+                    branchMap.put(branch + "_used", count);
+                } 
+                else if ("WAITING LIST".equals(status)) {
+                    branchMap.put(branch + "_wl", count);
+                }
+                else if ("CANCELLED".equals(status)) {
+                    branchMap.put(branch + "_cl", count);
+                }
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

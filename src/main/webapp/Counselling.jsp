@@ -62,7 +62,7 @@ h3 {
 }
 
 .table td {
-    font-size:13px;
+    font-size:12px;
     text-align:center;
     vertical-align:middle;
 }
@@ -73,14 +73,14 @@ thead th {
     z-index:2;
 }
 
-.col-rank { width:5%; }
+.col-rank { width:4%; }
 .col-app  { width:8%; }
 .col-name { width:20%; }
 .col-total{ width:6%; }
-.col-branch{ width:12%; }
-.col-seg  { width:10%; }
+.col-branch{ width:8%; }
+.col-seg  { width:8%; }
 .col-sp   { width:13%; }
-.col-act  { width:8%; }
+.col-act  { width:6%; }
 
 .name-cell {
     text-align:left !important;
@@ -100,9 +100,7 @@ select {
 }
 
 .dashboard-grid {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    display:block;   /* 🔥 key change */
 }
 
 @media (min-width:1400px){
@@ -116,6 +114,7 @@ select {
     border-radius:10px;
     padding:8px;
     box-shadow:0 2px 6px rgba(0,0,0,0.1);
+     margin-bottom: 12px;
 }
 
 .full { color:red; font-weight:bold; }
@@ -371,6 +370,7 @@ class="<%=
 <option value="Confirmed" <%= "Confirmed".equals(row.get("Status_Allot"))?"selected":"" %>>Confirmed</option>
 <option value="Waiting List" <%= "Waiting List".equals(row.get("Status_Allot"))?"selected":"" %>>Waiting List</option>
 <option value="Widthdrawn" <%= "Widthdrawn".equals(row.get("Status_Allot"))?"selected":"" %>>Widthdrawn</option>
+<option value="Cancelled" <%= "Cancelled".equals(row.get("Status_Allot"))?"selected":"" %>>Cancelled</option>
 </select>
 </td>
 
@@ -395,12 +395,17 @@ class="<%=
 <div class="dashboard">
 
 <h5 class="text-center mb-2">Seat Availability</h5>
-<div class="alert alert-info text-center">
-    <b>Total:</b> <%=T%> / 270<br>
-    <b>Day Scholar:</b> <%=dayScholarCount%> / 132 |
-    <b>Residential:</b> <%=residentialCount%> / 138 <br>
-    <b>Residential Girls:</b> <%=RF%> / 33 <br>
-    <b>Residential Boys:</b> <%=RM%> / 105
+<div class="alert alert-info text-center" style="font-size:14px; border-radius:8px;">
+
+    <b>All Branches Seats Filled Status</b><br>
+
+    Total: <span style="color:#8C1E03;"><%=T%></span> / 270 |
+    Day Scholar: <span style="color:#8C1E03;"><%=dayScholarCount%></span> / 132 |
+    Residential: <span style="color:#8C1E03;"><%=residentialCount%></span> / 138 <br>
+
+    Girls: <span style="color:#8C1E03;"><%=RF%></span> / 33 |
+    Boys: <span style="color:#8C1E03;"><%=RM%></span> / 105
+
 </div>
 <div class="dashboard-grid">
 
@@ -419,33 +424,49 @@ let RF = <%=RF%>;   // girls
 let RM = <%=RM%>;   // boys
 </script>
 
-<div class="branch-box">
+<div class="branch-box">	
 
 <b><%=br%></b>
 
 <table class="table table-sm">
-<tr><th>Cat</th><th>Used</th><th>Total</th></tr>
+<tr>
+    <th>Cat</th>
+    <th>Adm / Cap</th>
+    
+    <th>Vac</th>
+    <th>WL</th>   <!-- NEW -->
+    <th>CL</th>
+    
+</tr>
 
 <%
 int grandUsed = 0;
+int grandWL = 0;     // ✅ NEW
 int grandTotal = 0;
+int grandcan = 0;
 
 for(String cat : seatMap.keySet()){
     Map<String,Integer> b = seatMap.get(cat);
 
     int total = b.getOrDefault(br+"_total",0);
-    int used = b.getOrDefault(br+"_used",0);
-
+    int used  = b.getOrDefault(br+"_used",0);
+    int wl    = b.getOrDefault(br+"_wl",0);   // ✅ NEW
+    int cl = b.getOrDefault(br+"_cl",0);
     grandUsed += used;
+    grandWL   += wl;      // ✅ NEW
     grandTotal += total;
-
-    String cls = (used>=total)?"full":"available";
+    grandcan += cl;
+    String cls = (used >= total) ? "full" : "available";
 %>
 
 <tr>
 <td><%=cat%></td>
-<td class="<%=cls%>"><%=used%></td>
-<td><%=total%></td>
+
+<td class="<%= (used>=total)?"full":"available" %>"><%=used%> / <%=total%></td>
+<td><%=total-used%></td>
+<td style="color:#02A0EB;font-weight:bold;"><%=wl%></td>
+<td style="color:#02A0EB;font-weight:bold;"><%=cl%></td>
+
 </tr>
 
 <% } %>
@@ -454,9 +475,15 @@ for(String cat : seatMap.keySet()){
 <tr style="font-weight:bold; background:#f1f1f1;">
     <td>Total</td>
     <td class="<%= (grandUsed>=grandTotal) ? "full" : "available" %>">
-        <%=grandUsed%>
+        <%=grandUsed%> / <%=grandTotal%></td>
+  
+    <td><%=grandTotal-grandUsed%></td>
+    <td style="color:#02A0EB;font-weight:bold;">
+        <%=grandWL%>   <!-- ✅ FIX -->
     </td>
-    <td><%=grandTotal%></td>
+    <td><%=grandcan%></td>
+    
+    
 </tr>
 
 </table>
@@ -478,157 +505,205 @@ for(String cat : seatMap.keySet()){
 <%
 StringBuilder json = new StringBuilder("{");
 
+int catIndex = 0;
+
 for(String cat : seatMap.keySet()){
+
+    if(catIndex++ > 0){
+        json.append(",");   // ✅ add comma between categories
+    }
+
     json.append("\"").append(cat).append("\":{");
 
     Map<String,Integer> b = seatMap.get(cat);
 
     json.append("\"ME_total\":").append(b.get("ME_total")).append(",");
     json.append("\"ME_used\":").append(b.get("ME_used")).append(",");
+    json.append("\"ME_wl\":").append(b.get("ME_wl")).append(",");
+    json.append("\"ME_cl\":").append(b.get("ME_cl")).append(",");
 
     json.append("\"EE_total\":").append(b.get("EE_total")).append(",");
     json.append("\"EE_used\":").append(b.get("EE_used")).append(",");
+    json.append("\"EE_wl\":").append(b.get("EE_wl")).append(",");
+    json.append("\"EE_cl\":").append(b.get("EE_cl")).append(",");
 
     json.append("\"CS_total\":").append(b.get("CS_total")).append(",");
     json.append("\"CS_used\":").append(b.get("CS_used")).append(",");
+    json.append("\"CS_wl\":").append(b.get("CS_wl")).append(",");
+    json.append("\"CS_cl\":").append(b.get("CS_cl")).append(",");
 
     json.append("\"EC_total\":").append(b.get("EC_total")).append(",");
     json.append("\"EC_used\":").append(b.get("EC_used")).append(",");
+    json.append("\"EC_wl\":").append(b.get("EC_wl")).append(",");
+    json.append("\"EC_cl\":").append(b.get("EC_cl")).append(",");
 
     json.append("\"CE_total\":").append(b.get("CE_total")).append(",");
-    json.append("\"CE_used\":").append(b.get("CE_used"));
+    json.append("\"CE_used\":").append(b.get("CE_used")).append(",");
+    json.append("\"CE_wl\":").append(b.get("CE_wl")).append(",");;   // ✅ LAST FIELD → NO COMMA
+    json.append("\"CE_Cl\":").append(b.get("CE_Cl"));
+    
 
-    json.append("},");
-}
-
-// remove last comma
-if(json.charAt(json.length()-1)==','){
-    json.deleteCharAt(json.length()-1);
+    json.append("}");
 }
 
 json.append("}");
 %>
 <!-- 🔥 PASS SEAT MAP TO JS -->
-<script>
-let seatMap = <%= json.toString() %>;
-</script>
+
 
 <!-- AJAX WITH VALIDATION -->
 
 <script>
+let seatMap = <%= json.toString() %>;
 
 //==========================
-//EDIT BUTTON
+// EDIT BUTTON
 //==========================
 $(document).on('click', '.editBtn', function () {
- let row = $(this).closest('tr');
+    let row = $(this).closest('tr');
 
- row.find('.editable').prop('disabled', false);
- row.find('.editBtn').hide();
- row.find('.saveBtn').show();
+    row.find('.editable').prop('disabled', false);
+    row.find('.editBtn').hide();
+    row.find('.saveBtn').show();
 });
 
 
 //==========================
-//SAVE BUTTON
+// SAVE BUTTON
 //==========================
 $(document).on('click', '.saveBtn', function () {
 
- let row = $(this).closest('tr');
+    let row = $(this).closest('tr');
 
- let branch = row.find('.seat').val();
- let segment = row.find('.segment').val();
- let statusRaw = row.find('.status').val() || "";
+    let branch = row.find('.seat').val();
+    let segment = row.find('.segment').val();
+    let spcat = row.find('.spcat').val();
+    let statusRaw = row.find('.status').val() || "";
 
- let status = statusRaw.trim().toLowerCase();
+    let status = statusRaw.trim().toLowerCase();
 
- // ==========================
- // ✅ 1. EMPTY → CLEAR SEAT
- // ==========================
- if (!branch || !segment) {
+    // ==========================
+    // 1. EMPTY → CLEAR
+    // ==========================
+    if (!branch || !segment) {
 
-     $.ajax({
-         url: 'Counselling',
-         method: 'POST',
-         data: {
-             id: row.data('id'),
-             Seat_Allot: "",
-             Segment: "",
-             Special_Catg: row.find('.spcat').val(),
-             Status_Allot: statusRaw   // keep selected status
-         },
-         success: function (res) {
-             location.reload();
-         },
-         error: function () {
-             alert("Error while clearing data");
-         }
-     });
+        saveData(row, "", "", spcat, statusRaw);
+        return;
+    }
 
-     return;
- }
+    // ==========================
+    // 2. WAITING LIST
+    // ==========================
+   
+    if (status === "waiting list") {
 
- // ==========================
- // ✅ 2. WAITING LIST
- // ==========================
- if (status === "waiting list") {
+        saveData(row, branch, segment, spcat, "Waiting List");
+        return;
+    }
+    if (status === "cancelled") {
 
-     $.ajax({
-         url: 'Counselling',
-         method: 'POST',
-         data: {
-             id: row.data('id'),
-             Seat_Allot: branch,
-             Segment: segment,
-             Special_Catg: row.find('.spcat').val(),
-             Status_Allot: "Waiting List"
-         },
-         success: function (res) {
-             location.reload();
-         }
-     });
+        saveData(row, branch, segment, spcat, "Cancelled");
+        return;
+    }
 
-     return;
- }
+    // ==========================
+    // 3. VALIDATION (CONFIRMED)
+    // ==========================
+    let catMap = seatMap[segment];
 
- // ==========================
- // ✅ 3. VALIDATION (CONFIRMED)
- // ==========================
- let catMap = seatMap[segment];
+    if (catMap) {
+        let used = catMap[branch + "_used"] || 0;
+        let total = catMap[branch + "_total"] || 0;
 
- if (catMap) {
-     let used = catMap[branch + "_used"] || 0;
-     let total = catMap[branch + "_total"] || 0;
+        if (used >= total) {
+            alert("Seats not available for selected category");
+            return;
+        }
+    }
 
-     if (used >= total) {
-         alert("Seats not available for selected category");
-         return;
-     }
- }
-
- // ==========================
- // ✅ 4. SAVE CONFIRMED
- // ==========================
- $.ajax({
-     url: 'Counselling',
-     method: 'POST',
-     data: {
-         id: row.data('id'),
-         Seat_Allot: branch,
-         Segment: segment,
-         Special_Catg: row.find('.spcat').val(),
-         Status_Allot: "Confirmed"
-     },
-     success: function (res) {
-         location.reload();
-     },
-     error: function () {
-         alert("Error while saving data");
-     }
- });
+    // ==========================
+    // 4. SAVE CONFIRMED
+    // ==========================
+    saveData(row, branch, segment, spcat, "Confirmed");
 
 });
 
+
+//==========================
+// COMMON SAVE FUNCTION
+//==========================
+function saveData(row, branch, segment, spcat, status) {
+
+    $.ajax({
+        url: 'Counselling',
+        method: 'POST',
+        data: {
+            id: row.data('id'),
+            Seat_Allot: branch,
+            Segment: segment,
+            Special_Catg: spcat,
+            Status_Allot: status
+        },
+
+        success: function (res) {
+
+            // ==========================
+            // UI UPDATE (NO RELOAD)
+            // ==========================
+
+            // disable fields again
+            row.find('.editable').prop('disabled', true);
+            row.find('.editBtn').show();
+            row.find('.saveBtn').hide();
+
+            // remove all status classes
+            row.removeClass('confirmed-row rej-row wait-row');
+
+            // apply new class
+            if (status === "Confirmed") {
+                row.addClass('confirmed-row');
+            } else if (status === "Widthdrawn") {
+                row.addClass('rej-row');
+            } else if (status === "Waiting List") {
+                row.addClass('wait-row');
+            }
+
+            // ==========================
+            // UPDATE SEAT MAP (LIVE)
+            // ==========================
+            if (segment && branch) {
+
+                if (!seatMap[segment]) {
+                    seatMap[segment] = {};
+                }
+
+                let keyUsed = branch + "_used";
+                let keyWL = branch + "_wl";
+
+                seatMap[segment][keyUsed] = seatMap[segment][keyUsed] || 0;
+                seatMap[segment][keyWL] = seatMap[segment][keyWL] || 0;
+
+                if (status === "Confirmed") {
+                    seatMap[segment][keyUsed]++;
+                }
+
+                if (status === "Waiting List") {
+                    seatMap[segment][keyWL]++;
+                }
+            }
+
+            // ==========================
+            // OPTIONAL: UPDATE DASHBOARD UI
+            // ==========================
+            // (You can enhance later if needed)
+
+        },
+
+        error: function () {
+            alert("Error while saving data");
+        }
+    });
+}
 </script>
 
 </body>
