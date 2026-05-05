@@ -91,7 +91,7 @@ thead th {
 
 select {
     width:100%;
-    font-size:12px;
+    font-size:10px;
 }
 
 .dashboard {
