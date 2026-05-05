@@ -75,7 +75,7 @@
 
     .welcome-banner {
         background: var(--white);
-        padding: 30px;
+        padding: 10px;
         border-radius: 16px;
         box-shadow: var(--shadow);
         margin-bottom: 35px;
@@ -306,7 +306,7 @@
     
     <div class="welcome-banner">
         <div class="welcome-text">
-            <h1><%= greeting %>, <%= user %>!</h1>
+            <h4><%= greeting %>, <%= user %>!</h4	>
             <p>Here is what's happening with the SANPOLY Inventory system today.</p>
         </div>
         <div class="date-badge">
