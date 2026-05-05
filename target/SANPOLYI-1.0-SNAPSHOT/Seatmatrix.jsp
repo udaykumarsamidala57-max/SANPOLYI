@@ -10,6 +10,7 @@ if (sess == null || sess.getAttribute("username") == null) {
 
 String role = (String) sess.getAttribute("role");
 String dept = (String) sess.getAttribute("department");
+String user = (String) sess.getAttribute("username");
 if (!"Global".equalsIgnoreCase(role)) {
 
 	    out.println("<h3 style='color:red;text-align:center;'>Access Denied! You are not authorized.</h3>");
@@ -181,7 +182,11 @@ window.onload = calculateTotal;
 
     <td><input type="number" id="total" value="<%=totalVal%>" readonly></td>
 
-    <td><button type="submit" class="btn save-btn">Save</button></td>
+    <td>
+    <% if ("secretary".equalsIgnoreCase(user)) {%>
+    <button type="submit" class="btn save-btn">Save</button>
+    <%} %>
+    </td>
 </tr>
 </table>
 </form>
@@ -234,9 +239,11 @@ while(rs.next()){
     <td><%=ce%></td>
     <td><%=tot%></td>
     <td>
+    <% if ("secretary".equalsIgnoreCase(user)) {%>
         <a class="edit-btn" href="Seatmatrix.jsp?edit=<%=rs.getInt("id")%>">Edit</a> |
         <a class="delete-btn" href="Seatmatrix.jsp?delete=<%=rs.getInt("id")%>"
            onclick="return confirm('Delete?')">Delete</a>
+           <%} %>
     </td>
 </tr>
 <%

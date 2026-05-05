@@ -482,55 +482,115 @@ let seatMap = <%= json.toString() %>;
 
 <script>
 
-// EDIT
-$(document).on('click','.editBtn',function(){
-    let row=$(this).closest('tr');
-    row.find('.editable').prop('disabled',false);
-    row.find('.editBtn').hide();
-    row.find('.saveBtn').show();
+//==========================
+//EDIT BUTTON
+//==========================
+$(document).on('click', '.editBtn', function () {
+ let row = $(this).closest('tr');
+
+ row.find('.editable').prop('disabled', false);
+ row.find('.editBtn').hide();
+ row.find('.saveBtn').show();
 });
 
-// SAVE WITH VALIDATION
-$(document).on('click','.saveBtn',function(){
 
-    let row=$(this).closest('tr');
+//==========================
+//SAVE BUTTON
+//==========================
+$(document).on('click', '.saveBtn', function () {
 
-    let branch = row.find('.seat').val();
-    let segment = row.find('.segment').val();
-    let status = row.find('.status').val();   // ✅ NEW
+ let row = $(this).closest('tr');
 
-    let catMap = seatMap[segment];
+ let branch = row.find('.seat').val();
+ let segment = row.find('.segment').val();
+ let statusRaw = row.find('.status').val() || "";
 
-    if(catMap){
-        let used = catMap[branch+"_used"] || 0;
-        let total = catMap[branch+"_total"] || 0;
+ let status = statusRaw.trim().toLowerCase();
 
-        if(used >= total){
-            alert("Seats not available for selected category");
-            return;
-        }
-    }
+ // ==========================
+ // ✅ 1. EMPTY → CLEAR SEAT
+ // ==========================
+ if (!branch || !segment) {
 
-    $.ajax({
-        url:'Counselling',
-        method:'POST',
-        data:{
-            id:row.data('id'),
-            Seat_Allot:branch,
-            Segment:segment,
-            Special_Catg:row.find('.spcat').val(),
-            Status_Allot:status   // ✅ FIXED
-        },
-        success:function(res){
+     $.ajax({
+         url: 'Counselling',
+         method: 'POST',
+         data: {
+             id: row.data('id'),
+             Seat_Allot: "",
+             Segment: "",
+             Special_Catg: row.find('.spcat').val(),
+             Status_Allot: statusRaw   // keep selected status
+         },
+         success: function (res) {
+             location.reload();
+         },
+         error: function () {
+             alert("Error while clearing data");
+         }
+     });
 
-            if(res==="FULL"){
-                alert("Seats already full!");
-                return;
-            }
+     return;
+ }
 
-            location.reload();
-        }
-    });
+ // ==========================
+ // ✅ 2. WAITING LIST
+ // ==========================
+ if (status === "waiting list") {
+
+     $.ajax({
+         url: 'Counselling',
+         method: 'POST',
+         data: {
+             id: row.data('id'),
+             Seat_Allot: branch,
+             Segment: segment,
+             Special_Catg: row.find('.spcat').val(),
+             Status_Allot: "Waiting List"
+         },
+         success: function (res) {
+             location.reload();
+         }
+     });
+
+     return;
+ }
+
+ // ==========================
+ // ✅ 3. VALIDATION (CONFIRMED)
+ // ==========================
+ let catMap = seatMap[segment];
+
+ if (catMap) {
+     let used = catMap[branch + "_used"] || 0;
+     let total = catMap[branch + "_total"] || 0;
+
+     if (used >= total) {
+         alert("Seats not available for selected category");
+         return;
+     }
+ }
+
+ // ==========================
+ // ✅ 4. SAVE CONFIRMED
+ // ==========================
+ $.ajax({
+     url: 'Counselling',
+     method: 'POST',
+     data: {
+         id: row.data('id'),
+         Seat_Allot: branch,
+         Segment: segment,
+         Special_Catg: row.find('.spcat').val(),
+         Status_Allot: "Confirmed"
+     },
+     success: function (res) {
+         location.reload();
+     },
+     error: function () {
+         alert("Error while saving data");
+     }
+ });
 
 });
 

@@ -15,7 +15,11 @@ if (!"Global".equalsIgnoreCase(role)) {
     return;
 }
 %>
-
+<%! 
+    public String val(Object o) {
+        return (o == null) ? "" : o.toString();
+    }
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -119,6 +123,72 @@ select {
 
 .btn-sm { padding:3px 8px; font-size:12px; }
 
+.confirmed-row {
+    background-color: #edf7ed;   /* soft green */
+    border-left: 4px solid #28a745;
+    transition: all 0.2s ease;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 8px; /* vertical gap between rows */
+}
+
+/* Row base */
+.confirmed-row td {
+   
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Left curve */
+.confirmed-row td:first-child {
+    border-left: 10px solid #28a745;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Right curve */
+.confirmed-row td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+
+/* Smooth feel */
+.confirmed-row td {
+    transition: all 0.2s ease;
+}
+
+
+
+/*rejected row*/
+
+
+.rej-row td {
+   
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Left curve */
+.rej-row td:first-child {
+    border-left: 10px solid red;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Right curve */
+.rej-row td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+
+/* Smooth feel */
+.rej-row td {
+    transition: all 0.2s ease;
+}
 </style>
 </head>
 
@@ -153,6 +223,45 @@ select {
 </thead>
 
 <tbody>
+<%
+List<Map<String,String>> lists = (List<Map<String,String>>)request.getAttribute("data");
+
+// ✅ COUNT LOGIC HERE
+int dayScholarCount = 0;
+int residentialCount = 0;
+int RM = 0;
+int RF = 0;
+int T = 0;
+for(Map<String,String> r : lists){   // 🔥 use different variable name
+
+    String status = val(r.get("Status_Allot"));
+    String admissionType = val(r.get("Admission_type"));
+    String gender = val(r.get("gender"));
+    String Total = val(r.get("Confirmed"));
+
+    if("Confirmed".equalsIgnoreCase(status)){
+    	     T++;
+        if("Dayscholar".equalsIgnoreCase(admissionType)){
+            dayScholarCount++;
+            
+        }else if("Residential".equalsIgnoreCase(admissionType)){
+            residentialCount++;
+            if("F".equalsIgnoreCase(gender)){
+            	RF++;
+            }
+            else{
+            	RM++;
+            }
+        }
+    }
+}
+
+
+%>
+
+
+
+
 
 <%
 List<Map<String,String>> list = (List<Map<String,String>>)request.getAttribute("data");
@@ -161,7 +270,12 @@ int i = 1;
 for(Map<String,String> row:list){
 %>
 
-<tr data-id="<%=row.get("id")%>">
+<tr data-id="<%= row.get("id") %>" 
+class="<%= 
+    "Confirmed".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "confirmed-row" : 
+    "Widthdrawn".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "rej-row" : 
+    "" 
+%>">
 
 <td><%=i++%></td>
 
@@ -211,6 +325,8 @@ for(Map<String,String> row:list){
 <option value="Arjas" <%= "Arjas".equals(row.get("Special_Catg"))?"selected":"" %>>Arjas</option>
 <option value="SMIORE" <%= "SMIORE".equals(row.get("Special_Catg"))?"selected":"" %>>SMIORE</option>
 <option value="SVPS" <%= "SVPS".equals(row.get("Special_Catg"))?"selected":"" %>>SVPS</option>
+<option value="SC" <%= "SC".equals(row.get("Special_Catg"))?"selected":"" %>>SC</option>
+<option value="ST" <%= "ST".equals(row.get("Special_Catg"))?"selected":"" %>>ST</option>
 </select>
 </td>
 
@@ -244,7 +360,13 @@ for(Map<String,String> row:list){
 <div class="dashboard">
 
 <h5 class="text-center mb-2">Seat Availability</h5>
-
+<div class="alert alert-info text-center">
+    <b>Total:</b> <%=T%> / 270<br>
+    <b>Day Scholar:</b> <%=dayScholarCount%> / 132 |
+    <b>Residential:</b> <%=residentialCount%> / 138 <br>
+    <b>Residential Girls:</b> <%=RF%> / 33 <br>
+    <b>Residential Boys:</b> <%=RM%> / 105
+</div>
 <div class="dashboard-grid">
 
 <%
@@ -255,6 +377,12 @@ String[] branches = {"ME","EE","CS","EC","CE"};
 
 for(String br : branches){
 %>
+<script>
+let dayScholarCount = <%=dayScholarCount%>;
+let residentialCount = <%=residentialCount%>;
+let RF = <%=RF%>;   // girls
+let RM = <%=RM%>;   // boys
+</script>
 
 <div class="branch-box">
 
@@ -303,11 +431,15 @@ for(String cat : seatMap.keySet()){
 <% } %>
 
 </div>
-</div>
+
 </div>
 
 </div>
+
 </div>
+
+</div>
+
 <%
 StringBuilder json = new StringBuilder("{");
 
@@ -361,12 +493,36 @@ $(document).on('click','.editBtn',function(){
 // SAVE WITH VALIDATION
 $(document).on('click','.saveBtn',function(){
 
-    let row=$(this).closest('tr');
+    let row = $(this).closest('tr');
 
     let branch = row.find('.seat').val();
     let segment = row.find('.segment').val();
-    let status = row.find('.status').val();   // ✅ NEW
+    let statusRaw = row.find('.status').val();
 
+    let status = statusRaw.trim().toLowerCase(); // 🔥 fix
+
+    // ✅ WAITING LIST → NO VALIDATION
+    if(status === "waiting list"){
+
+        $.ajax({
+            url:'Counselling',
+            method:'POST',
+            data:{
+                id:row.data('id'),
+                Seat_Allot:branch,
+                Segment:segment,
+                Special_Catg:row.find('.spcat').val(),
+                Status_Allot:"Waiting List"
+            },
+            success:function(res){
+                location.reload();
+            }
+        });
+
+        return;
+    }
+
+    // ✅ CONFIRMED → CHECK SEATS
     let catMap = seatMap[segment];
 
     if(catMap){
@@ -379,6 +535,7 @@ $(document).on('click','.saveBtn',function(){
         }
     }
 
+    // ✅ SAVE CONFIRMED
     $.ajax({
         url:'Counselling',
         method:'POST',
@@ -387,15 +544,9 @@ $(document).on('click','.saveBtn',function(){
             Seat_Allot:branch,
             Segment:segment,
             Special_Catg:row.find('.spcat').val(),
-            Status_Allot:status   // ✅ FIXED
+            Status_Allot:"Confirmed"
         },
         success:function(res){
-
-            if(res==="FULL"){
-                alert("Seats already full!");
-                return;
-            }
-
             location.reload();
         }
     });

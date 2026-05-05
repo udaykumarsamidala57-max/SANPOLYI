@@ -188,6 +188,25 @@ public class Counselling extends HttpServlet {
                 used = rsUsed.getInt(1);
             }
 
+            if (!"Confirmed".equalsIgnoreCase(status)) {
+
+                String updateSql = "UPDATE admission_form SET Seat_Allot=?, Segment=?, Special_Catg=?, Status_Allot=? WHERE id=?";
+                PreparedStatement ps = con.prepareStatement(updateSql);
+
+                ps.setString(1, newSeat);
+                ps.setString(2, newSegment);
+                ps.setString(3, spCat);
+                ps.setString(4, status);
+                ps.setInt(5, id);
+
+                ps.executeUpdate();
+
+                response.getWriter().write("OK");
+                return;
+            }
+            
+            
+            
             // ✅ 5. VALIDATION (EDIT SAFE)
             if (!(newSeat.equals(oldSeat) && newSegment.equals(oldSegment))) {
                 if (used >= total) {
