@@ -362,7 +362,7 @@ class="<%=
 <h5 class="text-center mb-2">Seat Availability</h5>
 <div class="alert alert-info text-center">
     <b>Total:</b> <%=T%> / 270<br>
-    <b>Day Scholar:</b> <%=dayScholarCount%> / 89 |
+    <b>Day Scholar:</b> <%=dayScholarCount%> / 132 |
     <b>Residential:</b> <%=residentialCount%> / 138 <br>
     <b>Residential Girls:</b> <%=RF%> / 33 <br>
     <b>Residential Boys:</b> <%=RM%> / 105
