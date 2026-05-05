@@ -278,11 +278,14 @@ for(Map<String,Object> row : students){
     <form action="AdmissionFormPRINT.jsp" method="post" target="_blank">
         <input type="hidden" name="APPNO" value="<%= val(row.get("APPNO")) %>">
         <input type="hidden" name="name" value="<%= val(row.get("applicant_name")) %>">
+        <input type="hidden" name="gender" value="<%= val(row.get("gender")) %>">
+        <input type="hidden" name="Admission_type" value="<%= val(row.get("Admission_type")) %>">
         <input type="hidden" name="father" value="<%= val(row.get("father_guardian_name")) %>">
+       
         <input type="hidden" name="phone" value="<%= val(row.get("phone_no")) %>">
         <input type="hidden" name="total" value="<%= val(row.get("Total")) %>">
         <input type="hidden" name="branch" value="<%= val(row.get("Seat_Allot")) %>">
-         <input type="hidden" name="branch" value="<%= val(row.get("Seat_Allot")) %>">
+        <input type="hidden" name="Segment" value="<%= val(row.get("Segment")) %>">
         <button type="submit" class="btn btn-sm btn-primary">Print</button>
     </form>
 </td>
