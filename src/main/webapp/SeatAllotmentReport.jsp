@@ -242,6 +242,7 @@ for(String branch : grouped.keySet()){
         <th class="col-branch">Branch</th>
         <th class="col-branch">Category</th>
         <th class="col-branch">Special Catg</th>
+      
     </tr>
     </thead>
 
@@ -268,6 +269,9 @@ for(Map<String,Object> row : students){
     <td><%= val(row.get("Seat_Allot")) %></td>
     <td><%= val(row.get("Segment")) %></td>
     <td><%= val(row.get("Special_Catg")) %></td>
+   
+  
+</td>
 </tr>
 
 <%

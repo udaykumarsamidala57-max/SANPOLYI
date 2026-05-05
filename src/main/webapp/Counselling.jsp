@@ -15,7 +15,11 @@ if (!"Global".equalsIgnoreCase(role)) {
     return;
 }
 %>
-
+<%! 
+    public String val(Object o) {
+        return (o == null) ? "" : o.toString();
+    }
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -119,6 +123,72 @@ select {
 
 .btn-sm { padding:3px 8px; font-size:12px; }
 
+.confirmed-row {
+    background-color: #edf7ed;   /* soft green */
+    border-left: 4px solid #28a745;
+    transition: all 0.2s ease;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 8px; /* vertical gap between rows */
+}
+
+/* Row base */
+.confirmed-row td {
+   
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Left curve */
+.confirmed-row td:first-child {
+    border-left: 10px solid #28a745;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Right curve */
+.confirmed-row td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+
+/* Smooth feel */
+.confirmed-row td {
+    transition: all 0.2s ease;
+}
+
+
+
+/*rejected row*/
+
+
+.rej-row td {
+   
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Left curve */
+.rej-row td:first-child {
+    border-left: 10px solid red;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+/* Right curve */
+.rej-row td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+
+/* Smooth feel */
+.rej-row td {
+    transition: all 0.2s ease;
+}
 </style>
 </head>
 
@@ -161,7 +231,11 @@ int i = 1;
 for(Map<String,String> row:list){
 %>
 
-<tr data-id="<%=row.get("id")%>">
+<tr class="<%= 
+    "Confirmed".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "confirmed-row" : 
+    "Widthdrawn".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "rej-row" : 
+    "" 
+%>">
 
 <td><%=i++%></td>
 
