@@ -252,6 +252,7 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
           <a href="Seatmatrix.jsp"><i class="fas fa-table"></i> Seat Matrix</a>
           <a href="Counselling"><i class="fas fa-user-graduate"></i> Counselling</a>
           <a href="SeatAllotmentReport"><i class="fas fa-chart-bar"></i> Seat Allotement Report</a>
+          <a href="GiveAdmission"><i class="fas fa-user-check text-success"></i> Give Admission</a>
      
          <% }  %>
        
