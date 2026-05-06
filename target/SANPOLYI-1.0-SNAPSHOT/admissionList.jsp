@@ -50,7 +50,7 @@ input, textarea, select {
 <body>
 
 <%@ include file="header.jsp" %>
-<%@ include file="Admissionheader.jsp" %>
+
 <h4>SANPOLY - Admission Records</h4>
 
 <div class="table-wrapper">

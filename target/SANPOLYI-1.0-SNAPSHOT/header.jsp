@@ -68,7 +68,7 @@
 }
 
 .adm-title {
-    font-size:22px;
+    font-size:14px;
     font-weight:700;
     color:#002147;
     letter-spacing:0.4px;
@@ -137,7 +137,7 @@ header { position: fixed; top: 0; left: 250px; right: 0; height: 75px; backgroun
 .user-meta .u-name { font-size: 13px; font-weight: 700; color: #0f2a4d; }
 .user-meta .u-role { font-size: 10px; font-weight: 600; color: #3b82f6; }
 
-main { margin-left: 250px; padding: 110px 30px 40px; transition: margin-left 0.3s ease; }
+main { margin-left: 250px; padding: 80px 30px 10px; transition: margin-left 0.3s ease; }
 footer { position: fixed; bottom: 0; left: 250px; right: 0; background: #ffffff; color: #64748b; text-align: center; padding: 12px 10px; font-size: 13px; border-top: 1px solid #e2e8f0; transition: left 0.3s ease; z-index: 1000; }
 body.sidebar-collapsed header { left: 0; }
 body.sidebar-collapsed main { margin-left: 0; }
@@ -300,21 +300,21 @@ if ("Global".equalsIgnoreCase(roles.trim()) ||
 
 
    <div class="adm-header">
-    <div style="margin-top:10px;">
-        <h2 style="margin-bottom:5px;">
+    <div style="margin-top:1px;">
+        <h6 style="margin-bottom:1px;">
             Welcome back, <%= users.toUpperCase() %>
-        </h2>
+        </h6>
          
 
         <!-- LEFT -->
         <div class="adm-left">
-            <div class="adm-breadcrumb" id="admBreadcrumb"></div>
+            
             <div class="adm-title" id="admPageTitle"></div>
         </div>
   
     </div>
 
-        <p style="color:#64748b; font-size:14px;">
+        <p style="color:#64748b; font-size:10px;">
             Current Session: <%= todayDate %>
         </p>
     </div>

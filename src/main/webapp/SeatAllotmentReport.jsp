@@ -219,7 +219,7 @@ for(String branch : grouped.keySet()){
             <span class="badge badge-light">SC: <%= SC %></span>
             <span class="badge badge-light">ST: <%= ST %></span>
             <span class="badge badge-light">EQ: <%= EQ %></span>
-            <span class="badge badge-light">EQ: <%= MQ %></span>
+            <span class="badge badge-light">MQ: <%= MQ %></span>
             <span class="badge badge-light">OS: <%= OS %></span>
         </div>
     </div>
