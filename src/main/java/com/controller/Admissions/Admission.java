@@ -128,6 +128,7 @@ public class Admission extends HttpServlet {
                 row.put("Special_Catg", rs.getString("Special_Catg"));
                 row.put("Segment", rs.getString("Segment"));
                 row.put("Admitted_Status", rs.getString("Admitted_Status"));
+                row.put("Admitted_date", rs.getString("Admitted_date"));
                 // Timestamp
                 row.put("created_at", rs.getTimestamp("created_at"));
 
@@ -154,14 +155,15 @@ public class Admission extends HttpServlet {
 
             String idStr = request.getParameter("id");
             String status = request.getParameter("status"); // ✅ correct param
-
+            String ad_date = request.getParameter("ad_date");
             int id = Integer.parseInt(idStr);
 
-            String updateSql = "UPDATE admission_form SET Admitted_Status=? WHERE id=?";
+            String updateSql = "UPDATE admission_form SET Admitted_Status=?, Admitted_date=? WHERE id=?";
             PreparedStatement ps = con.prepareStatement(updateSql);
 
-            ps.setString(1, status); // ✅ only 2 params
-            ps.setInt(2, id);
+            ps.setString(1, status); 
+            ps.setString(2, ad_date); // ✅ only 2 params
+            ps.setInt(3, id);
 
             ps.executeUpdate();
 

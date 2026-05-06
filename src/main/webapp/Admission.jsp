@@ -249,6 +249,8 @@ for(String branch : grouped.keySet()){
         <th class="col-branch">Category</th>
         <th class="col-branch">Special Catg</th>
       <th class="col-status">Admission Status</th>
+      <th class="col-status">Date</th>
+      <th class="col-status">Action</th>
     </tr>
     </thead>
 
@@ -296,14 +298,27 @@ for(Map<String,Object> row : students){
         Pending
     </option>
 </select>
-
+</td>
+<td>
+<input type="date"
+       id="date_<%= row.get("id") %>"
+       class="form-control form-control-sm mt-1"
+       <%= isGiven ? "disabled" : "" %>
+       value="<%= val(row.get("Admitted_date")).length() >= 10 
+                ? val(row.get("Admitted_date")).substring(0,10) 
+                : "" %>">
+                </td>
+                <td>
 <% if (!isGiven) { %>
-    <button class="btn btn-sm btn-primary"
-        id="btn_<%= val(row.get("id")) %>"
-        onclick="saveStatus('<%= val(row.get("id")) %>')">
+    <button class="btn btn-sm btn-primary mt-1"
+        id="btn_<%= row.get("id") %>"
+        onclick="saveStatus('<%= row.get("id") %>')">
         Save
     </button>
+<% } else { %>
+    
 <% } %>
+
 
 </td>
   
@@ -333,12 +348,19 @@ for(Map<String,Object> row : students){
 function saveStatus(id) {
 
     let select = document.getElementById("status_" + id);
+    let dateInput = document.getElementById("date_" + id);
     let button = document.getElementById("btn_" + id);
 
     let status = select.value;
+    let ad_date = dateInput.value;
 
     if (!status) {
         alert("Please select status");
+        return;
+    }
+
+    if (status === "Admission Given" && !ad_date) {
+        alert("Please select admission date");
         return;
     }
 
@@ -347,21 +369,25 @@ function saveStatus(id) {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: "id=" + id + "&status=" + encodeURIComponent(status)
+        body: "id=" + id 
+            + "&status=" + encodeURIComponent(status)
+            + "&ad_date=" + encodeURIComponent(ad_date)
     })
     .then(res => res.text())
     .then(data => {
 
         if (data.trim() === "OK") {
+
             alert("Updated successfully");
 
-            // ✅ Disable after Admission Given
             if (status === "Admission Given") {
                 select.disabled = true;
-                button.disabled = true;
-                button.classList.remove("btn-primary");
-                button.classList.add("btn-success");
-                button.innerText = "Locked";
+                dateInput.disabled = true;
+
+                if (button) button.style.display = "none";
+
+                select.insertAdjacentHTML("afterend",
+                    '<span class="badge badge-success ml-2"></span>');
             }
 
         } else {
