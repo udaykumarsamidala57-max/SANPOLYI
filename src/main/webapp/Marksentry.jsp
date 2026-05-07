@@ -126,7 +126,7 @@ String id=row.get("id");
 <td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc" readonly></td>
 <%} %>
 
-<% if("1Academics".equalsIgnoreCase(role)||"1Global".equalsIgnoreCase(role)){%>
+<% if("Academics".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td>
     <select name="Attendance" class="form-control editable" disabled>
         <option value="P" <%= "P".equals(row.get("Attendance")) ? "selected" : "" %>>P</option>
