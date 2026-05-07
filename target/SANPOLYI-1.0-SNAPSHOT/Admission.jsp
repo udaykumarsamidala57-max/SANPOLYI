@@ -66,7 +66,7 @@ table {
 
 th,td {
     border:1px solid #e0e0e0;
-    padding:6px;
+    padding:4px;
     font-size:13px;
     text-align:center;
     white-space:nowrap;
@@ -85,17 +85,17 @@ tbody tr:hover{
 }
 
 .col-rank{width:60px;}
-.col-app{width:120px;}
-.col-cast{width:100px;}
+.col-app{width:80px;}
+.col-cast{width:80px;}
 .col-name{width:180px;}
-.col-gender{width:80px;}
+.col-gender{width:60px;}
 .col-adm{width:120px;}
 .col-father{width:180px;}
 .col-occ{width:150px;}
-.col-phone{width:130px;}
-.col-total{width:120px;}
-.col-branch{width:150px;}
-
+.col-phone{width:100px;}
+.col-total{width:80px;}
+.col-branch{width:80px;}
+.col-status{width:120px;}
 .table-wrapper { overflow-x:auto; }
 
 </style>
@@ -166,11 +166,15 @@ for(String branch : grouped.keySet()){
     int MQ = 0;
     int OS = 0;
     int GM = 0;
+    int Total = 0;
     
     for(Map<String,Object> r : students){
         String type = val(r.get("Admission_type")).toLowerCase();
         String seg = val(r.get("Segment")).toUpperCase();
-        
+        String adm = val(r.get("Admitted_Status")).toUpperCase();
+       
+        if(adm.contains("ADMISSION GIVEN")){
+        	 Total++;
         if(seg.contains("SC")){
         	SC++;
         } else if(seg.contains("ST")){
@@ -189,6 +193,8 @@ for(String branch : grouped.keySet()){
             residential++;
         } else if(type.contains("day")){
             dayScholar++;
+        }
+        
         }
     }
     
@@ -212,7 +218,7 @@ for(String branch : grouped.keySet()){
         <div><b>Branch:</b> <%= branch %></div>
 
         <div class="badge-box">
-            <span class="badge badge-light">Total: <%= students.size() %></span>
+            <span class="badge badge-light">Total: <%= Total %></span>
             <span class="badge badge-success">Residential: <%= residential %></span>
             <span class="badge badge-primary">Day Scholar: <%= dayScholar %></span>
             <span class="badge badge-light">GM: <%= GM %></span>
@@ -230,19 +236,21 @@ for(String branch : grouped.keySet()){
     <tr>
         <th class="col-rank">S.No</th>
         <th class="col-app">APPNO</th>
-        <th class="col-cast">Cast No</th>
+      
         <th class="col-name">Name</th>
-        <th class="col-gender">Gender</th>
-        <th class="col-adm">Admission</th>
+        
+        
         <th class="col-father">Father Name</th>
-        <th class="col-occ">Occupation</th>
+
         <th class="col-phone">Phone</th>
-        <th class="col-phone">Whatsapp</th>
+        
         <th class="col-total">Total</th>
         <th class="col-branch">Branch</th>
         <th class="col-branch">Category</th>
         <th class="col-branch">Special Catg</th>
-      <th class="col-branch">Admission Status</th>
+      <th class="col-status">Admission Status</th>
+      <th class="col-status">Date</th>
+      <th class="col-status">Action</th>
     </tr>
     </thead>
 
@@ -256,36 +264,62 @@ for(Map<String,Object> row : students){
 
 <tr>
     <td><%= rank++ %></td>
-    <td><%= val(row.get("APPNO")) %></td>
-    <td><%= val(row.get("cast_no")) %></td>
-    <td style="text-align:left;"><%= val(row.get("applicant_name")) %></td>
-    <td><%= val(row.get("gender")) %></td>
-    <td><%= val(row.get("Admission_type")) %></td>
-    <td style="text-align:left;"><%= val(row.get("father_guardian_name")) %></td>
-    <td><%= val(row.get("father_occupation")) %></td>
-    <td><%= val(row.get("phone_no")) %></td>
-    <td><%= val(row.get("Whatsapp_no")) %></td>
+    <td><%= val(row.get("APPNO")) %><br><%= val(row.get("cast_no")) %></td>
+    
+    <td style="text-align:left;"><%= val(row.get("applicant_name")) %> (<%= val(row.get("gender")) %>)<br><%= val(row.get("Admission_type")) %></td>
+
+   
+    <td style="text-align:left;"><%= val(row.get("father_guardian_name")) %><br><%= val(row.get("father_occupation")) %></td>
+   
+    <td><%= val(row.get("phone_no")) %><br><%= val(row.get("Whatsapp_no")) %></td>
+   
     <td><b><%= val(row.get("Total")) %></b></td>
     <td><%= val(row.get("Seat_Allot")) %></td>
     <td><%= val(row.get("Segment")) %></td>
     <td><%= val(row.get("Special_Catg")) %></td>
-    <td>
-    <select id="status_<%= val(row.get("id")) %>">
-        <option value="">Select</option>
-        <option value="Admission Given"
-            <%= "Admission Given".equals(val(row.get("Admitted_Status"))) ? "selected" : "" %>>
-            Admission Given
-        </option>
-        <option value="Pending"
-            <%= "Pending".equals(val(row.get("Admitted_Status"))) ? "selected" : "" %>>
-            Pending
-        </option>
-    </select>
+   <td>
+<%
+    String currentStatus = val(row.get("Admitted_Status"));
+    boolean isGiven = "Admission Given".equals(currentStatus);
+%>
 
-    <button class="btn btn-sm btn-primary"
-        onclick="saveStatus('<%= val(row.get("id")) %>')">
+<select id="status_<%= val(row.get("id")) %>"
+        <%= isGiven ? "disabled" : "" %>>
+    
+    <option value="">Select</option>
+
+    <option value="Admission Given"
+        <%= "Admission Given".equals(currentStatus) ? "selected" : "" %>>
+        Admission Given
+    </option>
+
+    <option value="Pending"
+        <%= "Pending".equals(currentStatus) ? "selected" : "" %>>
+        Pending
+    </option>
+</select>
+</td>
+<td>
+<input type="date"
+       id="date_<%= row.get("id") %>"
+       class="form-control form-control-sm mt-1"
+       <%= isGiven ? "disabled" : "" %>
+       value="<%= val(row.get("Admitted_date")).length() >= 10 
+                ? val(row.get("Admitted_date")).substring(0,10) 
+                : "" %>">
+                </td>
+                <td>
+<% if (!isGiven) { %>
+    <button class="btn btn-sm btn-primary mt-1"
+        id="btn_<%= row.get("id") %>"
+        onclick="saveStatus('<%= row.get("id") %>')">
         Save
     </button>
+<% } else { %>
+    
+<% } %>
+
+
 </td>
   
 
@@ -314,26 +348,48 @@ for(Map<String,Object> row : students){
 function saveStatus(id) {
 
     let select = document.getElementById("status_" + id);
+    let dateInput = document.getElementById("date_" + id);
+    let button = document.getElementById("btn_" + id);
+
     let status = select.value;
+    let ad_date = dateInput.value;
 
     if (!status) {
         alert("Please select status");
         return;
     }
 
-    fetch("UpdateAdmissionStatusServlet", {
+    if (status === "Admission Given" && !ad_date) {
+        alert("Please select admission date");
+        return;
+    }
+
+    fetch("<%= request.getContextPath() %>/GiveAdmission", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: "id=" + id + "&status=" + encodeURIComponent(status)
+        body: "id=" + id 
+            + "&status=" + encodeURIComponent(status)
+            + "&ad_date=" + encodeURIComponent(ad_date)
     })
     .then(res => res.text())
     .then(data => {
-        console.log("Response:", data);
 
         if (data.trim() === "OK") {
+
             alert("Updated successfully");
+
+            if (status === "Admission Given") {
+                select.disabled = true;
+                dateInput.disabled = true;
+
+                if (button) button.style.display = "none";
+
+                select.insertAdjacentHTML("afterend",
+                    '<span class="badge badge-success ml-2"></span>');
+            }
+
         } else {
             alert("Update failed: " + data);
         }
