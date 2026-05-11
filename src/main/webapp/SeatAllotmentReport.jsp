@@ -99,7 +99,7 @@ tbody tr:hover{
 .table-wrapper { overflow-x:auto; }
 
 </style>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 function downloadExcel() {
     let content = document.getElementById("exportArea").innerHTML;
@@ -114,6 +114,50 @@ function downloadExcel() {
 
     URL.revokeObjectURL(url);
 }
+//==========================
+//TABLE SEARCH
+//==========================
+
+$(document).ready(function () {
+
+    $("#tableSearch").on("keyup", function () {
+
+        let value = $(this).val().toLowerCase().trim();
+
+        $(".branch-card").each(function () {
+
+            let card = $(this);
+            let found = false;
+
+            card.find("tbody tr").each(function () {
+
+                let rowText = $(this).text().toLowerCase();
+
+                if (rowText.indexOf(value) > -1 || value === "") {
+
+                    this.style.display = "table-row";
+                    found = true;
+
+                } else {
+
+                    this.style.display = "none";
+
+                }
+
+            });
+
+            // ✅ hide/show complete branch section
+            if (found) {
+                card.show();
+            } else {
+                card.hide();
+            }
+
+        });
+
+    });
+
+});
 </script>
 
 </head>
@@ -125,6 +169,20 @@ function downloadExcel() {
 <div class="d-flex justify-content-between align-items-center mb-3">
     
     <button class="btn btn-success btn-sm" onclick="downloadExcel()">Download Excel</button>
+</div>
+<div style="margin-bottom:10px; display:flex; justify-content:flex-end;">
+
+    <input type="text"
+           id="tableSearch"
+           class="form-control"
+           placeholder="Search App No / Name / Phone..."
+           style="
+                width:300px;
+                border-radius:20px;
+                padding:8px 15px;
+                font-size:13px;
+                border:1px solid #ccc;
+           ">
 </div>
 
 <div id="exportArea" class="table-wrapper">
@@ -224,7 +282,7 @@ for(String branch : grouped.keySet()){
         </div>
     </div>
 
-    <table class="table table-sm">
+    <table class="table table-sm searchTable">
 
     <thead>
     <tr>
