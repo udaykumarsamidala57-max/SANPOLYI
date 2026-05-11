@@ -23,7 +23,7 @@ if (!"Global".equalsIgnoreCase(role)) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Counselling - Seat Allotment</title>
+<title>Conf & Canc </title>
 
 <link rel="stylesheet"
  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -73,7 +73,7 @@ thead th {
     z-index:2;
 }
 
-.col-rank { width:4%; }
+.col-rank { width:8%; }
 .col-app  { width:8%; }
 .col-name { width:20%; }
 .col-total{ width:6%; }
@@ -239,7 +239,28 @@ table {
 <div class="col-lg-8">
 <div class="main-box">
 
-<table class="table table-bordered table-hover table-sm">
+<div style="margin-bottom:10px; display:flex; justify-content:flex-end;">
+
+    <input type="text"
+           id="tableSearch"
+           class="form-control"
+           placeholder="Search App No / Name / Phone..."
+           style="
+                width:300px;
+                border-radius:20px;
+                padding:8px 15px;
+                font-size:13px;
+                border:1px solid #ccc;
+           ">
+
+</div>
+<center>
+<a href="Counselling"><i class="fas fa-user-graduate"></i> Counselling</a>&nbsp&nbsp&nbsp&nbsp
+          <a href="WaitingList"><i class="fas fa-user-graduate"></i>Waiting List</a>&nbsp&nbsp&nbsp&nbsp
+          <a href="Cancelled"><i class="fas fa-user-graduate"></i>Cnf & Cancl</a>
+          </center>
+<table id="waitingTable"
+       class="table table-bordered table-hover table-sm">
 
 <thead>
 <tr>
@@ -256,8 +277,10 @@ table {
 </thead>
 
 <tbody>
+
 <%
-List<Map<String,String>> lists = (List<Map<String,String>>)request.getAttribute("data");
+List<Map<String,String>> lists =
+(List<Map<String,String>>)request.getAttribute("data");
 
 // ✅ COUNT LOGIC HERE
 int dayScholarCount = 0;
@@ -265,53 +288,134 @@ int residentialCount = 0;
 int RM = 0;
 int RF = 0;
 int T = 0;
-for(Map<String,String> r : lists){   // 🔥 use different variable name
+
+for(Map<String,String> r : lists){
 
     String status = val(r.get("Status_Allot"));
     String admissionType = val(r.get("Admission_type"));
     String gender = val(r.get("gender"));
-    String Total = val(r.get("Confirmed"));
 
     if("Confirmed".equalsIgnoreCase(status)){
-    	     T++;
+
+        T++;
+
         if("Dayscholar".equalsIgnoreCase(admissionType)){
             dayScholarCount++;
-            
+
         }else if("Residential".equalsIgnoreCase(admissionType)){
+
             residentialCount++;
+
             if("F".equalsIgnoreCase(gender)){
-            	RF++;
-            }
-            else{
-            	RM++;
+                RF++;
+            }else{
+                RM++;
             }
         }
     }
 }
-
-
 %>
-
-
-
 
 
 <%
-List<Map<String,String>> list = (List<Map<String,String>>)request.getAttribute("data");
-int i = 1;
+List<Map<String,String>> list =
+(List<Map<String,String>>)request.getAttribute("data");
 
-for(Map<String,String> row:list){
+// 🔥 GROUP ORDER
+String[] groupBranches = {"ME","EE","CS","EC","CE",""};
+
+Map<String,Integer> wlCounter = new HashMap<>();
+
+
+for(String grpBranch : groupBranches){
+
+    boolean headingShown = false;
+
+    for(int i=0; i<list.size(); i++){
+
+        Map<String,String> row = list.get(i);
+
+        String rowStatus = val(row.get("Status_Allot")).trim();
+        String seatAllot = val(row.get("Seat_Allot")).trim();
+
+        // 🔥 SHOW ONLY WAITING LIST + EMPTY BRANCH
+     if (
+    "Cancelled".equalsIgnoreCase(rowStatus) ||
+    "Widthdrawn".equalsIgnoreCase(rowStatus) ||
+    "Waiting List".equalsIgnoreCase(rowStatus) ||
+    (
+        !"Waiting List".equalsIgnoreCase(rowStatus)
+        && seatAllot.length() > 0
+    )
+) {
+    continue;
+}
+
+        // 🔥 GROUP FILTER
+        if(!grpBranch.equalsIgnoreCase(seatAllot)){
+            continue;
+        }
+
+        // 🔥 SHOW HEADING ONCE
+        if(!headingShown){
 %>
 
-<tr data-id="<%= row.get("id") %>" 
+<tr style="background:#002147;color:white;">
+    <td colspan="9"
+        style="font-weight:bold;font-size:14px;text-align:left;">
+
+        <%= grpBranch.length() == 0
+            ? "UNASSIGNED"
+            : grpBranch %>
+
+        - WAITING LIST
+
+    </td>
+</tr>
+
+<%
+            headingShown = true;
+        }
+%>
+
+<tr data-id="<%= row.get("id") %>"
 class="<%= 
-    "Confirmed".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "confirmed-row" : 
-    "Widthdrawn".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "rej-row" : 
-    	"Waiting List".equalsIgnoreCase(val(row.get("Status_Allot"))) ? "wait-row" : 
-    "" 
+    "Waiting List".equalsIgnoreCase(rowStatus)
+        ? "wait-row"
+        : ""
 %>">
 
-<td><%=i++%></td>
+<%
+String segment = val(row.get("Segment")).trim();
+
+//🔥 branch + category key
+String wlKey = grpBranch + "_" + segment;
+
+int waitNo = wlCounter.getOrDefault(wlKey, 0) + 1;
+
+wlCounter.put(wlKey, waitNo);
+%>
+
+<td style="text-align:center;">
+
+    <div style="font-weight:bold; color:#000;">
+        <%=i+1%>
+    </div>
+
+    <div style="
+        margin-top:3px;
+        display:inline-block;
+        padding:2px 8px;
+        border-radius:4px;
+        background:#02A0EB;
+        color:#fff;
+        font-size:11px;
+        font-weight:bold;
+    ">
+        <%=segment%> / WL <%=waitNo%>
+    </div>
+
+</td>
 
 <td>
     <%=row.get("APPNO")%><br>
@@ -319,69 +423,189 @@ class="<%=
 </td>
 
 <td class="name-cell" title="<%=row.get("name")%>">
-    <b><%=row.get("name")%> (<%=row.get("gender")%>)</b><br>
-    <%=row.get("phone_no")%>,<%=row.get("Whatsapp_no")%><br>
+
+    <b>
+        <%=row.get("name")%>
+        (<%=row.get("gender")%>)
+    </b><br>
+
+    <%=row.get("phone_no")%>,
+    <%=row.get("Whatsapp_no")%><br>
+
     <%=row.get("Admission_type")%><br>
-    <%=row.get("preference_1")%> |<%=row.get("preference_2")%>| <%=row.get("preference_3")%>| <%=row.get("preference_4")%>| <%=row.get("preference_5")%>
-    
+
+    <%=row.get("preference_1")%> |
+    <%=row.get("preference_2")%> |
+    <%=row.get("preference_3")%> |
+    <%=row.get("preference_4")%> |
+    <%=row.get("preference_5")%>
+
 </td>
 
-<td><b><%=row.get("Total")%></b></td>
+<td>
+    <b><%=row.get("Total")%></b>
+</td>
 
 <td>
 <select class="form-control seat editable" disabled>
+
 <option value="">Select</option>
-<option value="ME" <%= "ME".equals(row.get("Seat_Allot"))?"selected":"" %>>ME</option>
-<option value="EE" <%= "EE".equals(row.get("Seat_Allot"))?"selected":"" %>>EE</option>
-<option value="CS" <%= "CS".equals(row.get("Seat_Allot"))?"selected":"" %>>CS</option>
-<option value="EC" <%= "EC".equals(row.get("Seat_Allot"))?"selected":"" %>>EC</option>
-<option value="CE" <%= "CE".equals(row.get("Seat_Allot"))?"selected":"" %>>CE</option>
+
+<option value="ME"
+<%= "ME".equals(row.get("Seat_Allot"))?"selected":"" %>>
+ME
+</option>
+
+<option value="EE"
+<%= "EE".equals(row.get("Seat_Allot"))?"selected":"" %>>
+EE
+</option>
+
+<option value="CS"
+<%= "CS".equals(row.get("Seat_Allot"))?"selected":"" %>>
+CS
+</option>
+
+<option value="EC"
+<%= "EC".equals(row.get("Seat_Allot"))?"selected":"" %>>
+EC
+</option>
+
+<option value="CE"
+<%= "CE".equals(row.get("Seat_Allot"))?"selected":"" %>>
+CE
+</option>
+
 </select>
 </td>
 
 <td>
 
 <select class="form-control segment editable" disabled>
+
 <option value="">Select</option>
-<option value="GM" <%= "GM".equals(row.get("Segment"))?"selected":"" %>>GM</option>
-<option value="SC" <%= "SC".equals(row.get("Segment"))?"selected":"" %>>SC</option>
-<option value="ST" <%= "ST".equals(row.get("Segment"))?"selected":"" %>>ST</option>
-<option value="OS" <%= "OS".equals(row.get("Segment"))?"selected":"" %>>OS</option>
-<option value="MQ" <%= "MQ".equals(row.get("Segment"))?"selected":"" %>>MQ</option>
-<option value="EQ" <%= "EQ".equals(row.get("Segment"))?"selected":"" %>>EQ</option>
+
+<option value="GM"
+<%= "GM".equals(row.get("Segment"))?"selected":"" %>>
+GM
+</option>
+
+<option value="SC"
+<%= "SC".equals(row.get("Segment"))?"selected":"" %>>
+SC
+</option>
+
+<option value="ST"
+<%= "ST".equals(row.get("Segment"))?"selected":"" %>>
+ST
+</option>
+
+<option value="OS"
+<%= "OS".equals(row.get("Segment"))?"selected":"" %>>
+OS
+</option>
+
+<option value="MQ"
+<%= "MQ".equals(row.get("Segment"))?"selected":"" %>>
+MQ
+</option>
+
+<option value="EQ"
+<%= "EQ".equals(row.get("Segment"))?"selected":"" %>>
+EQ
+</option>
+
 </select>
+
 </td>
 
 <td>
+
 <select class="form-control spcat editable" disabled>
+
 <option value="">Select</option>
-<option value="General" <%= "General".equals(row.get("Special_Catg"))?"selected":"" %>>General</option>
-<option value="Arjas" <%= "Arjas".equals(row.get("Special_Catg"))?"selected":"" %>>Arjas</option>
-<option value="SMIORE" <%= "SMIORE".equals(row.get("Special_Catg"))?"selected":"" %>>SMIORE</option>
-<option value="SVPS" <%= "SVPS".equals(row.get("Special_Catg"))?"selected":"" %>>SVPS</option>
-<option value="SC" <%= "SC".equals(row.get("Special_Catg"))?"selected":"" %>>SC</option>
-<option value="ST" <%= "ST".equals(row.get("Special_Catg"))?"selected":"" %>>ST</option>
+
+<option value="General"
+<%= "General".equals(row.get("Special_Catg"))?"selected":"" %>>
+General
+</option>
+
+<option value="Arjas"
+<%= "Arjas".equals(row.get("Special_Catg"))?"selected":"" %>>
+Arjas
+</option>
+
+<option value="SMIORE"
+<%= "SMIORE".equals(row.get("Special_Catg"))?"selected":"" %>>
+SMIORE
+</option>
+
+<option value="SVPS"
+<%= "SVPS".equals(row.get("Special_Catg"))?"selected":"" %>>
+SVPS
+</option>
+
+<option value="SC"
+<%= "SC".equals(row.get("Special_Catg"))?"selected":"" %>>
+SC
+</option>
+
+<option value="ST"
+<%= "ST".equals(row.get("Special_Catg"))?"selected":"" %>>
+ST
+</option>
+
 </select>
+
 </td>
 
 <td>
+
 <select class="form-control status editable" disabled>
+
 <option value="">Select</option>
-<option value="Confirmed" <%= "Confirmed".equals(row.get("Status_Allot"))?"selected":"" %>>Confirmed</option>
-<option value="Waiting List" <%= "Waiting List".equals(row.get("Status_Allot"))?"selected":"" %>>Waiting List</option>
-<option value="Widthdrawn" <%= "Widthdrawn".equals(row.get("Status_Allot"))?"selected":"" %>>Widthdrawn</option>
-<option value="Cancelled" <%= "Cancelled".equals(row.get("Status_Allot"))?"selected":"" %>>Cancelled</option>
+
+<option value="Confirmed"
+<%= "Confirmed".equals(row.get("Status_Allot"))?"selected":"" %>>
+Confirmed
+</option>
+
+<option value="Waiting List"
+<%= "Waiting List".equals(row.get("Status_Allot"))?"selected":"" %>>
+Waiting List
+</option>
+
+<option value="Widthdrawn"
+<%= "Widthdrawn".equals(row.get("Status_Allot"))?"selected":"" %>>
+Widthdrawn
+</option>
+
+<option value="Cancelled"
+<%= "Cancelled".equals(row.get("Status_Allot"))?"selected":"" %>>
+Cancelled
+</option>
+
 </select>
+
 </td>
 
 <td>
-<button class="btn btn-primary btn-sm editBtn">Edit</button>
-<button class="btn btn-success btn-sm saveBtn" style="display:none;">Save</button>
+    <button class="btn btn-primary btn-sm editBtn">
+        Edit
+    </button>
+
+    <button class="btn btn-success btn-sm saveBtn"
+            style="display:none;">
+        Save
+    </button>
 </td>
 
 </tr>
 
-<% } %>
+<%
+    }
+}
+%>
 
 </tbody>
 </table>
@@ -704,6 +928,27 @@ function saveData(row, branch, segment, spcat, status) {
         }
     });
 }
+//==========================
+//TABLE SEARCH
+//==========================
+$("#tableSearch").on("keyup", function () {
+
+let value = $(this).val().toLowerCase();
+
+$("#waitingTable tbody tr").filter(function () {
+
+ // keep branch heading rows visible
+ if ($(this).find("td[colspan='9']").length > 0) {
+     $(this).show();
+     return;
+ }
+
+ $(this).toggle(
+     $(this).text().toLowerCase().indexOf(value) > -1
+ );
+});
+
+});
 </script>
 
 </body>

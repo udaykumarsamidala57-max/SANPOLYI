@@ -85,16 +85,16 @@ tbody tr:hover{
 }
 
 .col-rank{width:60px;}
-.col-app{width:120px;}
-.col-cast{width:100px;}
+.col-app{width:80px;}
+.col-cast{width:80px;}
 .col-name{width:180px;}
-.col-gender{width:80px;}
+.col-gender{width:60px;}
 .col-adm{width:120px;}
 .col-father{width:180px;}
 .col-occ{width:150px;}
 .col-phone{width:130px;}
-.col-total{width:120px;}
-.col-branch{width:150px;}
+.col-total{width:80px;}
+.col-branch{width:80px;}
 
 .table-wrapper { overflow-x:auto; }
 

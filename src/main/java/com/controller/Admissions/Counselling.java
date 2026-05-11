@@ -136,6 +136,7 @@ public class Counselling extends HttpServlet {
         request.setAttribute("seatMap", seatMap);
 
         request.getRequestDispatcher("Counselling.jsp").forward(request, response);
+      
     }
 
     // ============================
