@@ -274,7 +274,8 @@ table {
 
     <a href="SeatAllotmentReport">
         <i class="fas fa-chart-bar"></i> Seat Allotment Report
-    </a>
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="GiveAdmission"><i class="fas fa-user-check text-success"></i> Give Admission</a>
 </center>
 <table id="waitingTable"
        class="table table-bordered table-hover table-sm">

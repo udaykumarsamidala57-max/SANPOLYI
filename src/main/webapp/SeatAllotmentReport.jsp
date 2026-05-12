@@ -190,6 +190,8 @@ $(document).ready(function () {
     <a href="SeatAllotmentReport">
         <i class="fas fa-chart-bar"></i> Seat Allotment Report
     </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="GiveAdmission"><i class="fas fa-user-check text-success"></i> Give Admission</a>
 </center>
 <div style="margin-bottom:10px; display:flex; justify-content:flex-end;">
 
