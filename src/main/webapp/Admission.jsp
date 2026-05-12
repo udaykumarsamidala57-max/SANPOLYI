@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Seat Allotment Report</title>
+<title>Admissions Report</title>
 
 <%
 HttpSession sess = request.getSession(false);
@@ -19,7 +19,7 @@ if (sess == null || sess.getAttribute("username") == null) {
     return;
 }
 String role = (String) sess.getAttribute("role");
-
+String user = (String) sess.getAttribute("username");
 if (!"Global".equalsIgnoreCase(role)) {
     out.println("<h3 style='color:red;text-align:center;'>Access Denied!</h3>");
     return;
@@ -488,6 +488,7 @@ for(Map<String,Object> row : students){
         Pending
     </option>
 </select>
+
 </td>
 <td>
 <input type="date"
@@ -500,14 +501,18 @@ for(Map<String,Object> row : students){
                 </td>
                 <td>
 <% if (!isGiven) { %>
+<% if("VENKATESH".equalsIgnoreCase(user)) {%>
     <button class="btn btn-sm btn-primary mt-1"
         id="btn_<%= row.get("id") %>"
         onclick="saveStatus('<%= row.get("id") %>')">
         Save
     </button>
-<% } else { %>
-    
-<% } %>
+    <% }else { %>
+    Access Only for Venkatesh
+    <% } %>
+ <% } else { %>
+   Access Only for Venkatesh
+ <% } %>
 
 
 </td>
