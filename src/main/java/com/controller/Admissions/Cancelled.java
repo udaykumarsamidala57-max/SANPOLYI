@@ -136,6 +136,7 @@ public class Cancelled extends HttpServlet {
         request.setAttribute("seatMap", seatMap);
 
         request.getRequestDispatcher("Cancelled.jsp").forward(request, response);
+        
       
     }
 

@@ -254,10 +254,26 @@ table {
 
 </div>
 <center>
-<a href="Counselling"><i class="fas fa-user-graduate"></i> Counselling</a>&nbsp&nbsp&nbsp&nbsp
-          <a href="WaitingList"><i class="fas fa-user-graduate"></i>Waiting List</a>&nbsp&nbsp&nbsp&nbsp
-          <a href="Cancelled"><i class="fas fa-user-graduate"></i>Cnf & Cancl</a>
-          </center>
+    <a href="Counselling">
+        <i class="fas fa-user-graduate"></i> Counselling
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="WaitingList">
+        <i class="fas fa-clock"></i> Waiting List
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="Confirmed">
+        <i class="fas fa-check-circle"></i> Confirmed
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="Cancelled">
+        <i class="fas fa-times-circle"></i> Cancelled
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="SeatAllotmentReport">
+        <i class="fas fa-chart-bar"></i> Seat Allotment Report
+    </a>
+</center>
 <table id="waitingTable"
        class="table table-bordered table-hover table-sm">
 

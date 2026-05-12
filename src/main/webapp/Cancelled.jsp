@@ -29,7 +29,7 @@ if (!"Global".equalsIgnoreCase(role)) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Confirmed and Cancelled</title>
+<title>Cancelled</title>
 
 <link rel="stylesheet"
  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -260,10 +260,26 @@ table {
 
 </div>
 <center>
-<a href="Counselling"><i class="fas fa-user-graduate"></i> Counselling</a>&nbsp&nbsp&nbsp&nbsp
-          <a href="WaitingList"><i class="fas fa-user-graduate"></i>Waiting List</a>&nbsp&nbsp&nbsp&nbsp
-          <a href="Cancelled"><i class="fas fa-user-graduate"></i>Cnf & Cancl</a>
-          </center>
+    <a href="Counselling">
+        <i class="fas fa-user-graduate"></i> Counselling
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="WaitingList">
+        <i class="fas fa-clock"></i> Waiting List
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="Confirmed">
+        <i class="fas fa-check-circle"></i> Confirmed
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="Cancelled">
+        <i class="fas fa-times-circle"></i> Cancelled
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="SeatAllotmentReport">
+        <i class="fas fa-chart-bar"></i> Seat Allotment Report
+    </a>
+</center>
 <table class="table table-bordered table-hover table-sm">
 
 <thead>
@@ -332,9 +348,8 @@ for(int i=0; i<list.size(); i++){
 
     // 🔥 HIDE ROWS IN TABLE ONLY
     if(
-         rowStatus == null ||
-        "Waiting List".equalsIgnoreCase(rowStatus)||
-        "".equalsIgnoreCase(rowStatus)
+    		 !"Cancelled".equalsIgnoreCase(rowStatus)&&
+    		 !"Widthdrawn".equalsIgnoreCase(rowStatus)
      
     ){
         continue;

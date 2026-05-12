@@ -23,7 +23,7 @@ if (!"Global".equalsIgnoreCase(role)) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Counselling - Seat Allotment</title>
+<title>Counselling - Seat Allotment </title>
 
 <link rel="stylesheet"
  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -239,7 +239,29 @@ table {
 <div class="col-lg-8">
 <div class="main-box">
 
-<table class="table table-bordered table-hover table-sm">
+<div style="margin-bottom:10px; display:flex; justify-content:flex-end;">
+
+    <input type="text"
+           id="tableSearch"
+           class="form-control"
+           placeholder="Search App No / Name / Phone..."
+           style="
+                width:300px;
+                border-radius:20px;
+                padding:8px 15px;
+                font-size:13px;
+                border:1px solid #ccc;
+           ">
+
+</div>
+<center>
+<a href="Counselling"><i class="fas fa-user-graduate"></i> Counselling</a>&nbsp&nbsp&nbsp&nbsp
+          <a href="WaitingList"><i class="fas fa-user-graduate"></i>Waiting List</a>&nbsp&nbsp&nbsp&nbsp
+          <a href="Cancelled"><i class="fas fa-user-graduate"></i>Cnf & Cancl</a>&nbsp&nbsp&nbsp&nbsp
+          <a href="SeatAllotmentReport"><i class="fas fa-chart-bar"></i> Seat Allotement Report</a>
+          </center>
+<table id="waitingTable"
+       class="table table-bordered table-hover table-sm">
 
 <thead>
 <tr>
@@ -907,6 +929,27 @@ function saveData(row, branch, segment, spcat, status) {
         }
     });
 }
+//==========================
+//TABLE SEARCH
+//==========================
+$("#tableSearch").on("keyup", function () {
+
+let value = $(this).val().toLowerCase();
+
+$("#waitingTable tbody tr").filter(function () {
+
+ // keep branch heading rows visible
+ if ($(this).find("td[colspan='9']").length > 0) {
+     $(this).show();
+     return;
+ }
+
+ $(this).toggle(
+     $(this).text().toLowerCase().indexOf(value) > -1
+ );
+});
+
+});
 </script>
 
 </body>
