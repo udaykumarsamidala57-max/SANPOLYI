@@ -29,7 +29,7 @@ if (!"Global".equalsIgnoreCase(role)) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Counselling - Seat Allotment</title>
+<title>Confirmed and Cancelled</title>
 
 <link rel="stylesheet"
  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
