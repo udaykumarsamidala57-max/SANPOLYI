@@ -508,10 +508,10 @@ for(Map<String,Object> row : students){
         Save
     </button>
     <% }else { %>
-    Access Only for Venkatesh
+    Access Restricted
     <% } %>
  <% } else { %>
-   Access Only for Venkatesh
+   Access Restricted
  <% } %>
 
 

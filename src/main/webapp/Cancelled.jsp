@@ -16,6 +16,7 @@ if (sess == null || sess.getAttribute("username") == null) {
 }
 
 String role = (String) sess.getAttribute("role");
+String user = (String) sess.getAttribute("username");
 if (!"Global".equalsIgnoreCase(role)) {
     out.println("<h3 style='color:red;text-align:center;'>Access Denied!</h3>");
     return;
@@ -429,8 +430,12 @@ class="<%=
 </td>
 
 <td>
+<% if("JILAN_SANPOLY789456".equalsIgnoreCase(user)) {%>
 <button class="btn btn-primary btn-sm editBtn">Edit</button>
 <button class="btn btn-success btn-sm saveBtn" style="display:none;">Save</button>
+<%}else{ %>
+Access Restricted
+<% }%>
 </td>
 
 </tr>
