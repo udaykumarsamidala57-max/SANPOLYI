@@ -607,7 +607,7 @@ Cancelled
 </td>
 
 <td>
-<% if("JILAN_SANPOLY789456".equalsIgnoreCase(user)) {%>
+<% if("JILAN_SANPOLY789456".equalsIgnoreCase(user)||"PRINCIPAL".equalsIgnoreCase(user)) {%>
     <button class="btn btn-primary btn-sm editBtn">
         Edit
     </button>
