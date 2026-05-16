@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Seat Allotment Report</title>
+<title>Admissions Report</title>
 
 <%
 HttpSession sess = request.getSession(false);
@@ -19,7 +19,7 @@ if (sess == null || sess.getAttribute("username") == null) {
     return;
 }
 String role = (String) sess.getAttribute("role");
-
+String user = (String) sess.getAttribute("username");
 if (!"Global".equalsIgnoreCase(role)) {
     out.println("<h3 style='color:red;text-align:center;'>Access Denied!</h3>");
     return;
@@ -123,21 +123,233 @@ function downloadExcel() {
 <%@ include file="header.jsp" %>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    
-    <button class="btn btn-success btn-sm" onclick="downloadExcel()">Download Excel</button>
+
+    <button class="btn btn-success btn-sm"
+            onclick="downloadExcel()">
+        Download Excel
+    </button>
+
 </div>
+<center>
+    <a href="Counselling">
+        <i class="fas fa-user-graduate"></i> Counselling
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="WaitingList">
+        <i class="fas fa-clock"></i> Waiting List
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="Confirmed">
+        <i class="fas fa-check-circle"></i> Confirmed
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="Cancelled">
+        <i class="fas fa-times-circle"></i> Cancelled
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <a href="SeatAllotmentReport">
+        <i class="fas fa-chart-bar"></i> Seat Allotment Report
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="GiveAdmission"><i class="fas fa-user-check text-success"></i> Give Admission</a>
+</center><br>
+<%
+List<Map<String, Object>> list =
+(List<Map<String, Object>>) request.getAttribute("data");
+
+if(list == null || list.isEmpty()){
+%>
+
+<h3 style="color:red;">No Data Found</h3>
+
+<%
+    return;
+}
+
+int overallTotal = 0;
+int overallResidential = 0;
+int overallDayScholar = 0;
+
+int overallME = 0;
+int overallEE = 0;
+int overallCS = 0;
+int overallEC = 0;
+int overallCE = 0;
+%>
+<%
+for(Map<String,Object> r : list){
+
+    String adm =
+    val(r.get("Admitted_Status"))
+    .trim()
+    .toUpperCase();
+
+    // ONLY ADMISSION GIVEN
+    if(adm.contains("ADMISSION GIVEN")){
+
+        overallTotal++;
+
+        String type =
+        val(r.get("Admission_type"))
+        .trim()
+        .toLowerCase();
+
+        if(type.contains("residential")){
+            overallResidential++;
+        }
+
+        if(type.contains("day")){
+            overallDayScholar++;
+        }
+
+        String br =
+        val(r.get("Seat_Allot"))
+        .trim()
+        .toUpperCase();
+
+        if(br.equals("ME")){
+            overallME++;
+        }
+        else if(br.equals("EE")){
+            overallEE++;
+        }
+        else if(br.equals("CS")){
+            overallCS++;
+        }
+        else if(br.equals("EC")){
+            overallEC++;
+        }
+        else if(br.equals("CE")){
+            overallCE++;
+        }
+    }
+}
+%>
+
+<!-- OVERALL SUMMARY -->
+
+<!-- OVERALL SUMMARY -->
+
+<div class="container-fluid mb-4">
+
+    <div class="row">
+
+        <!-- Percentage -->
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+
+                    <h6>Admission %</h6>
+
+                    <h2 style="color:#002147;font-weight:bold;">
+                        <%= String.format("%.2f", (overallTotal / 270.0) * 100) %>%
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Total -->
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+
+                    <h6>Total Admissions</h6>
+
+                    <h2 style="color:#002147;font-weight:bold;">
+                        <%=overallTotal%> / 270
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Residential -->
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+
+                    <h6>Residential</h6>
+
+                    <h2 style="color:green;font-weight:bold;">
+                        <%=overallResidential%> / 138
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Day Scholar -->
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+
+                    <h6>Day Scholar</h6>
+
+                    <h2 style="color:#007bff;font-weight:bold;">
+                        <%=overallDayScholar%> / 132
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Branch Wise -->
+        <div class="col-lg-4 col-md-8 col-sm-12 mb-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body text-center">
+
+                    <h6 class="mb-3">Branch Wise</h6>
+
+                    <div class="d-flex flex-wrap justify-content-center">
+
+                        <span class="badge badge-primary m-1 p-2">
+                            ME : <%=overallME%> / 60
+                            <br><br>
+                            <%=String.format("%.2f", (overallME / 60.0) * 100)%>%
+                        </span>
+
+                        <span class="badge badge-success m-1 p-2">
+                            EE : <%=overallEE%> / 60
+                            <br><br>
+                            <%=String.format("%.2f", (overallEE / 60.0) * 100)%>%
+                        </span>
+
+                        <span class="badge badge-warning m-1 p-2">
+                            CS : <%=overallCS%> / 60
+                            <br><br>
+                            <%=String.format("%.2f", (overallCS / 60.0) * 100)%>%
+                        </span>
+
+                        <span class="badge badge-danger m-1 p-2">
+                            EC : <%=overallEC%> / 60
+                            <br><br>
+                            <%=String.format("%.2f", (overallEC / 60.0) * 100)%>%
+                        </span>
+
+                        <span class="badge badge-dark m-1 p-2">
+                            CE : <%=overallCE%> / 30 <br><br>
+                            <%=String.format("%.2f", (overallCE / 30.0) * 100)%>%
+                        </span>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
 
 <div id="exportArea" class="table-wrapper">
 
 <%
-List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("data");
 
-if(list == null || list.isEmpty()){
-%>
-    <h3 style="color:red;">No Data Found</h3>
-<%
-    return;
-}
 
 // ✅ GROUP BY BRANCH
 Map<String, List<Map<String,Object>>> grouped = new LinkedHashMap<>();
@@ -298,6 +510,7 @@ for(Map<String,Object> row : students){
         Pending
     </option>
 </select>
+
 </td>
 <td>
 <input type="date"
@@ -310,14 +523,18 @@ for(Map<String,Object> row : students){
                 </td>
                 <td>
 <% if (!isGiven) { %>
+<% if("VENKATESH".equalsIgnoreCase(user)) {%>
     <button class="btn btn-sm btn-primary mt-1"
         id="btn_<%= row.get("id") %>"
         onclick="saveStatus('<%= row.get("id") %>')">
         Save
     </button>
-<% } else { %>
-    
-<% } %>
+    <% }else { %>
+    Access Restricted
+    <% } %>
+ <% } else { %>
+   Access Restricted
+ <% } %>
 
 
 </td>

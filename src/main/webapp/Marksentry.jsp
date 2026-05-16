@@ -150,8 +150,10 @@ String id=row.get("id");
 <td><input name="Total" value="<%=row.get("Total")%>" class="form-control" readonly></td>
 
 <td>
+   <% if("1Academics".equalsIgnoreCase(role)||"1Global".equalsIgnoreCase(role)){%>
     <button type="button" class="btn btn-primary btn-sm editBtn">Edit</button>
     <button type="button" class="btn btn-success btn-sm saveBtn" style="display:none;">Save</button>
+    <%} %>
 </td>
 
 </tr>
