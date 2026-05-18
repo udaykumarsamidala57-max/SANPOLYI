@@ -67,7 +67,7 @@ input { text-align:center;  }
 <thead>
 <tr>
     <th>ID</th>
-    <th>App. No</th>
+    <th>App. NO</th>
     <th>Catg. No</th>
     <th>Name</th>
     <th>Gender</th>
