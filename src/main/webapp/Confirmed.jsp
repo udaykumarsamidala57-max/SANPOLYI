@@ -406,6 +406,7 @@ class="<%=
 <option value="OS" <%= "OS".equals(row.get("Segment"))?"selected":"" %>>OS</option>
 <option value="MQ" <%= "MQ".equals(row.get("Segment"))?"selected":"" %>>MQ</option>
 <option value="EQ" <%= "EQ".equals(row.get("Segment"))?"selected":"" %>>EQ</option>
+<option value="SNQ"<%= "SNQ".equals(row.get("Segment"))?"selected":"" %>>SNQ</option>
 </select>
 </td>
 

@@ -532,6 +532,11 @@ MQ
 EQ
 </option>
 
+<option value="SNQ"
+<%= "SNQ".equals(row.get("Segment"))?"selected":"" %>>
+SNQ
+</option>
+
 </select>
 
 </td>
