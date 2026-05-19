@@ -242,7 +242,7 @@ for(Map<String,Object> r : list){
                     <h6>Admission %</h6>
 
                     <h2 style="color:#002147;font-weight:bold;">
-                        <%= String.format("%.2f", (overallTotal / 270.0) * 100) %>%
+                        <%= String.format("%.2f", (overallTotal / 284.0) * 100) %>%
                     </h2>
 
                 </div>
@@ -257,7 +257,7 @@ for(Map<String,Object> r : list){
                     <h6>Total Admissions</h6>
 
                     <h2 style="color:#002147;font-weight:bold;">
-                        <%=overallTotal%> / 270
+                        <%=overallTotal%> / 284
                     </h2>
 
                 </div>
@@ -304,32 +304,32 @@ for(Map<String,Object> r : list){
                     <div class="d-flex flex-wrap justify-content-center">
 
                         <span class="badge badge-primary m-1 p-2">
-                            ME : <%=overallME%> / 60
+                            ME : <%=overallME%> / 63
                             <br><br>
-                            <%=String.format("%.2f", (overallME / 60.0) * 100)%>%
+                            <%=String.format("%.2f", (overallME / 63.0) * 100)%>%
                         </span>
 
                         <span class="badge badge-success m-1 p-2">
-                            EE : <%=overallEE%> / 60
+                            EE : <%=overallEE%> / 63
                             <br><br>
-                            <%=String.format("%.2f", (overallEE / 60.0) * 100)%>%
+                            <%=String.format("%.2f", (overallEE / 63.0) * 100)%>%
                         </span>
 
                         <span class="badge badge-warning m-1 p-2">
-                            CS : <%=overallCS%> / 60
+                            CS : <%=overallCS%> / 63
                             <br><br>
-                            <%=String.format("%.2f", (overallCS / 60.0) * 100)%>%
+                            <%=String.format("%.2f", (overallCS / 63.0) * 100)%>%
                         </span>
 
                         <span class="badge badge-danger m-1 p-2">
-                            EC : <%=overallEC%> / 60
+                            EC : <%=overallEC%> / 63
                             <br><br>
-                            <%=String.format("%.2f", (overallEC / 60.0) * 100)%>%
+                            <%=String.format("%.2f", (overallEC / 63.0) * 100)%>%
                         </span>
 
                         <span class="badge badge-dark m-1 p-2">
-                            CE : <%=overallCE%> / 30 <br><br>
-                            <%=String.format("%.2f", (overallCE / 30.0) * 100)%>%
+                            CE : <%=overallCE%> / 32 <br><br>
+                            <%=String.format("%.2f", (overallCE / 32.0) * 100)%>%
                         </span>
 
                     </div>

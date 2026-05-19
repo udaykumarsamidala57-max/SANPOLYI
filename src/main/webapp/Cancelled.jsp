@@ -460,7 +460,7 @@ Access Restricted
 
     <b>All Branches Seats Filled Status</b><br>
 
-    Total: <span style="color:#8C1E03;"><%=T%></span> / 270 |
+    Total: <span style="color:#8C1E03;"><%=T%></span> / 284 |
     Day Scholar: <span style="color:#8C1E03;"><%=dayScholarCount%></span> / 132 |
     Residential: <span style="color:#8C1E03;"><%=residentialCount%></span> / 138 <br>
 
