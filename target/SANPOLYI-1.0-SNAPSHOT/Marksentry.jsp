@@ -67,7 +67,7 @@ input { text-align:center;  }
 <thead>
 <tr>
     <th>ID</th>
-    <th>App. No</th>
+    <th>App. NO</th>
     <th>Catg. No</th>
     <th>Name</th>
     <th>Gender</th>
@@ -116,7 +116,7 @@ String id=row.get("id");
 
 <td><input name="aggr" class="form-control" readonly></td>
 
-<% if("1Office".equalsIgnoreCase(role)||"1Global".equalsIgnoreCase(role)){%>
+<% if("Office".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td><input name="board" value="<%=row.get("board")%>" class="form-control calc editable" disabled></td>
 <td><input name="puc" value="<%=row.get("puc")%>" class="form-control calc editable" disabled></td>
 <td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc editable" disabled></td>
@@ -126,7 +126,7 @@ String id=row.get("id");
 <td><input name="girls" value="<%=row.get("girls")%>" class="form-control calc" readonly></td>
 <%} %>
 
-<% if("1Academics".equalsIgnoreCase(role)||"1Global".equalsIgnoreCase(role)){%>
+<% if("Academics".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
 <td>
     <select name="Attendance" class="form-control editable" disabled>
         <option value="P" <%= "P".equals(row.get("Attendance")) ? "selected" : "" %>>P</option>
@@ -150,8 +150,10 @@ String id=row.get("id");
 <td><input name="Total" value="<%=row.get("Total")%>" class="form-control" readonly></td>
 
 <td>
+   <% if("Academics".equalsIgnoreCase(role)||"Global".equalsIgnoreCase(role)){%>
     <button type="button" class="btn btn-primary btn-sm editBtn">Edit</button>
     <button type="button" class="btn btn-success btn-sm saveBtn" style="display:none;">Save</button>
+    <%} %>
 </td>
 
 </tr>

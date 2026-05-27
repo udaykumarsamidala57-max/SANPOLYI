@@ -405,6 +405,7 @@ class="<%=
 <option value="OS" <%= "OS".equals(row.get("Segment"))?"selected":"" %>>OS</option>
 <option value="MQ" <%= "MQ".equals(row.get("Segment"))?"selected":"" %>>MQ</option>
 <option value="EQ" <%= "EQ".equals(row.get("Segment"))?"selected":"" %>>EQ</option>
+<option value="SNQ" <%= "SNQ".equals(row.get("Segment"))?"selected":"" %>>SNQ</option>
 </select>
 </td>
 
@@ -459,7 +460,7 @@ Access Restricted
 
     <b>All Branches Seats Filled Status</b><br>
 
-    Total: <span style="color:#8C1E03;"><%=T%></span> / 270 |
+    Total: <span style="color:#8C1E03;"><%=T%></span> / 284 |
     Day Scholar: <span style="color:#8C1E03;"><%=dayScholarCount%></span> / 132 |
     Residential: <span style="color:#8C1E03;"><%=residentialCount%></span> / 138 <br>
 
