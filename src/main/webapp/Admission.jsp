@@ -451,7 +451,7 @@ for(String branch : grouped.keySet()){
       
         <th class="col-name">Name</th>
         
-        
+        <th class="col-name">DOB</th>
         <th class="col-father">Father Name</th>
 
         <th class="col-phone">Phone</th>
@@ -479,8 +479,19 @@ for(Map<String,Object> row : students){
     <td><%= val(row.get("APPNO")) %><br><%= val(row.get("cast_no")) %></td>
     
     <td style="text-align:left;"><%= val(row.get("applicant_name")) %> (<%= val(row.get("gender")) %>)<br><%= val(row.get("Admission_type")) %></td>
+<%
+java.text.SimpleDateFormat inputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+java.text.SimpleDateFormat outputFormat = new java.text.SimpleDateFormat("dd MMMM yyyy");
 
-   
+String dob = val(row.get("date_of_birth"));
+String formattedDob = "";
+
+if(dob != null && !dob.isEmpty()){
+    java.util.Date date = inputFormat.parse(dob);
+    formattedDob = outputFormat.format(date).toUpperCase();
+}
+%>
+   <td style="text-align:left;"><%= formattedDob %></td>
     <td style="text-align:left;"><%= val(row.get("father_guardian_name")) %><br><%= val(row.get("father_occupation")) %></td>
    
     <td><%= val(row.get("phone_no")) %><br><%= val(row.get("Whatsapp_no")) %></td>
